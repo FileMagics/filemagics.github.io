@@ -1,0 +1,2338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Text Repeater Tool & 50+ Text Transformation Utilities</title>
+    <meta name="description" content="Repeat any text, words, or characters instantly with our powerful Text Repeater tool. Perfect for social media posts, spam testing, data generation, and creative content. 100% free, unlimited repetitions, instant results!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .control-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .control-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .separator-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .separator-option {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .separator-option input[type="radio"] {
+            display: none;
+        }
+
+        .separator-option label {
+            display: block;
+            padding: 10px 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--bg-color);
+        }
+
+        .separator-option input[type="radio"]:checked + label {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .separator-option label:hover {
+            border-color: var(--primary-color);
+        }
+
+        .custom-separator {
+            margin-top: 15px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .repeat-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            animation: bounce 2s infinite; /* Added bounce animation */
+        }
+
+        .repeat-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .repeat-btn.animating {
+            animation: repeatButtonAnimation 0.6s ease-out;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--bg-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* New animation for Repeat button */
+        @keyframes repeatButtonAnimation {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(74, 108, 247, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(74, 108, 247, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(74, 108, 247, 0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Text Repeater - Instantly Duplicate Text Multiple Times for Social Media, Content Creation & More</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Text Repeater -->
+    <main class="content" id="text-repeater">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type or paste the text you want to repeat here...">Hello World!</textarea>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="repeatCount" class="control-label">Number of Repetitions</label>
+                        <input type="number" id="repeatCount" class="control-input" min="1" max="100000" value="5">
+                    </div>
+                    
+                    <div class="control-group">
+                        <label class="control-label">Separator Options</label>
+                        <div class="separator-options">
+                            <div class="separator-option">
+                                <input type="radio" id="separator-none" name="separator" value="" checked>
+                                <label for="separator-none">None</label>
+                            </div>
+                            <div class="separator-option">
+                                <input type="radio" id="separator-space" name="separator" value=" ">
+                                <label for="separator-space">Space</label>
+                            </div>
+                            <div class="separator-option">
+                                <input type="radio" id="separator-comma" name="separator" value=",">
+                                <label for="separator-comma">Comma</label>
+                            </div>
+                            <div class="separator-option">
+                                <input type="radio" id="separator-newline" name="separator" value="\n">
+                                <label for="separator-newline">New Line</label>
+                            </div>
+                            <div class="separator-option">
+                                <input type="radio" id="separator-custom" name="separator" value="custom">
+                                <label for="separator-custom">Custom</label>
+                            </div>
+                        </div>
+                        <div class="custom-separator" id="customSeparatorContainer" style="display: none;">
+                            <input type="text" id="customSeparator" class="control-input" placeholder="Enter custom separator...">
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <!-- Removed the emoji from the Repeat Text button -->
+                        <button class="repeat-btn" id="repeatBtn">
+                            <span class="btn-text">Repeat Text</span>
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear All
+                        </button>
+                    </div>
+                    
+                    <div class="stats-section">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="charCount">0</div>
+                                <div class="stat-label">Characters</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="wordCount">0</div>
+                                <div class="stat-label">Words</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="lineCount">0</div>
+                                <div class="stat-label">Lines</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="repeatCountDisplay">0</div>
+                                <div class="stat-label">Repetitions</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Repeated Text Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <div class="preview-item">
+                            <div class="preview-header">
+                                <div class="preview-name">Repeated Text</div>
+                            </div>
+                            <div class="preview-text" id="repeatedText">
+                                Your repeated text will appear here...
+                            </div>
+                            <div class="preview-actions">
+                                <button class="copy-btn tooltip" id="copyBtn">
+                                    Copy Text <span class="tooltiptext">Copied!</span>
+                                </button>
+                                <button class="download-btn" id="downloadBtn">
+                                    Download as .txt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>What is a Text Repeater and Why You Need It</h2>
+            <div class="info-content">
+                <p>In today's digital landscape, the ability to quickly duplicate text, phrases, or characters has become an essential utility for content creators, developers, social media managers, and digital marketers. A Text Repeater is a specialized online tool that allows you to instantly multiply any text string, word, sentence, or character sequence a specified number of times with just a few clicks. Whether you need to repeat a single emoji 100 times for an eye-catching social media post, duplicate testing data for software development, create repetitive patterns for creative projects, or generate bulk content for various applications, a Text Repeater eliminates the tedious manual work and saves you countless hours of copying and pasting.</p>
+                
+                <h3>Key Features That Make Our Text Repeater Superior</h3>
+                
+                <p><strong>Unlimited Repetitions Without Restrictions</strong><br>
+                Many text repeater tools impose arbitrary limits on how many times you can duplicate text, often restricting users to 10, 50, or 100 repetitions. Our Text Repeater breaks these barriers by allowing unlimited repetitions, enabling you to repeat text 1,000, 10,000, or even 100,000 times depending on your specific needs. This unlimited capability is crucial for developers performing stress tests, content creators generating large datasets, or anyone working on projects requiring extensive text duplication.</p>
+                
+                <p><strong>Multiple Separator Options for Perfect Formatting</strong><br>
+                Control exactly how your repeated text appears with our flexible separator system. Choose from various separator options including no separator (continuous repetition), space separator, comma separator, newline separator, custom separator, or any combination you need. This flexibility ensures your repeated text is formatted exactly as required for your specific use case, whether you're creating CSV data, preparing social media content, generating code snippets, or producing formatted lists.</p>
+                
+                <p><strong>Real-Time Character and Word Count Display</strong><br>
+                Stay informed about your output with our intelligent counter system that displays real-time statistics including total character count, word count, repetition count, and output size. This feature is particularly valuable when working with platforms that have character limits like Twitter, Instagram, Facebook, or SMS messaging systems, allowing you to ensure your repeated text fits within required constraints.</p>
+                
+                <p><strong>Instant Copy and Download Functionality</strong><br>
+                Copy your repeated text to clipboard with a single click using our optimized copy button, or download it as a text file for offline use and archiving. The instant copy feature uses advanced clipboard API technology to ensure reliable copying across all browsers and devices, while the download option generates clean .txt files compatible with any text editor or application.</p>
+                
+                <p><strong>Mobile-Responsive Design for On-the-Go Use</strong><br>
+                Access the Text Repeater from any device—desktop computer, laptop, tablet, or smartphone—with our fully responsive design that adapts seamlessly to different screen sizes. The touch-optimized interface ensures effortless use on mobile devices, making it convenient to repeat text wherever you are, whether you're creating social media content on your phone or testing applications on your tablet.</p>
+                
+                <h3>Why People Use Text Repeater Tools Daily</h3>
+                
+                <p><strong>Social Media Content Creation and Engagement</strong><br>
+                Social media marketers and content creators use Text Repeaters to create visually striking posts that stand out in crowded feeds. Repeating emojis, symbols, or text patterns helps grab attention, emphasize messages, create visual breaks, and increase engagement rates. Popular applications include creating decorative borders around captions, repeating celebration emojis for announcements, generating pattern-based visual effects, and crafting unique text art that resonates with audiences.</p>
+                
+                <p><strong>Software Development and Testing</strong><br>
+                Developers and QA testers rely on Text Repeaters for generating test data, stress testing applications, filling database fields, creating dummy content, and simulating user inputs. Repeating strings helps identify bugs related to long inputs, test character limit validations, evaluate text rendering performance, and ensure applications handle repetitive data gracefully. This testing approach uncovers edge cases that might otherwise remain hidden until production.</p>
+                
+                <p><strong>Content Writing and Document Formatting</strong><br>
+                Writers, editors, and document specialists use Text Repeaters to create placeholder content, generate repeated sections, produce formatted lists, insert dividing lines, and maintain consistent spacing throughout documents. This functionality proves invaluable when preparing templates, creating structured documents, formatting reports, or generating content outlines that require repeated elements.</p>
+                
+                <p><strong>Educational Purposes and Learning Activities</strong><br>
+                Teachers, students, and educators utilize Text Repeaters for creating practice materials, generating repetitive exercises, producing study aids, formatting assignments, and preparing educational content. Repeating vocabulary words, mathematical formulas, scientific terms, or language phrases helps create effective learning materials that reinforce concepts through repetition.</p>
+                
+                <p><strong>Gaming and Entertainment</strong><br>
+                Gamers and online community members use Text Repeaters to create copypasta, generate meme text, craft attention-grabbing messages, express enthusiasm through repeated words, and participate in online culture. The tool enables quick creation of entertaining content that resonates with gaming communities and social platforms.</p>
+                
+                <p><strong>Data Entry and Administrative Tasks</strong><br>
+                Administrative professionals leverage Text Repeaters to speed up data entry tasks, fill repetitive forms, generate serial numbers, create lists, and automate tedious copying tasks. This automation significantly reduces the time spent on manual repetition and minimizes human error in data-heavy workflows.</p>
+                
+                <h3>How to Use the Text Repeater Tool Effectively</h3>
+                
+                <p><strong>Step-by-Step Usage Guide</strong><br>
+                Using our Text Repeater is remarkably straightforward, requiring no technical knowledge or prior experience. Simply visit the File Magics website, navigate to the Text Repeater tool, enter or paste your desired text into the input box, specify how many times you want the text repeated, select your preferred separator option, and click the "Repeat Text" button. Your repeated text appears instantly in the output area, ready to be copied to your clipboard or downloaded as a file.</p>
+                
+                <p><strong>Advanced Techniques for Power Users</strong><br>
+                Power users can maximize the Text Repeater's potential by combining it with other File Magics tools for comprehensive text manipulation. For example, first repeat your text, then apply fancy font styling, convert to uppercase or lowercase, remove duplicate lines, reverse the text order, or add special symbols. This multi-tool approach enables sophisticated text transformations impossible with single-purpose tools.</p>
+                
+                <p><strong>Optimizing for Different Use Cases</strong><br>
+                Different projects require different repetition strategies. For social media, use shorter repetition counts (10-50) with emoji or symbol separators for visual impact. For testing, use higher counts (100-1000+) with specific separator patterns matching your test requirements. For content creation, use moderate counts (20-100) with newline separators for readable lists. Understanding these optimization strategies ensures maximum efficiency for your specific needs.</p>
+                
+                <h3>Benefits of Using File Magics Text Repeater</h3>
+                
+                <p><strong>Time-Saving Automation</strong><br>
+                Manually copying and pasting text even 10 times becomes tedious and error-prone. Repeating text 100 or 1,000 times manually is practically impossible. Our Text Repeater completes in seconds what would take hours manually, freeing your time for more valuable tasks and creative work.</p>
+                
+                <p><strong>Error-Free Consistency</strong><br>
+                Human repetition inevitably introduces errors—missed characters, extra spaces, inconsistent formatting, or copy mistakes. The Text Repeater guarantees perfect consistency across every repetition, ensuring your repeated text is absolutely identical every time, which is critical for testing, data generation, and professional content creation.</p>
+                
+                <p><strong>Professional Results</strong><br>
+                The clean, properly formatted output from our Text Repeater ensures professional-quality results regardless of repetition count. The tool maintains perfect formatting, applies separators consistently, preserves special characters, and produces output ready for immediate use in professional contexts.</p>
+                
+                <p><strong>Versatility Across Applications</strong><br>
+                One tool serves countless purposes, eliminating the need for multiple specialized applications. Whether you're a developer, marketer, writer, student, or casual user, the Text Repeater adapts to your unique needs with customizable options that suit any project or workflow.</p>
+                
+                <p><strong>Completely Free Without Hidden Costs</strong><br>
+                Unlike many online tools that require subscriptions, impose usage limits, or demand payment for premium features, our Text Repeater is completely free with no restrictions, no hidden costs, no registration requirements, and no expiration dates. Access full functionality immediately without barriers.</p>
+                
+                <h3>What Makes File Magics Different from Other Text Tools</h3>
+                
+                <p><strong>Comprehensive Tool Ecosystem</strong><br>
+                File Magics offers not just a Text Repeater but an entire ecosystem of 50+ text manipulation and transformation tools including fancy text generators, case converters, word counters, text reversers, duplicate removers, character encoders, format converters, and specialized utilities for every text need. This comprehensive approach means you have all text tools in one place, eliminating the frustration of searching for multiple specialized websites.</p>
+                
+                <p><strong>Superior User Experience Design</strong><br>
+                Our interface is crafted with user experience as the top priority, featuring intuitive controls, clear labels, helpful tooltips, responsive feedback, and streamlined workflows that make text manipulation effortless even for first-time users. The clean, modern design reduces cognitive load and allows you to focus on your task rather than figuring out how to use the tool.</p>
+                
+                <p><strong>Speed and Performance Optimization</strong><br>
+                Built with modern web technologies and optimized algorithms, File Magics tools process text instantaneously even with large inputs and high repetition counts. The Text Repeater handles 100,000-character inputs and 1,000+ repetitions without lag, crashes, or performance degradation, ensuring smooth operation regardless of project scale.</p>
+                
+                <p><strong>Privacy and Security First</strong><br>
+                Your text never leaves your browser—all processing happens locally on your device with no server uploads, no data storage, no tracking, and no privacy concerns. This local processing approach ensures your sensitive text, proprietary content, or private information remains completely confidential and secure.</p>
+                
+                <p><strong>Regular Updates and Improvements</strong><br>
+                The File Magics team continuously updates tools based on user feedback, emerging needs, and technological advances. Regular improvements ensure you always have access to the latest features, best practices, and optimal functionality, with new capabilities added frequently to enhance your text manipulation experience.</p>
+                
+                <p><strong>Cross-Browser Compatibility</strong><br>
+                Our Text Repeater works flawlessly across all modern browsers including Chrome, Firefox, Safari, Edge, Opera, and mobile browsers. Extensive testing ensures consistent functionality regardless of your preferred browser or platform, providing reliable access from any device or operating system.</p>
+                
+                <h3>Common Use Cases and Real-World Applications</h3>
+                
+                <p><strong>Creating Visual Text Art and ASCII Designs</strong><br>
+                Artists and creative individuals use the Text Repeater to generate patterns that form visual designs when viewed as a whole. By repeating specific characters with strategic separators and combining with other formatting tools, you can create impressive ASCII art, decorative text borders, pattern-based designs, and creative visual elements for websites, social media, or digital art projects.</p>
+                
+                <p><strong>Generating Lorem Ipsum Alternative Content</strong><br>
+                Web designers and developers often need placeholder content beyond standard Lorem Ipsum text. The Text Repeater enables creation of custom placeholder text by repeating realistic words, phrases, or sentences, providing more contextually relevant dummy content for design mockups, website templates, and layout testing.</p>
+                
+                <p><strong>Producing Emphasis in Written Communication</strong><br>
+                Writers and communicators use strategic text repetition to emphasize points, create dramatic effect, show intensity of emotion, or highlight important concepts. Repeating words or phrases intentionally in written content can be a powerful rhetorical device when used appropriately, and the Text Repeater makes this easy to implement and experiment with.</p>
+                
+                <p><strong>Creating Training Data for Machine Learning</strong><br>
+                Data scientists and machine learning engineers use Text Repeaters to generate synthetic training data, augment existing datasets, create balanced class examples, and produce test inputs for natural language processing models. The ability to quickly generate large volumes of repeated text patterns supports various AI and machine learning workflows.</p>
+                
+                <p><strong>Building Regular Expressions and Pattern Testing</strong><br>
+                Developers working with regular expressions use Text Repeaters to create test strings with specific repetition patterns, helping validate regex patterns, test matching logic, identify edge cases, and ensure pattern accuracy before implementation in production code.</p>
+                
+                <p><strong>Formatting Code Comments and Documentation</strong><br>
+                Programmers use repeated characters to create visual separators in code comments, format documentation headers, generate dividing lines, and improve code readability. The Text Repeater quickly produces consistent comment formatting across large codebases, maintaining professional documentation standards.</p>
+                
+                <h3>SEO Benefits and Digital Marketing Applications</h3>
+                
+                <p><strong>Keyword Research and Content Planning</strong><br>
+                Digital marketers use Text Repeaters during keyword research phases to generate variations of target keywords, create testing lists, produce bulk keyword inputs for SEO tools, and organize research data efficiently. This streamlines the SEO research process and helps identify content opportunities.</p>
+                
+                <p><strong>Social Media Hashtag Strategies</strong><br>
+                Social media managers leverage Text Repeaters to create hashtag patterns, test hashtag combinations, generate hashtag lists for different platforms, and organize social media content planning. Repeating hashtags strategically can improve post visibility and engagement rates when done appropriately.</p>
+                
+                <p><strong>Email Marketing and Communication Templates</strong><br>
+                Email marketers use Text Repeaters to create template elements, generate repeated sections for newsletters, produce formatted content blocks, and streamline email design workflows. This accelerates email creation while maintaining consistency across campaigns.</p>
+                
+                <p><strong>Content Formatting for SEO Optimization</strong><br>
+                SEO specialists use Text Repeaters to create structured content elements, generate meta description variations, produce formatted lists for better readability, and create content patterns that improve on-page SEO performance through strategic formatting and structure.</p>
+                
+                <h3>Technical Capabilities and Limitations</h3>
+                
+                <p><strong>Maximum Performance Specifications</strong><br>
+                Our Text Repeater can handle inputs up to 100,000 characters in length and support repetition counts up to 100,000 times, generating outputs potentially reaching several million characters. Performance remains optimal even at these extreme ranges, though very large outputs may take a few seconds to process depending on device capabilities.</p>
+                
+                <p><strong>Browser Memory Considerations</strong><br>
+                When generating extremely large outputs (millions of characters), browser memory limitations may apply depending on your device specifications. Modern devices with adequate RAM handle large outputs without issues, but older devices or those with limited resources might experience slowdowns with exceptionally large repetitions.</p>
+                
+                <p><strong>Character Encoding and Special Characters</strong><br>
+                The Text Repeater properly handles all Unicode characters including emojis, special symbols, accented characters, non-Latin scripts, mathematical symbols, and any other valid text characters. This universal character support ensures compatibility with global languages and diverse content types.</p>
+                
+                <p><strong>Separator Customization Options</strong><br>
+                Beyond standard separators, users can define custom separators using any characters, strings, or patterns they need. This flexibility accommodates specialized formatting requirements, technical specifications, or unique project needs that standard separators don't address.</p>
+                
+                <h3>Integration with Other File Magics Tools</h3>
+                
+                <p><strong>Fancy Text Generator Combination</strong><br>
+                Combine Text Repeater with our Fancy Text Generator to create repeated stylish text patterns featuring unique fonts, decorative characters, and eye-catching styles. This combination produces exceptionally striking visual effects perfect for social media headlines, profile bios, or attention-grabbing posts.</p>
+                
+                <p><strong>Case Converter Integration</strong><br>
+                After repeating text, instantly convert it to UPPERCASE, lowercase, Title Case, or other formats using our Case Converter. This workflow enables rapid generation of properly formatted repeated content without manual editing.</p>
+                
+                <p><strong>Word and Character Counter Tools</strong><br>
+                Verify the exact specifications of your repeated text using integrated counting tools that track characters, words, sentences, paragraphs, and reading time. This data helps ensure your content meets platform requirements and readability standards.</p>
+                
+                <p><strong>Text Reverser and Transformer Tools</strong><br>
+                Create unique effects by repeating text then applying reversal, mirroring, or other transformation effects. These combinations produce creative results impossible to achieve with manual editing or single-purpose tools.</p>
+                
+                <p><strong>Duplicate Line Remover Complementary Use</strong><br>
+                If you've repeated text with newlines but need to remove accidental duplicates while preserving intentional repetitions, combine the Text Repeater with our Duplicate Line Remover for precise content cleaning and formatting.</p>
+                
+                <h3>Mobile Application and Cross-Platform Access</h3>
+                
+                <p><strong>Responsive Mobile Interface</strong><br>
+                The Text Repeater's mobile-optimized interface provides full functionality on smartphones and tablets with touch-friendly buttons, appropriate font sizes, optimized layouts, and gesture support. Create, copy, and manage repeated text seamlessly on mobile devices.</p>
+                
+                <p><strong>Progressive Web App Capabilities</strong><br>
+                Access File Magics tools as a Progressive Web App, enabling offline functionality, home screen installation, faster loading, and app-like experience without requiring native app downloads or App Store installations.</p>
+                
+                <p><strong>Synchronization Across Devices</strong><br>
+                While the tool operates locally for privacy, you can easily transfer repeated text between devices using copy-paste, cloud storage integration, or by downloading and uploading text files, ensuring seamless workflows across your device ecosystem.</p>
+                
+                <h3>Security, Privacy, and Data Protection</h3>
+                
+                <p><strong>Local Processing Architecture</strong><br>
+                All text repetition happens entirely within your browser using JavaScript—no data is transmitted to external servers, stored in databases, or accessible to third parties. This architecture ensures complete privacy and eliminates data breach concerns.</p>
+                
+                <p><strong>No Registration or Account Requirements</strong><br>
+                Use the Text Repeater immediately without creating accounts, providing email addresses, or sharing personal information. Anonymous access protects your identity while providing full tool functionality.</p>
+                
+                <p><strong>No Tracking or Analytics on Text Content</strong><br>
+                While we may use general website analytics to improve user experience, your actual text content is never tracked, analyzed, logged, or monitored in any way. Your text remains completely private and confidential.</p>
+                
+                <p><strong>GDPR and Privacy Compliance</strong><br>
+                File Magics adheres to international privacy regulations including GDPR, ensuring user rights are protected and data handling practices meet the highest privacy standards regardless of your geographic location.</p>
+                
+                <h3>Getting Started with Text Repeater Today</h3>
+                
+                <p>Start using the Text Repeater immediately by visiting File Magics and navigating to the Text Repeater tool. No downloads, installations, registrations, or payments required—just open the tool and begin repeating text within seconds. The intuitive interface guides you through the simple process, while helpful tooltips provide additional information if needed. Bookmark the tool for quick access whenever you need to repeat text for any purpose.</p>
+                
+                <h3>Future Updates and Planned Features</h3>
+                
+                <p>File Magics continuously evolves based on user needs and feedback. Planned enhancements for the Text Repeater include bulk processing capabilities for repeating multiple text strings simultaneously, preset templates for common repetition patterns, advanced scheduling and automation features, API access for developers, collaborative features for team workflows, and enhanced mobile app functionality. Join our community to suggest features and influence future development.</p>
+                
+                <h3>Why Text Repetition Matters in Digital Communication</h3>
+                
+                <p>Text repetition serves important functions in digital communication beyond simple duplication. Strategic repetition creates emphasis, establishes patterns, improves memorability, enhances visual impact, supports learning and retention, and conveys emotional intensity. Understanding these communicative functions helps you use the Text Repeater more effectively for maximum impact in your content, messaging, and creative projects.</p>
+                
+                <h3>Conclusion: The Ultimate Text Repeater Solution</h3>
+                
+                <p>The File Magics Text Repeater represents the pinnacle of text duplication tools, combining unlimited power, intuitive usability, comprehensive features, absolute privacy, and complete freedom from costs or restrictions. Whether you're a professional requiring advanced functionality or a casual user needing quick text repetition, our tool delivers exceptional results instantly. Experience the difference of a truly superior Text Repeater designed with your needs, efficiency, and satisfaction as top priorities. Visit File Magics today and discover why thousands of users trust our Text Repeater for all their text multiplication needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Q1: Is the Text Repeater tool really completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! The Text Repeater is 100% free with no hidden costs, premium tiers, subscription requirements, or usage limits. You can repeat text unlimited times without ever paying anything.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q2: How many times can I repeat text with this tool?</div>
+                    <div class="faq-answer">There are no artificial limits on repetition count. You can repeat text 10, 100, 1,000, 10,000, or even 100,000 times depending on your needs and device capabilities.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q3: Does the Text Repeater work on mobile phones and tablets?</div>
+                    <div class="faq-answer">Yes, the tool is fully responsive and optimized for mobile devices. You can use it seamlessly on smartphones, tablets, and all mobile browsers with full functionality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q4: Do I need to create an account or register to use the Text Repeater?</div>
+                    <div class="faq-answer">No registration, account creation, or personal information is required. Simply visit the tool and start using it immediately with complete anonymity.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q5: Is my text data safe and private when using this tool?</div>
+                    <div class="faq-answer">Absolutely. All text processing happens locally in your browser—your text never leaves your device, isn't uploaded to servers, and remains completely private and secure.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q6: Can I use special characters, emojis, and Unicode symbols?</div>
+                    <div class="faq-answer">Yes, the Text Repeater supports all Unicode characters including emojis, special symbols, accented characters, non-Latin scripts, and any other valid text characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q7: What separator options are available for repeated text?</div>
+                    <div class="faq-answer">You can choose from no separator, space, comma, newline, custom separator, or any combination. Custom separators allow you to define any characters or strings you need.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q8: Can I copy the repeated text directly to my clipboard?</div>
+                    <div class="faq-answer">Yes, a one-click copy button instantly copies all repeated text to your clipboard for immediate pasting into any application or platform.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q9: Is it possible to download the repeated text as a file?</div>
+                    <div class="faq-answer">Yes, you can download your repeated text as a .txt file for offline use, archiving, or importing into other applications and software.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q10: Does the tool show character and word counts for repeated text?</div>
+                    <div class="faq-answer">Yes, real-time counters display total characters, words, lines, and other statistics for your repeated text, helping you meet platform requirements and specifications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q11: Can I repeat multiple different texts at the same time?</div>
+                    <div class="faq-answer">Currently, the tool processes one text input at a time. However, you can quickly repeat different texts in succession, and bulk processing features are planned for future updates.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q12: Does the Text Repeater work offline?</div>
+                    <div class="faq-answer">Once the page is loaded, basic functionality works offline. For the best experience and access to all features, an internet connection is recommended for initial loading.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q13: What browsers are compatible with the Text Repeater?</div>
+                    <div class="faq-answer">The tool works on all modern browsers including Chrome, Firefox, Safari, Edge, Opera, and mobile browsers, with consistent functionality across all platforms.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q14: Can I use this tool for commercial or business purposes?</div>
+                    <div class="faq-answer">Yes, you're free to use the Text Repeater for any purpose including commercial projects, business applications, client work, and professional services without restrictions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q15: How quickly does the tool process text repetition?</div>
+                    <div class="faq-answer">Processing is nearly instantaneous for most use cases. Even large repetitions (thousands of times) complete within seconds, depending on your device performance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q16: Are there any restrictions on the type of text I can repeat?</div>
+                    <div class="faq-answer">The tool accepts any text content. However, please use it responsibly and avoid generating spam, malicious content, or content that violates platform terms of service.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q17: Can I integrate the Text Repeater with other software or applications?</div>
+                    <div class="faq-answer">While direct API integration isn't currently available, you can easily copy or download repeated text for use in any application. API access is planned for future development.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q18: What should I do if I encounter an error or issue with the tool?</div>
+                    <div class="faq-answer">If you experience any problems, try refreshing the page, clearing browser cache, or trying a different browser. For persistent issues, contact File Magics support for assistance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q19: Can I suggest new features or improvements for the Text Repeater?</div>
+                    <div class="faq-answer">Absolutely! User feedback drives development priorities. Contact File Magics through the website to suggest features, report issues, or share ideas for improvements.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q20: How does the Text Repeater compare to similar tools available online?</div>
+                    <div class="faq-answer">File Magics Text Repeater offers superior features including unlimited repetitions, more separator options, better performance, enhanced privacy, mobile optimization, and integration with 50+ complementary text tools—all completely free without restrictions.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const repeatCount = document.getElementById('repeatCount');
+        const separatorOptions = document.querySelectorAll('input[name="separator"]');
+        const customSeparatorContainer = document.getElementById('customSeparatorContainer');
+        const customSeparator = document.getElementById('customSeparator');
+        const repeatBtn = document.getElementById('repeatBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const repeatedText = document.getElementById('repeatedText');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        
+        // Stats elements
+        const charCount = document.getElementById('charCount');
+        const wordCount = document.getElementById('wordCount');
+        const lineCount = document.getElementById('lineCount');
+        const repeatCountDisplay = document.getElementById('repeatCountDisplay');
+        
+        // State
+        let currentRepeatedText = '';
+        
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', updateStats);
+            repeatCount.addEventListener('input', updateStats);
+            separatorOptions.forEach(option => {
+                option.addEventListener('change', handleSeparatorChange);
+            });
+            customSeparator.addEventListener('input', updateStats);
+            repeatBtn.addEventListener('click', repeatText);
+            clearBtn.addEventListener('click', clearAll);
+            copyBtn.addEventListener('click', copyToClipboard);
+            downloadBtn.addEventListener('click', downloadAsText);
+            
+            // Initialize stats
+            updateStats();
+        }
+        
+        // Handle separator change
+        function handleSeparatorChange() {
+            const selectedSeparator = document.querySelector('input[name="separator"]:checked').value;
+            
+            if (selectedSeparator === 'custom') {
+                customSeparatorContainer.style.display = 'block';
+            } else {
+                customSeparatorContainer.style.display = 'none';
+            }
+            
+            updateStats();
+        }
+        
+        // Update stats display
+        function updateStats() {
+            const text = inputText.value;
+            const count = parseInt(repeatCount.value) || 0;
+            
+            // Character count
+            charCount.textContent = text.length;
+            
+            // Word count
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            wordCount.textContent = words;
+            
+            // Line count
+            const lines = text ? text.split('\n').length : 0;
+            lineCount.textContent = lines;
+            
+            // Repeat count
+            repeatCountDisplay.textContent = count;
+        }
+        
+        // Repeat text function
+        function repeatText() {
+            const text = inputText.value;
+            const count = parseInt(repeatCount.value) || 1;
+            
+            if (!text.trim()) {
+                repeatedText.textContent = 'Please enter some text to repeat.';
+                return;
+            }
+            
+            if (count < 1) {
+                repeatedText.textContent = 'Please enter a valid repetition count (at least 1).';
+                return;
+            }
+            
+            // Add animation to the repeat button
+            repeatBtn.classList.add('animating');
+            
+            // Get selected separator
+            let separator = '';
+            const selectedSeparator = document.querySelector('input[name="separator"]:checked').value;
+            
+            if (selectedSeparator === 'custom') {
+                separator = customSeparator.value;
+            } else if (selectedSeparator === '\\n') {
+                separator = '\n';
+            } else {
+                separator = selectedSeparator;
+            }
+            
+            // Use setTimeout to allow animation to start before processing
+            setTimeout(() => {
+                // Repeat the text
+                let result = '';
+                for (let i = 0; i < count; i++) {
+                    result += text;
+                    if (i < count - 1 && separator) {
+                        result += separator;
+                    }
+                }
+                
+                currentRepeatedText = result;
+                repeatedText.textContent = result;
+                
+                // Update stats with repeated text info
+                charCount.textContent = result.length;
+                wordCount.textContent = result.trim() ? result.trim().split(/\s+/).length : 0;
+                lineCount.textContent = result ? result.split('\n').length : 0;
+                repeatCountDisplay.textContent = count;
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    repeatBtn.classList.remove('animating');
+                }, 600);
+            }, 100);
+        }
+        
+        // Clear all inputs and outputs
+        function clearAll() {
+            inputText.value = '';
+            repeatCount.value = '5';
+            repeatedText.textContent = 'Your repeated text will appear here...';
+            customSeparator.value = '';
+            
+            // Reset separator to default
+            document.getElementById('separator-none').checked = true;
+            customSeparatorContainer.style.display = 'none';
+            
+            updateStats();
+        }
+        
+        // Copy text to clipboard
+        function copyToClipboard() {
+            if (!currentRepeatedText) {
+                alert('Please generate some repeated text first.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(currentRepeatedText).then(() => {
+                // Show tooltip
+                copyBtn.classList.add('show');
+                setTimeout(() => {
+                    copyBtn.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+        
+        // Download text as .txt file
+        function downloadAsText() {
+            if (!currentRepeatedText) {
+                alert('Please generate some repeated text first.');
+                return;
+            }
+            
+            const blob = new Blob([currentRepeatedText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'repeated-text.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

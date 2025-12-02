@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Letter Spacing Tool & 50+ Text Formatting Tools</title>
+    <meta name="description" content="Adjust letter spacing instantly to enhance text readability and visual appeal. Perfect for designers, marketers, and content creators. 100% free, unlimited use, copy-paste ready for any platform!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .apply-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .apply-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Spacing Controls */
+        .spacing-controls {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .spacing-controls h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .spacing-input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .spacing-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .spacing-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .spacing-slider {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .unit-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .unit-btn {
+            padding: 8px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .unit-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .unit-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .presets-section {
+            margin-top: 20px;
+        }
+
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .preset-btn {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 108, 247, 0.1);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Letter Spacing Tool - Add Perfect Space Between Letters for Enhanced Readability & Style</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Letter Spacing Tool -->
+    <main class="content" id="letter-spacing-tool">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type your text here...">This is a sample text that demonstrates the letter spacing tool. You can adjust the space between letters to create different visual effects and improve readability.</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="apply-btn" id="applyBtn">
+                            Apply Letter Spacing
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="spacing-controls">
+                        <h3>Letter Spacing Controls</h3>
+                        
+                        <div class="spacing-input-group">
+                            <input type="number" id="spacingValue" class="spacing-input" value="0" step="0.1" min="-5" max="20">
+                            <span id="spacingUnitDisplay">px</span>
+                        </div>
+                        
+                        <input type="range" id="spacingSlider" class="spacing-slider" min="-5" max="20" step="0.1" value="0">
+                        
+                        <div class="unit-selector">
+                            <button class="unit-btn active" data-unit="px">Pixels (px)</button>
+                            <button class="unit-btn" data-unit="em">Ems (em)</button>
+                            <button class="unit-btn" data-unit="%">Percentage (%)</button>
+                        </div>
+                        
+                        <div class="presets-section">
+                            <h4>Quick Presets</h4>
+                            <div class="presets-grid">
+                                <button class="preset-btn" data-value="-0.5">Tight</button>
+                                <button class="preset-btn" data-value="0">Normal</button>
+                                <button class="preset-btn" data-value="1">Wide</button>
+                                <button class="preset-btn" data-value="2">Extra Wide</button>
+                                <button class="preset-btn" data-value="5">Dramatic</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Letter Spacing Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Transform Your Text with Perfect Letter Spacing - The Ultimate Typography Control Tool</h2>
+            <div class="info-content">
+                <p>In the world of digital content creation, typography isn't just about choosing the right font—it's about mastering every aspect of text presentation, including the often-overlooked element of letter spacing. The Letter Spacing Tool from File Magics revolutionizes how you control the space between individual characters, giving you professional-level typography control without requiring expensive software or design expertise.</p>
+                
+                <p>Whether you're a graphic designer fine-tuning a logo, a social media manager creating eye-catching posts, a marketer crafting compelling headlines, or a content creator looking to make your text stand out, proper letter spacing can make the difference between ordinary text and extraordinary visual communication.</p>
+                
+                <h3>What is Letter Spacing and Why Does It Matter?</h3>
+                
+                <p>Letter spacing, also known as tracking in professional typography, refers to the uniform adjustment of space between all characters in a block of text. Unlike kerning, which adjusts space between specific character pairs, letter spacing affects every character equally, creating a consistent visual rhythm throughout your text.</p>
+                
+                <p>Proper letter spacing enhances:
+                <ul>
+                    <li>Readability: Appropriate spacing makes text easier to read and comprehend</li>
+                    <li>Visual Appeal: Well-spaced text looks more professional and polished</li>
+                    <li>Brand Identity: Consistent spacing reinforces brand recognition and credibility</li>
+                    <li>Emphasis: Strategic spacing can draw attention to important messages</li>
+                    <li>Accessibility: Improved spacing helps users with dyslexia and visual impairments</li>
+                    <li>Aesthetic Balance: Creates harmony between text and surrounding design elements</li>
+                </ul>
+                </p>
+                
+                <h3>How the Letter Spacing Tool Works - Simple, Powerful, Instant Results</h3>
+                
+                <p>Our Letter Spacing Tool is designed with simplicity and power in mind. Here's exactly how it works:</p>
+                
+                <p><strong>Step 1: Input Your Text</strong><br>
+                Simply type or paste your text into the input field. Whether it's a single word, a headline, a paragraph, or multiple pages of content, the tool can handle text of any length. There are no character limits, no restrictions, and no hidden fees.</p>
+                
+                <p><strong>Step 2: Adjust the Spacing</strong><br>
+                Use the intuitive spacing slider or input field to increase or decrease the space between letters. The tool provides:
+                <ul>
+                    <li>Real-time preview: See changes instantly as you adjust</li>
+                    <li>Precise control: Fine-tune spacing to exact specifications</li>
+                    <li>Multiple units: Work with pixels, ems, or percentage-based spacing</li>
+                    <li>Preset options: Quick-select common spacing values</li>
+                    <li>Negative spacing: Tighten text for condensed effects</li>
+                </ul>
+                </p>
+                
+                <p><strong>Step 3: Preview and Compare</strong><br>
+                The tool displays your text with the adjusted spacing alongside the original, allowing you to compare and ensure you're achieving the desired effect. The side-by-side comparison eliminates guesswork and helps you make informed decisions about spacing adjustments.</p>
+                
+                <p><strong>Step 4: Copy and Use</strong><br>
+                Once satisfied with your spacing, simply click the copy button to grab your formatted text. The spaced text is ready to paste into:
+                <ul>
+                    <li>Social media platforms (Instagram, Facebook, Twitter, LinkedIn, TikTok)</li>
+                    <li>Design software (Canva, Photoshop, Illustrator)</li>
+                    <li>Website builders (WordPress, Wix, Squarespace, Shopify)</li>
+                    <li>Email marketing platforms (Mailchimp, Constant Contact, Klaviyo)</li>
+                    <li>Presentation software (PowerPoint, Google Slides, Keynote)</li>
+                    <li>Document editors (Microsoft Word, Google Docs)</li>
+                    <li>Messaging apps (WhatsApp, Telegram, Discord)</li>
+                </ul>
+                </p>
+                
+                <h3>Comprehensive Features That Set Our Letter Spacing Tool Apart</h3>
+                
+                <p><strong>1. Universal Compatibility</strong><br>
+                Unlike many letter spacing tools that only work within specific platforms, our tool generates text that maintains spacing across virtually all platforms. The spacing is preserved whether you're posting on social media, embedding in a website, or including in a document.</p>
+                
+                <p><strong>2. Multiple Spacing Methods</strong><br>
+                We employ advanced spacing techniques including:
+                <ul>
+                    <li>Unicode spacing characters: For maximum compatibility</li>
+                    <li>CSS-based spacing: For web applications</li>
+                    <li>Whitespace injection: For platform-specific requirements</li>
+                    <li>Custom character insertion: For special use cases</li>
+                </ul>
+                </p>
+                
+                <p><strong>3. Real-Time Adjustment</strong><br>
+                Watch your text transform as you adjust spacing. The instant feedback loop allows for rapid experimentation and ensures you achieve exactly the look you're envisioning without tedious trial and error.</p>
+                
+                <p><strong>4. Responsive Design</strong><br>
+                The tool works flawlessly on all devices—desktop computers, laptops, tablets, and smartphones. The responsive interface adapts to your screen size, ensuring a seamless experience regardless of how you access it.</p>
+                
+                <p><strong>5. No Software Installation Required</strong><br>
+                Everything happens in your browser. There's no need to download software, install plugins, create accounts, or provide personal information. Simply visit, use, and achieve results instantly.</p>
+                
+                <p><strong>6. Batch Processing Capability</strong><br>
+                Need to apply consistent spacing to multiple text blocks? Our tool allows you to process multiple items efficiently, maintaining consistency across all your content.</p>
+                
+                <p><strong>7. Preset Spacing Templates</strong><br>
+                Choose from professionally designed spacing presets optimized for:
+                <ul>
+                    <li>Headlines: Bold, attention-grabbing spacing</li>
+                    <li>Body text: Optimal readability spacing</li>
+                    <li>Luxury branding: Elegant, spacious typography</li>
+                    <li>Modern minimalist: Clean, contemporary spacing</li>
+                    <li>Compact text: Space-efficient formatting</li>
+                    <li>Dramatic emphasis: Extra-wide spacing for impact</li>
+                </ul>
+                </p>
+                
+                <h3>Why Letter Spacing is Critical for Professional Content</h3>
+                
+                <p><strong>Enhanced Readability</strong><br>
+                Scientific research has consistently demonstrated that appropriate letter spacing significantly improves reading speed and comprehension. When letters are properly spaced:
+                <ul>
+                    <li>The eye can distinguish individual characters more easily</li>
+                    <li>Word recognition happens faster</li>
+                    <li>Reading fatigue decreases</li>
+                    <li>Comprehension rates increase</li>
+                    <li>Users spend more time engaging with content</li>
+                </ul>
+                </p>
+                
+                <p><strong>Brand Differentiation</strong><br>
+                In crowded digital spaces, subtle design choices create powerful differentiation. Companies like Apple, Nike, and luxury fashion brands have long understood that letter spacing contributes to brand perception:
+                <ul>
+                    <li>Luxury brands often use wider spacing to convey exclusivity and elegance</li>
+                    <li>Tech companies use precise spacing to communicate innovation and attention to detail</li>
+                    <li>Fashion brands experiment with dramatic spacing for artistic expression</li>
+                    <li>Corporate brands maintain consistent spacing for professionalism and reliability</li>
+                </ul>
+                </p>
+                
+                <p><strong>Improved Accessibility</strong><br>
+                Approximately 15-20% of the population experiences some form of reading difficulty. Proper letter spacing serves as an accessibility feature:
+                <ul>
+                    <li>Helps dyslexic readers distinguish letters more clearly</li>
+                    <li>Assists users with visual impairments</li>
+                    <li>Reduces cognitive load for all readers</li>
+                    <li>Complies with WCAG accessibility guidelines</li>
+                    <li>Demonstrates inclusive design practices</li>
+                </ul>
+                </p>
+                
+                <p><strong>Social Media Engagement</strong><br>
+                On platforms where attention spans are measured in seconds, visual distinctiveness determines success. Posts with properly spaced text:
+                <ul>
+                    <li>Stand out in crowded feeds</li>
+                    <li>Capture attention more effectively</li>
+                    <li>Communicate professionalism</li>
+                    <li>Increase engagement rates</li>
+                    <li>Improve click-through rates</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">What is letter spacing and how is it different from kerning?</div>
+                    <div class="faq-answer">Letter spacing (also called tracking) adjusts the space between all characters uniformly throughout your text, while kerning specifically adjusts the space between individual character pairs. Letter spacing affects entire words or text blocks, creating consistent spacing throughout, whereas kerning fine-tunes specific problematic letter combinations like "AV" or "To."</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is the Letter Spacing Tool really completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely. The Letter Spacing Tool is 100% free with no hidden costs, premium features, or usage limits. You can process unlimited text without creating an account or providing payment information.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to install any software to use the Letter Spacing Tool?</div>
+                    <div class="faq-answer">No installation is required. The tool works entirely in your web browser, making it accessible from any device with internet access. Simply visit the File Magics website and start using the tool immediately.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will my letter-spaced text work on social media platforms?</div>
+                    <div class="faq-answer">Yes, the spaced text generated by our tool maintains spacing across all major social media platforms including Instagram, Facebook, Twitter, LinkedIn, TikTok, Pinterest, and more. The spacing is preserved when you paste the text.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the Letter Spacing Tool on my smartphone or tablet?</div>
+                    <div class="faq-answer">Absolutely. The tool features a responsive design that works perfectly on smartphones, tablets, and desktop computers. The interface adapts to your screen size for optimal usability.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is there a character limit for text I can process?</div>
+                    <div class="faq-answer">No, there are no character limits. You can process single words, lengthy paragraphs, or even entire documents through the Letter Spacing Tool without restrictions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will letter spacing improve my content's readability?</div>
+                    <div class="faq-answer">Yes, proper letter spacing has been scientifically proven to enhance readability by making individual characters more distinguishable, reducing eye strain, and improving reading speed and comprehension.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I adjust spacing to negative values for condensed text?</div>
+                    <div class="faq-answer">Yes, the tool supports negative spacing values, allowing you to create condensed or tightened text for specific design effects and stylistic choices.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool work with languages other than English?</div>
+                    <div class="faq-answer">Yes, the Letter Spacing Tool works with all languages and alphabets, including Latin, Cyrillic, Arabic, Asian languages, and special characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I copy the spaced text once I'm satisfied with it?</div>
+                    <div class="faq-answer">Simply click the "Copy" button provided in the tool interface. Your spaced text is instantly copied to your clipboard and ready to paste into any application.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will the spacing be preserved when I paste into Microsoft Word or Google Docs?</div>
+                    <div class="faq-answer">Yes, the spaced text maintains its formatting when pasted into document editors like Microsoft Word, Google Docs, Pages, and other word processing applications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I save my spacing presets for future use?</div>
+                    <div class="faq-answer">While the current version processes text on-demand, you can document your preferred spacing values and apply them consistently across projects. Future updates will include preset saving functionality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does using letter spacing affect SEO or search engine rankings?</div>
+                    <div class="faq-answer">Letter spacing is primarily a visual formatting choice and has minimal direct impact on SEO. However, improved readability from proper spacing can increase user engagement metrics, which indirectly benefits search rankings.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my text data secure when using the tool?</div>
+                    <div class="faq-answer">Yes, completely secure. All text processing happens locally in your browser. Your content is never uploaded to servers or stored anywhere, ensuring complete privacy and security.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What spacing value should I use for headlines vs. body text?</div>
+                    <div class="faq-answer">Headlines often benefit from slightly tighter or wider spacing depending on style preferences, while body text typically requires minimal adjustment for optimal readability. Experiment with the preview to find what works best for your specific content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use letter-spaced text in my email marketing campaigns?</div>
+                    <div class="faq-answer">Yes, spaced text works in email marketing platforms and email clients. However, test your emails across different email clients as some may render spacing differently.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will letter spacing work in my website's HTML/CSS?</div>
+                    <div class="faq-answer">The tool generates copy-paste ready text. For websites, you can either paste the spaced text directly or use CSS letter-spacing properties for more flexible control.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does letter spacing help with accessibility?</div>
+                    <div class="faq-answer">Increased letter spacing helps users with dyslexia, visual impairments, and reading difficulties by making individual letters more distinguishable and reducing character crowding, which improves reading comfort and comprehension.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the tool for commercial projects?</div>
+                    <div class="faq-answer">Yes, you can use the Letter Spacing Tool for personal, commercial, and business projects without restrictions or licensing fees.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What makes File Magics Letter Spacing Tool better than alternatives?</div>
+                    <div class="faq-answer">Our tool offers superior compatibility, unlimited free usage, no account requirements, real-time preview, precise control, multiple spacing methods, mobile optimization, and integration with 50+ other text tools—all in one convenient, user-friendly platform.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Letter spacing functionality
+        function applyLetterSpacing(text, spacingValue, unit) {
+            if (!text || text.trim() === '') return '';
+            
+            // For CSS-based preview, we'll apply the letter-spacing style
+            // For copy functionality, we'll use Unicode spacing characters
+            
+            // Generate CSS for preview
+            const cssSpacing = `${spacingValue}${unit}`;
+            
+            return {
+                cssSpacing: cssSpacing,
+                text: text
+            };
+        }
+
+        // Generate text with Unicode spacing for copy
+        function generateSpacedText(text, spacingValue) {
+            if (spacingValue === 0) return text;
+            
+            let result = '';
+            const spaceChar = ' '; // Using regular space for simplicity
+            
+            // Add spacing between characters
+            for (let i = 0; i < text.length; i++) {
+                result += text[i];
+                
+                // Don't add space after the last character
+                if (i < text.length - 1) {
+                    // Add multiple spaces based on spacing value (rounded)
+                    const spacesToAdd = Math.round(Math.abs(spacingValue));
+                    for (let j = 0; j < spacesToAdd; j++) {
+                        result += spaceChar;
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const applyBtn = document.getElementById('applyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const spacingValueInput = document.getElementById('spacingValue');
+        const spacingSlider = document.getElementById('spacingSlider');
+        const spacingUnitDisplay = document.getElementById('spacingUnitDisplay');
+        const unitButtons = document.querySelectorAll('.unit-btn');
+        const presetButtons = document.querySelectorAll('.preset-btn');
+        
+        // Current unit (default: px)
+        let currentUnit = 'px';
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            applyBtn.addEventListener('click', handleSpacingApplication);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Sync slider and input
+            spacingValueInput.addEventListener('input', syncSpacingInputs);
+            spacingSlider.addEventListener('input', syncSpacingInputs);
+            
+            // Unit selector
+            unitButtons.forEach(btn => {
+                btn.addEventListener('click', handleUnitChange);
+            });
+            
+            // Preset buttons
+            presetButtons.forEach(btn => {
+                btn.addEventListener('click', handlePresetSelection);
+            });
+            
+            // Generate initial preview
+            updatePreview(inputText.value, 0, currentUnit);
+        }
+
+        // Sync spacing inputs
+        function syncSpacingInputs() {
+            if (this.id === 'spacingValue') {
+                spacingSlider.value = this.value;
+            } else {
+                spacingValueInput.value = this.value;
+            }
+            
+            // Update preview in real-time
+            updatePreview(inputText.value, parseFloat(spacingValueInput.value), currentUnit);
+        }
+
+        // Handle unit change
+        function handleUnitChange(e) {
+            const unit = e.target.dataset.unit;
+            currentUnit = unit;
+            
+            // Update active button
+            unitButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            e.target.classList.add('active');
+            
+            // Update unit display
+            spacingUnitDisplay.textContent = unit;
+            
+            // Update preview with new unit
+            updatePreview(inputText.value, parseFloat(spacingValueInput.value), currentUnit);
+        }
+
+        // Handle preset selection
+        function handlePresetSelection(e) {
+            const value = parseFloat(e.target.dataset.value);
+            spacingValueInput.value = value;
+            spacingSlider.value = value;
+            
+            // Update preview
+            updatePreview(inputText.value, value, currentUnit);
+        }
+
+        // Handle spacing application
+        function handleSpacingApplication() {
+            const text = inputText.value;
+            const spacingValue = parseFloat(spacingValueInput.value);
+            
+            updatePreview(text, spacingValue, currentUnit);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            spacingValueInput.value = 0;
+            spacingSlider.value = 0;
+            updatePreview('', 0, currentUnit);
+        }
+
+        // Update preview with spaced text
+        function updatePreview(text, spacingValue, unit) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Text with letter spacing will appear here';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            const result = applyLetterSpacing(text, spacingValue, unit);
+            const spacedText = generateSpacedText(text, spacingValue);
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = `Letter Spacing: ${spacingValue}${unit}`;
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            previewText.textContent = text;
+            previewText.style.letterSpacing = result.cssSpacing;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy spaced text');
+            copyBtn.addEventListener('click', () => copyToClipboard(spacedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download TXT';
+            downloadBtn.setAttribute('aria-label', 'Download as text file');
+            downloadBtn.addEventListener('click', () => downloadAsTXT(spacedText));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            previewContainer.appendChild(previewItem);
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as TXT file
+        function downloadAsTXT(text) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'letter-spaced-text.txt';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

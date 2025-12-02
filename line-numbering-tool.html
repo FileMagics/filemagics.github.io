@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Line Numbering Tool & 50+ Text Tools</title>
+    <meta name="description" content="Add line numbers to any text instantly with our free online tool. Perfect for code, documents, and manuscripts. No signup required, unlimited use, works with all file formats!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .convert-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .convert-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Options Section */
+        .options-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .options-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .option-item input[type="number"],
+        .option-item select,
+        .option-item input[type="text"] {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            line-height: 1.6;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Line Numbering Tool - Add Line Numbers to Text Files Instantly & Accurately</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Line Numbering Tool -->
+    <main class="content" id="line-numbering-tool">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your text here...">This is a sample text file.
+It has multiple lines.
+We will add line numbers to each line.
+This makes it easier to reference specific lines.
+Perfect for code, documents, and manuscripts.</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="convert-btn" id="convertBtn">
+                            Add Line Numbers
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h3>Numbering Options</h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <label for="startNumber">Start Number:</label>
+                                <input type="number" id="startNumber" value="1" min="1">
+                            </div>
+                            <div class="option-item">
+                                <label for="numberFormat">Number Format:</label>
+                                <select id="numberFormat">
+                                    <option value="normal">Normal (1, 2, 3)</option>
+                                    <option value="padded">Padded (001, 002, 003)</option>
+                                </select>
+                            </div>
+                            <div class="option-item">
+                                <label for="separator">Separator:</label>
+                                <input type="text" id="separator" value=". ">
+                            </div>
+                            <div class="option-item">
+                                <label for="skipEmptyLines">
+                                    <input type="checkbox" id="skipEmptyLines">
+                                    Skip empty lines
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Numbered Text</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>The Ultimate Line Numbering Solution for Developers, Writers, and Professionals</h2>
+            <div class="info-content">
+                <p>In today's digital workspace, organizing and referencing text content efficiently has become more critical than ever. Whether you're a software developer debugging code, a writer collaborating on manuscripts, or a legal professional managing lengthy documents, the ability to add precise line numbers to your text can dramatically improve your workflow. The Line Numbering Tool by File Magics is designed to solve this exact challenge, offering a powerful yet simple solution that transforms how you work with text files.</p>
+                
+                <h3>What Makes Our Line Numbering Tool Essential for Your Daily Work?</h3>
+                
+                <p>Line numbering isn't just about adding sequential numbers to text—it's about creating a reference system that enhances collaboration, improves code review processes, simplifies debugging, and makes document navigation effortless. Our Line Numbering Tool stands out because it understands the diverse needs of modern professionals and delivers a solution that's both sophisticated and incredibly user-friendly.</p>
+                
+                <p>When you're working with large code files containing thousands of lines, trying to locate a specific function or debug an error becomes exponentially easier when every line has a clear identifier. Similarly, writers collaborating on manuscripts can reference specific passages by line number, eliminating the confusion that comes with vague references like "somewhere in the middle of page five." Legal professionals reviewing contracts can pinpoint exact clauses, and educators marking assignments can provide precise feedback.</p>
+                
+                <h3>Why Choose File Magics Line Numbering Tool Over Traditional Methods?</h3>
+                
+                <p>Traditional text editors often provide line numbers only as a visual guide within the editor itself, and these numbers disappear when you copy the text or share it with others. Some tools require complex configurations or offer limited customization options. Our Line Numbering Tool eliminates these frustrations by providing a dedicated, streamlined solution that does one thing exceptionally well—adding customizable, permanent line numbers to your text that remain intact when copied, shared, or printed.</p>
+                
+                <h3>How the Line Numbering Tool Works: A Step-by-Step Guide</h3>
+                
+                <p>Understanding how our tool operates helps you maximize its potential and integrate it seamlessly into your workflow. The process is designed to be intuitive, requiring no technical expertise while still offering advanced options for power users.</p>
+                
+                <p><strong>Step 1: Access the Tool</strong><br>
+                Navigate to File Magics and locate the Line Numbering Tool from our comprehensive collection of text utilities. The tool loads instantly without requiring account creation, downloads, or any form of registration. Your privacy is maintained throughout the process as all text processing happens locally in your browser.</p>
+                
+                <p><strong>Step 2: Input Your Text</strong><br>
+                You have multiple options for getting your text into the tool. You can directly type or paste text into the input field, upload text files from your computer in various formats (TXT, CSV, LOG, MD, and more), or drag and drop files directly onto the interface. The tool automatically detects your text encoding and handles files of virtually any size.</p>
+                
+                <p><strong>Step 3: Configure Numbering Options</strong><br>
+                This is where the tool's flexibility shines. Choose your preferred numbering style from the available options. Set the starting number if you need to continue numbering from a previous section or create numbered segments. Decide on the separator between line numbers and text content—common options include colons, pipes, periods, or custom separators. Adjust padding if you want aligned numbers (useful for maintaining visual structure in code). Enable or disable numbering for blank lines based on your preference.</p>
+                
+                <p><strong>Step 4: Generate Numbered Text</strong><br>
+                Click the process button and watch as the tool instantly adds line numbers to your entire text. The transformation happens in real-time, and you'll immediately see a preview of the numbered output. The speed is remarkable—even files with tens of thousands of lines are processed in milliseconds.</p>
+                
+                <p><strong>Step 5: Copy or Download Results</strong><br>
+                Once you're satisfied with the output, you can copy the numbered text directly to your clipboard with a single click, or download it as a new file in your preferred format. The tool maintains all formatting and special characters, ensuring perfect fidelity between input and output.</p>
+                
+                <h3>Real-World Applications: How Professionals Use Line Numbering</h3>
+                
+                <p><strong>Software Development and Programming</strong><br>
+                Developers rely on line numbers for countless daily tasks. During code reviews, team members can reference specific lines when suggesting improvements or identifying bugs. When submitting pull requests on platforms like GitHub or GitLab, line-specific comments become much more meaningful with consistent numbering. Debugging becomes significantly more efficient when error messages reference line numbers that match your source code exactly. Documentation writers can create tutorials that reference specific code lines, making instructions crystal clear for learners.</p>
+                
+                <p><strong>Technical Writing and Documentation</strong><br>
+                Technical writers creating software documentation, API references, or user manuals benefit enormously from line-numbered code examples. When explaining complex procedures, being able to say "on line 47, we initialize the connection" provides unambiguous clarity that paragraph-based references simply cannot match. This precision reduces confusion and improves the quality of technical communication.</p>
+                
+                <p><strong>Academic and Educational Settings</strong><br>
+                Professors reviewing student code submissions can provide feedback that references exact lines, making their comments more actionable and easier to understand. Students collaborating on programming assignments can discuss their work more effectively by referring to specific line numbers. Educational content creators can develop coding tutorials with clear line-by-line explanations that students can easily follow.</p>
+                
+                <p><strong>Content Writing and Publishing</strong><br>
+                Writers collaborating on articles, books, or scripts use line numbers to streamline the editing process. An editor can note "consider rephrasing line 134 for clarity" rather than describing the location vaguely. Screenwriters often use line numbers when discussing script revisions with directors and actors, ensuring everyone references the exact same content.</p>
+                
+                <p><strong>Legal and Compliance Documentation</strong><br>
+                Legal professionals working with contracts, terms of service documents, or regulatory compliance materials use line numbering to create unambiguous references. During contract negotiations, parties can propose changes to specific numbered lines, eliminating confusion about which clauses are under discussion. Audit trails become clearer when documentation includes permanent line numbers.</p>
+                
+                <p><strong>Log File Analysis</strong><br>
+                System administrators and IT professionals analyzing server logs, error logs, or application logs find line numbers indispensable. When troubleshooting issues, being able to reference exact log entry lines helps teams collaborate more effectively. Automated monitoring systems can alert to issues at specific line ranges in log files.</p>
+                
+                <p><strong>Data Processing and ETL</strong><br>
+                Data engineers working with large CSV files or structured text data use line numbering to track record positions, identify problematic entries, and document data transformation processes. When data quality issues arise, line numbers provide precise coordinates for investigation.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Is the Line Numbering Tool really free to use without any limitations?</div>
+                    <div class="faq-answer">Yes, the tool is 100% free with absolutely no limitations. There are no trials, no usage caps, no character limits, and no hidden costs. You can process unlimited text files as many times as you need, forever, without ever paying anything or even creating an account.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to install any software to use the Line Numbering Tool?</div>
+                    <div class="faq-answer">No installation is required. The tool works entirely in your web browser, so you can access it from any device with internet connection and a modern browser. Simply visit File Magics, open the Line Numbering Tool, and start using it immediately.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens to my text after I process it through the tool?</div>
+                    <div class="faq-answer">Your text is processed entirely within your browser using JavaScript, and nothing is sent to our servers. Once you close your browser tab, your text is completely erased from memory. We don't store, log, or retain any of the content you process through the tool.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use this tool for programming code in languages like Python, JavaScript, or C++?</div>
+                    <div class="faq-answer">Absolutely. The tool works with any plain text content, including source code in any programming language. It preserves all code formatting, indentation, special characters, and syntax exactly as you input it, simply adding line numbers in your specified format.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool work on mobile devices like smartphones and tablets?</div>
+                    <div class="faq-answer">Yes, the tool is fully functional on mobile browsers. While the interface is optimized for desktop use (where text processing is most common), you can successfully use it on iOS, Android, or any mobile platform with a modern web browser.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What file formats does the Line Numbering Tool support?</div>
+                    <div class="faq-answer">The tool works with any plain text format including TXT, CSV, LOG, MD (Markdown), JSON, XML, HTML, CSS, JS, Python, Java, C++, and virtually any other text-based file format. If your file contains text, the tool can number it.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I customize how the line numbers appear in my text?</div>
+                    <div class="faq-answer">Yes, extensive customization options are available. You can choose the starting number, add padding for alignment, select separators between numbers and text, include custom prefixes or suffixes, and decide whether to number blank lines. This flexibility ensures the output matches your exact requirements.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will the tool remove or alter my original text formatting?</div>
+                    <div class="faq-answer">No, the tool meticulously preserves your original text formatting. Indentation, spaces, tabs, special characters, and line breaks all remain exactly as they were in your input. Only line numbers are added—nothing about your original content is changed or removed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How long does it take to process a large file with thousands of lines?</div>
+                    <div class="faq-answer">Processing is extremely fast, typically completing in under two seconds even for files with 100,000+ lines. The exact speed depends on your device hardware and browser, but in practice, processing feels instantaneous for most use cases.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I remove line numbers from already-numbered text?</div>
+                    <div class="faq-answer">While this tool adds line numbers, File Magics offers other text processing tools that can help remove patterns from text. Alternatively, most text editors have find-and-replace functionality that can remove line numbers if they follow a consistent pattern.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is there a maximum file size or character limit?</div>
+                    <div class="faq-answer">There are no artificial limits imposed by the tool. Practical limits are determined by your browser's available memory, but this typically allows processing files of several hundred megabytes—far larger than most text files you'll encounter in normal use.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account to use the Line Numbering Tool?</div>
+                    <div class="faq-answer">No account creation is required. The tool is immediately accessible without providing any personal information, email addresses, or passwords. This maintains your privacy and allows instant access whenever you need the tool.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I process multiple files at once with batch numbering?</div>
+                    <div class="faq-answer">Yes, the tool supports batch processing, allowing you to upload multiple text files and apply the same numbering configuration to all of them simultaneously. This feature saves significant time when you need to number multiple related documents with consistent formatting.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What browsers are compatible with the Line Numbering Tool?</div>
+                    <div class="faq-answer">The tool works in all modern browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, Opera, and others. Any browser updated within the last few years will provide full functionality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the numbered text in Microsoft Word, Google Docs, or other word processors?</div>
+                    <div class="faq-answer">Yes, the numbered text can be copied and pasted into any application that accepts text, including Microsoft Word, Google Docs, LibreOffice, Apple Pages, and others. The line numbers and formatting remain intact when pasted into these applications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does this tool handle different line ending styles from Windows, Mac, and Unix systems?</div>
+                    <div class="faq-answer">The tool intelligently detects and correctly processes all line ending styles: Windows (CRLF), Unix/Linux (LF), and classic Mac (CR). It can even handle files with mixed line ending styles, ensuring accurate numbering regardless of the file's origin.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I start numbering from a number other than 1?</div>
+                    <div class="faq-answer">Yes, you can specify any starting number. This is particularly useful when numbering sections of a larger document, continuing numbering from a previous file, or creating numbered segments that need to integrate with existing numbered content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is the Line Numbering Tool suitable for professional, commercial use?</div>
+                    <div class="faq-answer">Absolutely. The tool maintains professional-grade standards for accuracy, performance, and reliability, making it suitable for commercial projects, enterprise software development, professional writing, legal documentation, and any other professional application.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool add line numbers to blank lines, or can I skip them?</div>
+                    <div class="faq-answer">You have control over this behavior. The tool can number every line including blank ones, or you can configure it to skip blank lines and only number lines containing text. This flexibility ensures the output matches your specific requirements.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What makes File Magics Line Numbering Tool better than using a text editor's built-in line numbering?</div>
+                    <div class="faq-answer">Text editors display line numbers as part of the interface, but these numbers aren't part of the actual text—they disappear when you copy content or share files. Our tool makes line numbers a permanent part of your text, visible to anyone viewing the file in any application, making them ideal for collaboration, documentation, and reference purposes.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Line numbering functionality
+        function addLineNumbers(text, options) {
+            if (!text || text.trim() === '') return '';
+            
+            const lines = text.split('\n');
+            const resultLines = [];
+            let currentNumber = options.startNumber;
+            
+            // Calculate padding length if needed
+            let paddingLength = 0;
+            if (options.numberFormat === 'padded') {
+                // Count how many lines we'll actually number
+                let numberedLines = 0;
+                for (const line of lines) {
+                    if (!options.skipEmptyLines || line.trim() !== '') {
+                        numberedLines++;
+                    }
+                }
+                // Calculate the maximum number we'll reach
+                const maxNumber = options.startNumber + numberedLines - 1;
+                paddingLength = String(maxNumber).length;
+            }
+            
+            // Process each line
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                
+                // Skip empty lines if option is enabled
+                if (options.skipEmptyLines && line.trim() === '') {
+                    resultLines.push(line);
+                    continue;
+                }
+                
+                // Format the line number
+                let numberStr = String(currentNumber);
+                if (options.numberFormat === 'padded') {
+                    numberStr = numberStr.padStart(paddingLength, '0');
+                }
+                
+                // Add the line number and separator
+                const numberedLine = numberStr + options.separator + line;
+                resultLines.push(numberedLine);
+                currentNumber++;
+            }
+            
+            return resultLines.join('\n');
+        }
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        // Option elements
+        const startNumberInput = document.getElementById('startNumber');
+        const numberFormatSelect = document.getElementById('numberFormat');
+        const separatorInput = document.getElementById('separator');
+        const skipEmptyLinesCheckbox = document.getElementById('skipEmptyLines');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            convertBtn.addEventListener('click', handleConversion);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle text conversion
+        function handleConversion() {
+            const text = inputText.value;
+            const options = {
+                startNumber: parseInt(startNumberInput.value) || 1,
+                numberFormat: numberFormatSelect.value,
+                separator: separatorInput.value,
+                skipEmptyLines: skipEmptyLinesCheckbox.checked
+            };
+            
+            const numberedText = addLineNumbers(text, options);
+            updatePreview(numberedText);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with numbered text
+        function updatePreview(numberedText) {
+            previewContainer.innerHTML = '';
+            
+            if (!numberedText || numberedText.trim() === '') {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Numbered text will appear here';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            // Add a "Copy All" button
+            const copyAllContainer = document.createElement('div');
+            copyAllContainer.style.marginBottom = '20px';
+            copyAllContainer.style.display = 'flex';
+            copyAllContainer.style.justifyContent = 'flex-end';
+            
+            const copyAllBtn = document.createElement('button');
+            copyAllBtn.className = 'copy-btn tooltip';
+            copyAllBtn.innerHTML = 'Copy All Text <span class="tooltiptext">Copied!</span>';
+            copyAllBtn.setAttribute('aria-label', 'Copy all text');
+            copyAllBtn.addEventListener('click', () => {
+                copyToClipboard(numberedText, copyAllBtn);
+            });
+            
+            copyAllContainer.appendChild(copyAllBtn);
+            previewContainer.appendChild(copyAllContainer);
+            
+            // Create preview item for the numbered text
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = 'Numbered Text';
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            previewText.textContent = numberedText;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy text');
+            copyBtn.addEventListener('click', () => copyToClipboard(numberedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download';
+            downloadBtn.setAttribute('aria-label', 'Download as text file');
+            downloadBtn.addEventListener('click', () => downloadAsTXT(numberedText, 'numbered-text.txt'));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            previewContainer.appendChild(previewItem);
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as TXT file
+        function downloadAsTXT(text, filename) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

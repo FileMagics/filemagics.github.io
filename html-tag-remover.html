@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - HTML Tag Remover & 50+ Developer Tools</title>
+    <meta name="description" content="Remove HTML tags instantly from any code or text. Extract clean, pure content in seconds. Free, fast, unlimited use - perfect for developers, content writers & SEO professionals!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .convert-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .convert-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Options Section */
+        .options-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .options-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>HTML Tag Remover - Clean Your Code Instantly & Extract Pure Text Content</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - HTML Tag Remover -->
+    <main class="content" id="html-tag-remover">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your HTML</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your HTML code here..."><div class="container">
+  <h1>Welcome to Our Website</h1>
+  <p>This is a sample paragraph with <strong>bold text</strong> and <a href="https://example.com">a link</a>.</p>
+  <ul>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+  </ul>
+  <p>Another paragraph with <span style="color: red;">styled text</span>.</p>
+</div></textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="convert-btn" id="convertBtn">
+                            Remove HTML Tags
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h3>Processing Options</h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="preserveLineBreaks" checked>
+                                <label for="preserveLineBreaks">Preserve Line Breaks</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="removeScripts" checked>
+                                <label for="removeScripts">Remove Scripts</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="removeStyles" checked>
+                                <label for="removeStyles">Remove Styles</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="decodeEntities" checked>
+                                <label for="decodeEntities">Decode HTML Entities</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Clean Text Result</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Complete Guide to HTML Tag Remover: The Ultimate Solution for Clean Text Extraction</h2>
+            <div class="info-content">
+                <p>In the digital world where HTML code dominates web development and content management, there's a constant need to extract clean, readable text from HTML-formatted content. Whether you're a developer debugging code, a content writer repurposing web content, a digital marketer analyzing competitor pages, or an SEO professional optimizing content, dealing with HTML tags can be frustrating and time-consuming. That's exactly where an HTML Tag Remover becomes an indispensable tool in your digital toolkit.</p>
+                
+                <p>An HTML Tag Remover is a specialized online utility designed to strip away all HTML tags, attributes, styles, and scripts from your content, leaving you with pure, clean text that's ready to use, analyze, or repurpose. Unlike manual deletion or complex find-and-replace operations that consume valuable time and often miss hidden tags, an automated HTML tag remover processes your content instantly, ensuring 100% accuracy and efficiency.</p>
+                
+                <h3>Why You Absolutely Need an HTML Tag Remover</h3>
+                
+                <p>The internet is built on HTML - every webpage, email template, blog post, and online document contains HTML markup. While these tags are essential for browsers to render content correctly, they become obstacles when you need the actual text content. Imagine copying content from a website only to find it cluttered with &lt;div&gt;, &lt;span&gt;, &lt;p&gt;, &lt;a&gt;, and countless other tags. Manually removing these tags is not just tedious - it's practically impossible when dealing with large volumes of content.</p>
+                
+                <p>Professional developers spend hours cleaning up legacy code, content teams struggle to extract text from HTML emails, SEO specialists need clean text for analysis, and data scientists require pure text for machine learning models. An HTML Tag Remover solves all these challenges in seconds, transforming complex HTML code into pristine, readable text with a single click.</p>
+                
+                <h3>What Makes File Magics HTML Tag Remover Stand Out</h3>
+                
+                <p>File Magics HTML Tag Remover isn't just another online tool - it's a comprehensive solution engineered specifically for professionals who demand accuracy, speed, and reliability. Unlike basic tag removers that merely strip opening and closing tags, our advanced algorithm intelligently processes your HTML content, removing not just tags but also inline styles, JavaScript code, CSS classes, data attributes, and even hidden metadata that other tools miss.</p>
+                
+                <p>The tool is designed with a user-first approach, featuring an intuitive interface that requires zero technical knowledge. You simply paste your HTML content, click remove, and instantly receive clean text output. There's no software to download, no registration required, no usage limits, and absolutely no cost. Whether you're processing a single paragraph or an entire website's worth of content, File Magics HTML Tag Remover handles it effortlessly.</p>
+                
+                <p>What truly sets this tool apart is its intelligent processing engine. It doesn't just delete tags blindly - it understands HTML structure, preserves paragraph breaks where appropriate, maintains the logical flow of content, and ensures that the output text is as readable as if it were written in plain text from the beginning. This level of sophistication is typically found only in expensive software solutions, yet File Magics offers it completely free.</p>
+                
+                <h3>How HTML Tag Remover Works: The Technology Behind the Magic</h3>
+                
+                <p>Understanding how the HTML Tag Remover works helps you appreciate its power and versatility. At its core, the tool employs advanced parsing algorithms that analyze your HTML content character by character, identifying tag patterns, attribute structures, and nested elements.</p>
+                
+                <p>When you paste HTML content into the input field, the tool immediately begins its analysis. First, it identifies all opening tags (like &lt;div&gt;, &lt;p&gt;, &lt;span&gt;) and their corresponding closing tags (&lt;/div&gt;, &lt;/p&gt;, &lt;/span&gt;). Then it locates self-closing tags (&lt;br/&gt;, &lt;img/&gt;, &lt;hr/&gt;), inline styles (style="..."), JavaScript events (onclick="...", onload="..."), and data attributes (data-*).</p>
+                
+                <p>The removal process happens in multiple passes to ensure completeness. The first pass removes obvious HTML tags and their attributes. The second pass cleans up any remaining fragments, escaped characters, or malformed tags. The third pass normalizes whitespace, removes excessive line breaks, and formats the output for optimal readability.</p>
+                
+                <p>Special attention is paid to preserving content structure. For example, when encountering block-level elements like paragraphs and headings, the tool inserts appropriate line breaks to maintain logical content separation. Links are handled intelligently - the anchor text is preserved while the &lt;a&gt; tag and href attribute are removed, ensuring that the text remains meaningful.</p>
+                
+                <h3>Step-by-Step Guide: Using the HTML Tag Remover</h3>
+                
+                <p><strong>Step 1: Access the Tool</strong> - Navigate to File Magics website and select the HTML Tag Remover from the extensive collection of 50+ free tools. The tool loads instantly with no downloads, installations, or registrations required.</p>
+                
+                <p><strong>Step 2: Input Your HTML Content</strong> - You have multiple options for inputting content. You can directly paste HTML code from your clipboard, type or edit HTML in the input field, or even paste content copied from web browsers that includes hidden HTML formatting.</p>
+                
+                <p><strong>Step 3: Process the Content</strong> - Click the "Remove HTML Tags" button. The tool processes your content instantly, regardless of size. Even thousands of lines of HTML code are cleaned in milliseconds.</p>
+                
+                <p><strong>Step 4: Review the Clean Text</strong> - The output appears immediately in the result field, showing your content completely free of HTML tags, with proper formatting and structure preserved.</p>
+                
+                <p><strong>Step 5: Copy and Use</strong> - Use the convenient "Copy to Clipboard" button to instantly copy the cleaned text, or manually select and copy specific portions. The text is now ready for any purpose - documents, databases, content management systems, or further analysis.</p>
+                
+                <p><strong>Pro Tips for Best Results:</strong> For extremely large HTML documents, consider processing in sections if you notice any browser slowdown. If your HTML contains special characters or entities (like &amp;nbsp;, &amp;copy;), the tool automatically converts these to their readable equivalents. For HTML emails, paste the entire email source code for complete tag removal.</p>
+                
+                <h3>Real-World Use Cases: Who Benefits from HTML Tag Remover</h3>
+                
+                <p>The versatility of HTML Tag Remover makes it invaluable across numerous professions and scenarios. Understanding these use cases helps you discover new ways to leverage this powerful tool.</p>
+                
+                <p><strong>Web Developers and Programmers:</strong> Developers frequently need to extract text content from HTML for testing, debugging, or data migration. When working with legacy codebases, outdated CMS platforms, or inherited projects, clean text extraction is essential. The HTML Tag Remover enables developers to quickly analyze content structure, identify text patterns, and prepare content for database imports without writing custom scripts.</p>
+                
+                <p><strong>Content Writers and Editors:</strong> Content professionals often repurpose web content for blogs, articles, social media, or print materials. Copying content from websites brings along unwanted HTML formatting that disrupts document flow. The HTML Tag Remover instantly provides clean text that's ready for editing, reformatting, and republishing without hours of manual cleanup.</p>
+                
+                <p><strong>Digital Marketers:</strong> Marketing professionals analyze competitor content, extract testimonials, gather product descriptions, and compile market research from various websites. The HTML Tag Remover streamlines this research process, allowing marketers to build content databases, create comparison documents, and analyze messaging strategies efficiently.</p>
+                
+                <p><strong>SEO Specialists:</strong> SEO experts need clean text for keyword analysis, content audits, readability assessments, and meta description creation. HTML tags interfere with word count tools, keyword density calculators, and content analysis software. The HTML Tag Remover ensures accurate analysis by providing pure text that reflects actual visitor-facing content.</p>
+                
+                <p><strong>Email Marketing Teams:</strong> Email templates are notoriously complex, often containing hundreds of lines of HTML code for a simple message. When repurposing email content or creating text versions of HTML emails, the HTML Tag Remover extracts clean message content instantly.</p>
+                
+                <p><strong>Data Scientists and AI Researchers:</strong> Machine learning models, natural language processing systems, and AI training require clean text data without markup. The HTML Tag Remover prepares web-scraped content for dataset creation, model training, and text analysis at scale.</p>
+                
+                <p><strong>Academic Researchers:</strong> Researchers collecting online content for analysis, citation, or archival purposes need clean text versions. The tool facilitates academic work by providing properly formatted text for research papers, dissertations, and scholarly publications.</p>
+                
+                <p><strong>E-commerce Professionals:</strong> Online retailers importing product descriptions from suppliers, manufacturers, or other platforms often receive HTML-formatted content. The HTML Tag Remover cleans these descriptions for database imports, ensuring consistent formatting across product catalogs.</p>
+                
+                <h3>Advanced Features and Capabilities</h3>
+                
+                <p>File Magics HTML Tag Remover goes beyond basic tag removal with sophisticated features designed for power users and professionals with demanding requirements.</p>
+                
+                <p><strong>Intelligent Whitespace Management:</strong> The tool doesn't just remove tags - it intelligently manages whitespace, removing excessive blank lines while preserving intentional paragraph breaks and content structure.</p>
+                
+                <p><strong>Special Character Handling:</strong> HTML entities and special characters are automatically decoded and converted to their readable equivalents, ensuring your output text is fully human-readable.</p>
+                
+                <p><strong>Nested Tag Processing:</strong> Complex HTML with deeply nested elements is handled flawlessly, with the algorithm recursively processing tags from innermost to outermost levels.</p>
+                
+                <p><strong>Script and Style Removal:</strong> Beyond visible HTML tags, the tool removes &lt;script&gt; blocks, &lt;style&gt; sections, inline JavaScript, and CSS code that would otherwise clutter your output.</p>
+                
+                <p><strong>Attribute Stripping:</strong> All tag attributes including classes, IDs, styles, data attributes, and event handlers are completely removed, leaving only pure content.</p>
+                
+                <p><strong>Comment Elimination:</strong> HTML comments (&lt;!-- --&gt;) are automatically detected and removed, ensuring your output contains only visible content.</p>
+                
+                <p><strong>Format Preservation Options:</strong> While the default mode provides clean, unformatted text, the tool intelligently preserves logical content structure, making the output immediately readable and properly organized.</p>
+                
+                <h3>Security and Privacy: Your Content Stays Confidential</h3>
+                
+                <p>In today's data-sensitive environment, security and privacy are paramount. File Magics HTML Tag Remover is designed with security-first principles that protect your content at every step.</p>
+                
+                <p><strong>Client-Side Processing:</strong> All HTML tag removal happens entirely in your browser using JavaScript. Your HTML content never leaves your device, never travels across the internet, and is never stored on any server. This client-side architecture ensures complete privacy and security.</p>
+                
+                <p><strong>No Data Collection:</strong> File Magics doesn't collect, store, analyze, or retain any content you process. There are no databases logging your activities, no analytics tracking your usage patterns, and no third-party services receiving your data.</p>
+                
+                <p><strong>Zero Registration Required:</strong> Unlike many online tools that require account creation and personal information, File Magics HTML Tag Remover works instantly without registration, eliminating privacy concerns associated with user accounts.</p>
+                
+                <p><strong>HTTPS Encryption:</strong> The entire File Magics website operates over secure HTTPS connections, ensuring that even your connection to the tool is encrypted and protected from interception.</p>
+                
+                <p><strong>Temporary Memory Only:</strong> Content exists only in your browser's temporary memory during processing and is immediately cleared when you close the page or navigate away.</p>
+                
+                <p>This commitment to privacy makes File Magics HTML Tag Remover suitable even for sensitive projects, confidential content, proprietary code, and professional applications where data security is non-negotiable.</p>
+                
+                <h3>Performance and Efficiency: Built for Speed</h3>
+                
+                <p>Speed matters when you're processing content regularly. File Magics HTML Tag Remover is optimized for maximum performance, delivering instant results regardless of content size or complexity.</p>
+                
+                <p>The tool processes small HTML snippets (a few paragraphs) in literally milliseconds - so fast that the processing appears instantaneous. Medium-sized content (full webpages, long articles, email templates) is cleaned in under a second. Even massive HTML documents containing thousands of lines are processed in just seconds.</p>
+                
+                <p>This exceptional performance is achieved through optimized algorithms, efficient pattern matching, and smart processing techniques that minimize computational overhead. Unlike server-based tools that suffer from network latency and processing queues, File Magics' client-side architecture delivers consistent, blazing-fast performance every time.</p>
+                
+                <p><strong>No Limits, No Restrictions:</strong> There are no daily usage limits, no file size restrictions, no processing quotas, and no premium tiers. Process as much content as you need, as often as you need, completely free forever.</p>
+                
+                <h3>Comparing HTML Tag Remover with Alternative Methods</h3>
+                
+                <p>Understanding why a dedicated HTML Tag Remover outperforms alternative approaches helps you appreciate the value this tool provides.</p>
+                
+                <p><strong>Manual Deletion:</strong> Manually finding and deleting HTML tags is the most time-consuming and error-prone method. A single webpage might contain hundreds of tags, and missing even one tag fragment leaves your text cluttered. What takes hours manually takes seconds with HTML Tag Remover.</p>
+                
+                <p><strong>Find and Replace:</strong> Text editors offer find and replace functionality, but HTML's complexity makes this approach impractical. You'd need dozens of find-and-replace operations to catch all tag variations, attributes, and special cases. HTML Tag Remover handles all variations automatically.</p>
+                
+                <p><strong>Regular Expressions:</strong> Programmers might use regex patterns to remove tags, but writing comprehensive regex for HTML is notoriously difficult and unreliable. HTML's nested structure and countless edge cases often cause regex solutions to fail. HTML Tag Remover's purpose-built parser handles these complexities perfectly.</p>
+                
+                <p><strong>Programming Scripts:</strong> Writing custom Python, JavaScript, or other scripts to parse and clean HTML requires programming knowledge, development time, and ongoing maintenance. HTML Tag Remover provides professional-grade results instantly without any coding.</p>
+                
+                <p><strong>Desktop Software:</strong> HTML cleaning software exists but requires downloads, installations, updates, and often costs money. File Magics HTML Tag Remover works instantly in your browser with no software required, no updates to manage, and zero cost.</p>
+                
+                <p><strong>Other Online Tools:</strong> Many free online tag removers exist, but most offer basic functionality with incomplete tag removal, poor special character handling, or intrusive ads. File Magics provides enterprise-grade functionality completely free with a clean, ad-free interface.</p>
+                
+                <h3>Integration Possibilities and Workflow Enhancement</h3>
+                
+                <p>While HTML Tag Remover works perfectly as a standalone tool, its true power emerges when integrated into larger workflows and processes.</p>
+                
+                <p><strong>Content Management Workflows:</strong> Content teams can incorporate HTML Tag Remover into their content migration workflows, using it to clean imported content before uploading to new CMS platforms.</p>
+                
+                <p><strong>Data Processing Pipelines:</strong> Data analysts and scientists can use HTML Tag Remover as a preprocessing step in web scraping workflows, cleaning scraped HTML before feeding data into analysis tools.</p>
+                
+                <p><strong>Development Workflows:</strong> Developers can bookmark the tool for quick access during coding sessions, using it for rapid content extraction during debugging and testing.</p>
+                
+                <p><strong>Marketing Operations:</strong> Marketing teams can standardize on HTML Tag Remover for all content research activities, ensuring consistent clean text output across campaigns and projects.</p>
+                
+                <p><strong>Document Preparation:</strong> Writers and editors can make HTML Tag Remover a standard step in their document preparation process, cleaning web research before incorporating it into manuscripts.</p>
+                
+                <p>The tool's bookmark-friendly URL and fast loading make it easy to integrate into daily workflows, while its reliability ensures consistent results across teams and projects.</p>
+                
+                <h3>Best Practices for Maximum Effectiveness</h3>
+                
+                <p>To get the absolute most from File Magics HTML Tag Remover, follow these professional best practices developed through extensive testing and real-world usage.</p>
+                
+                <p><strong>Source Quality Matters:</strong> For best results, paste complete HTML snippets rather than fragments. Complete tags are processed more reliably than broken or partial tags.</p>
+                
+                <p><strong>Review Output:</strong> While the tool is extremely accurate, always briefly review the cleaned output to ensure it meets your specific requirements, especially for critical projects.</p>
+                
+                <p><strong>Preserve Original Content:</strong> When working with important content, keep a copy of the original HTML before processing, providing a backup if needed.</p>
+                
+                <p><strong>Process Systematically:</strong> For large projects involving multiple HTML sources, develop a systematic approach - create a list, process items in order, and mark completed items to maintain organization.</p>
+                
+                <p><strong>Combine with Other Tools:</strong> File Magics offers 50+ complementary tools. After removing HTML tags, consider using the Word Counter for analysis, Text Case Converter for formatting, or other tools to further process your content.</p>
+                
+                <p><strong>Browser Bookmarking:</strong> Add File Magics HTML Tag Remover to your browser bookmarks for instant access whenever you need to clean HTML content.</p>
+                
+                <p><strong>Learn HTML Basics:</strong> Understanding basic HTML structure helps you anticipate how the tool will process your content and enables you to better review output for accuracy.</p>
+                
+                <h3>Troubleshooting Common Scenarios</h3>
+                
+                <p>While HTML Tag Remover handles most situations flawlessly, understanding these common scenarios ensures smooth operation in edge cases.</p>
+                
+                <p><strong>Malformed HTML:</strong> If your HTML contains syntax errors or unclosed tags, the tool still processes it effectively, though output formatting might vary slightly. For best results, use well-formed HTML when possible.</p>
+                
+                <p><strong>Special Characters:</strong> HTML entities like &amp;nbsp;, &amp;copy;, &amp;amp; are automatically converted to spaces, ©, and &amp; respectively. If you need these preserved in entity form, note that the tool prioritizes human readability.</p>
+                
+                <p><strong>Extremely Large Files:</strong> While there's no size limit, very large HTML files (multiple megabytes) might take slightly longer to process depending on your device performance. Consider processing in sections if you experience delays.</p>
+                
+                <p><strong>Unexpected Output:</strong> If output doesn't match expectations, verify that you've pasted complete HTML and not just fragments. Incomplete tags can sometimes affect processing results.</p>
+                
+                <p><strong>Browser Compatibility:</strong> File Magics HTML Tag Remover works in all modern browsers (Chrome, Firefox, Safari, Edge). If experiencing issues, try updating your browser or testing in an alternative browser.</p>
+                
+                <h3>The Technology Stack Behind File Magics</h3>
+                
+                <p>File Magics HTML Tag Remover leverages cutting-edge web technologies to deliver a seamless, fast, and reliable experience.</p>
+                
+                <p>The frontend interface is built with modern HTML5, CSS3, and responsive design principles, ensuring perfect functionality across desktop computers, laptops, tablets, and smartphones. The tool automatically adapts to your screen size, providing optimal usability whether you're on a 27-inch monitor or a mobile phone.</p>
+                
+                <p>The processing engine uses advanced JavaScript with optimized algorithms for pattern matching, string manipulation, and DOM parsing. The code is minified and compressed for lightning-fast loading and execution.</p>
+                
+                <p>The entire application follows progressive web app (PWA) principles, meaning it can be added to your device home screen for app-like access, works reliably even on slower connections, and loads instantly on repeat visits through intelligent caching.</p>
+                
+                <p>Accessibility features ensure the tool works perfectly with screen readers, keyboard navigation, and assistive technologies, making it usable by everyone regardless of abilities.</p>
+                
+                <h3>Future-Proof Your Workflow</h3>
+                
+                <p>The digital landscape constantly evolves, but the need for clean text extraction remains constant. HTML Tag Remover future-proofs your workflow by providing a reliable, stable tool that works today and will continue working as HTML standards evolve.</p>
+                
+                <p>File Magics actively maintains and updates its tools to ensure compatibility with the latest HTML specifications, browser updates, and web standards. While you enjoy a consistent user experience, behind the scenes the tool continuously evolves to handle new HTML elements, attributes, and structures as they emerge.</p>
+                
+                <p>This commitment to maintenance means you can confidently build workflows around HTML Tag Remover knowing it will remain reliable for years to come.</p>
+                
+                <h3>Environmental and Resource Benefits</h3>
+                
+                <p>Using File Magics HTML Tag Remover offers unexpected environmental and resource benefits compared to alternative approaches.</p>
+                
+                <p><strong>No Server Infrastructure:</strong> Because processing happens entirely client-side, there are no energy-consuming servers processing your requests, no data centers cooling equipment, and no network transmission consuming bandwidth.</p>
+                
+                <p><strong>No Downloads:</strong> Unlike desktop software that requires downloads, installations, and storage space on your device, HTML Tag Remover runs in your browser with zero disk space requirements.</p>
+                
+                <p><strong>Device Efficiency:</strong> The optimized code runs efficiently on your device, consuming minimal battery power and processing resources compared to heavy applications or software.</p>
+                
+                <p><strong>Reduced Redundancy:</strong> Instead of multiple tools or applications for HTML cleaning, File Magics consolidates functionality in one efficient tool, reducing overall resource consumption.</p>
+                
+                <p>For environmentally conscious professionals and organizations working toward sustainability goals, these factors make File Magics an eco-friendly choice.</p>
+                
+                <h3>Educational Value for Learning HTML</h3>
+                
+                <p>Beyond its practical utility, HTML Tag Remover serves as an excellent educational tool for anyone learning HTML and web development.</p>
+                
+                <p>Students can paste HTML code examples and see instantly what the pure content looks like without markup, helping them understand the distinction between content and presentation. They can experiment with different HTML structures and observe how tags affect or don't affect the actual content.</p>
+                
+                <p>Teachers can use the tool to demonstrate HTML concepts, showing students how browsers read HTML tags and render content. It provides immediate visual feedback that reinforces learning.</p>
+                
+                <p>Self-taught developers can use HTML Tag Remover to analyze websites, understanding how professional sites structure their HTML and what the core content looks like beneath the markup.</p>
+                
+                <p>This educational dimension adds value beyond the tool's primary functionality, making it valuable for both professionals and learners.</p>
+                
+                <h3>The File Magics Ecosystem: 50+ Tools for Every Need</h3>
+                
+                <p>HTML Tag Remover is just one component of the comprehensive File Magics toolkit, which includes over 50 free tools designed to solve everyday digital challenges.</p>
+                
+                <p>After removing HTML tags, you might need to count words (Word Counter), change text case (Text Case Converter), encode or decode text (Base64 Encoder/Decoder), generate hashes (MD5 Generator), format JSON (JSON Formatter), minify code (CSS Minifier), or perform countless other tasks.</p>
+                
+                <p>File Magics provides all these tools in one convenient location, with consistent interfaces, the same commitment to privacy and security, and the same zero-cost, unlimited-use philosophy. This ecosystem approach means you can accomplish complex multi-step workflows entirely within File Magics without jumping between different websites or applications.</p>
+                
+                <p>The HTML Tag Remover integrates seamlessly with these complementary tools, enabling sophisticated workflows. For example: remove HTML tags, count the resulting words, convert the text to uppercase, encode it in Base64, and generate an MD5 hash - all within minutes using File Magics tools.</p>
+                
+                <h3>Cost Savings and ROI</h3>
+                
+                <p>While File Magics HTML Tag Remover is completely free, understanding the financial value it provides highlights its importance in professional workflows.</p>
+                
+                <p>Consider the time savings: Manual HTML tag removal might take 30 minutes for a typical webpage. If you process just five pages weekly, that's 130 hours annually - over three full work weeks. At an average professional hourly rate, that's thousands of dollars in time costs.</p>
+                
+                <p>HTML Tag Remover processes the same content in seconds, essentially eliminating these time costs entirely. For content teams, development shops, marketing agencies, and other organizations processing HTML regularly, the cumulative time savings translate to substantial financial value.</p>
+                
+                <p>Additionally, you avoid costs associated with desktop software licenses, cloud service subscriptions, and development resources that would be required for alternative solutions. The total cost of ownership for File Magics HTML Tag Remover is exactly zero, while providing enterprise-grade functionality.</p>
+                
+                <p>For freelancers and small businesses operating on tight budgets, this free access to professional tools levels the playing field, enabling them to compete with larger organizations without financial barriers.</p>
+                
+                <h3>Why File Magics HTML Tag Remover Is Your Best Choice</h3>
+                
+                <p>Choosing File Magics HTML Tag Remover over alternatives isn't just about free access - it's about choosing superior technology, better user experience, stronger privacy protection, and more reliable results.</p>
+                
+                <p><strong>Unmatched Accuracy:</strong> The sophisticated parsing engine delivers results superior to basic tag removal tools, handling edge cases and complex HTML that causes other tools to fail.</p>
+                
+                <p><strong>Blazing Speed:</strong> Client-side processing with optimized algorithms provides instant results without server delays or processing queues.</p>
+                
+                <p><strong>Complete Privacy:</strong> Zero data collection, client-side processing, and no registration requirements ensure your content remains completely private.</p>
+                
+                <p><strong>No Restrictions:</strong> Unlimited usage, no file size limits, no daily quotas, and no premium tiers - everything is completely free forever.</p>
+                
+                <p><strong>Professional Quality:</strong> Enterprise-grade functionality that's trusted by developers, content teams, and businesses worldwide.</p>
+                
+                <p><strong>Constantly Improved:</strong> Active maintenance and updates ensure the tool stays current with evolving web standards and user needs.</p>
+                
+                <p><strong>Comprehensive Ecosystem:</strong> Integration with 50+ complementary tools provides solutions for virtually any text, code, or data processing challenge.</p>
+                
+                <p><strong>Universal Access:</strong> Works perfectly on any device, any browser, anywhere in the world, with no downloads or installations required.</p>
+                
+                <p><strong>Clean Experience:</strong> No ads, no popups, no distractions - just a clean, professional interface focused entirely on functionality.</p>
+                
+                <p><strong>Reliable Support:</strong> While the tool is self-explanatory, File Magics provides documentation and support for users who need assistance.</p>
+                
+                <h3>Getting Started Today</h3>
+                
+                <p>Ready to experience the power of instant HTML tag removal? Getting started with File Magics HTML Tag Remover takes just seconds.</p>
+                
+                <p>Visit File Magics, navigate to the HTML Tag Remover tool, and start processing immediately - no signup, no downloads, no waiting. Bookmark the page for instant access whenever you need it. Add File Magics to your browser favorites or home screen for quick access.</p>
+                
+                <p>Share the tool with colleagues, teammates, and anyone who works with HTML content. The more people discover File Magics, the more the community of users grows, providing feedback that drives continuous improvement.</p>
+                
+                <p>Join thousands of developers, content creators, marketers, and professionals who have already discovered the convenience, reliability, and power of File Magics HTML Tag Remover. Transform your workflow, save countless hours, and enjoy the freedom of unlimited, instant HTML tag removal.</p>
+                
+                <h3>Conclusion: Essential Tool for Modern Digital Work</h3>
+                
+                <p>In today's HTML-driven digital world, the ability to quickly extract clean text from markup isn't a luxury - it's a necessity. File Magics HTML Tag Remover provides this essential capability with unmatched convenience, speed, and reliability.</p>
+                
+                <p>Whether you're a developer cleaning code, a writer repurposing content, a marketer analyzing competitors, or anyone who works with web content, this tool eliminates the frustration and time waste of manual tag removal. It's the solution you didn't know you needed until you experience how much easier it makes your work.</p>
+                
+                <p>Free, fast, unlimited, and professional-grade - File Magics HTML Tag Remover represents the future of online utilities: powerful tools that respect your privacy, demand nothing in return, and simply work perfectly every time you need them.</p>
+                
+                <p>Start using File Magics HTML Tag Remover today and discover why it's becoming the go-to solution for professionals worldwide who demand the best tools for their most important work.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">What is an HTML Tag Remover and why do I need it?</div>
+                    <div class="faq-answer">An HTML Tag Remover is a specialized tool that strips away all HTML markup, tags, attributes, and code from content, leaving only pure text. You need it whenever you work with web content and want just the readable text without HTML formatting - whether for content repurposing, data analysis, database imports, or any situation where HTML tags are obstacles rather than assets.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is File Magics HTML Tag Remover really free with no hidden costs?</div>
+                    <div class="faq-answer">Yes, absolutely. File Magics HTML Tag Remover is 100% free with no hidden costs, no premium features, no usage limits, and no subscription tiers. You can use it unlimited times for any purpose without ever paying anything.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to download or install any software to use HTML Tag Remover?</div>
+                    <div class="faq-answer">No downloads or installations required. HTML Tag Remover works entirely in your web browser. Simply visit the File Magics website, navigate to the tool, and start using it immediately.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my HTML content safe and private when using this tool?</div>
+                    <div class="faq-answer">Yes, completely. All processing happens entirely in your browser using JavaScript - your content never leaves your device, isn't transmitted to any server, and isn't stored anywhere. File Magics doesn't collect, store, or analyze any content you process.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What types of HTML content can I process with this tool?</div>
+                    <div class="faq-answer">You can process any HTML content: web pages, email templates, HTML snippets, blog posts, HTML documents, CMS exports, HTML emails, scraped content, and any other HTML-formatted text.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will the tool remove inline CSS and JavaScript along with HTML tags?</div>
+                    <div class="faq-answer">Yes. The tool removes not just HTML tags but also inline styles, &lt;style&gt; blocks, &lt;script&gt; sections, inline JavaScript, CSS classes, and any other code or markup, leaving only the pure text content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does HTML Tag Remover work on mobile devices and tablets?</div>
+                    <div class="faq-answer">Yes, perfectly. The tool is fully responsive and works flawlessly on smartphones, tablets, laptops, and desktop computers. The interface automatically adapts to your screen size for optimal usability.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Are there any file size limits or usage restrictions?</div>
+                    <div class="faq-answer">No limits whatsoever. You can process small snippets or massive HTML documents, and you can use the tool as many times as you need - daily, hourly, or even continuously. There are no daily quotas, file size restrictions, or usage limits of any kind.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens to special HTML characters and entities?</div>
+                    <div class="faq-answer">HTML entities (like &amp;nbsp;, &amp;copy;, &amp;amp;, &amp;quot;) are automatically decoded and converted to their readable equivalents (space, ©, &amp;, "), ensuring your output text is fully human-readable.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can HTML Tag Remover handle malformed or broken HTML?</div>
+                    <div class="faq-answer">Yes. The tool is designed to handle even poorly formatted HTML with unclosed tags, syntax errors, or structural problems. While well-formed HTML produces the cleanest results, the tool processes broken HTML effectively.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does File Magics HTML Tag Remover compare to other similar tools?</div>
+                    <div class="faq-answer">File Magics offers superior accuracy with more comprehensive tag removal, better special character handling, intelligent whitespace management, faster processing, stronger privacy protection, and a cleaner interface compared to alternatives.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account to use HTML Tag Remover?</div>
+                    <div class="faq-answer">No account required. The tool works immediately without any registration, signup, or personal information. This "zero friction" approach means you can start using it the moment you visit the page.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use HTML Tag Remover for commercial projects?</div>
+                    <div class="faq-answer">Yes, absolutely. You can use the tool for personal projects, commercial work, client projects, business applications, or any other purpose without restrictions or licensing requirements.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will the tool preserve paragraph breaks and text structure?</div>
+                    <div class="faq-answer">Yes. The intelligent processing engine preserves logical content structure, maintaining paragraph breaks and content flow so your output text remains readable and properly organized.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How fast is the HTML tag removal process?</div>
+                    <div class="faq-answer">Extremely fast. Small to medium HTML content processes in milliseconds (appearing instant), while even very large HTML documents process in just seconds. The tool is optimized for maximum performance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I copy the cleaned text easily after processing?</div>
+                    <div class="faq-answer">Yes. The tool provides a convenient "Copy to Clipboard" button for instant copying, or you can manually select and copy any portion of the cleaned text using standard browser copy functions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does HTML Tag Remover work with non-English content?</div>
+                    <div class="faq-answer">Yes, perfectly. The tool handles all languages, character sets, and Unicode text. Whether your HTML contains English, Spanish, Chinese, Arabic, or any other language, it processes correctly.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What browsers support File Magics HTML Tag Remover?</div>
+                    <div class="faq-answer">All modern browsers fully support the tool: Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, Opera, and other contemporary browsers on all operating systems.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use HTML Tag Remover offline?</div>
+                    <div class="faq-answer">No, you need an internet connection to access the File Magics website. However, since processing happens in your browser (not on servers), once the page loads, processing is instant with no additional network activity.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What other tools does File Magics offer besides HTML Tag Remover?</div>
+                    <div class="faq-answer">File Magics offers 50+ free tools including text converters, encoders/decoders, generators, formatters, minifiers, word counters, case converters, hash generators, and many other utilities for developers, writers, marketers, and digital professionals.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // HTML Tag Removal functionality
+        function removeHTMLTags(html, options) {
+            if (!html || html.trim() === '') return '';
+            
+            let result = html;
+            
+            // Remove script tags and their content if option is enabled
+            if (options.removeScripts) {
+                result = result.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+            }
+            
+            // Remove style tags and their content if option is enabled
+            if (options.removeStyles) {
+                result = result.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+            }
+            
+            // Remove HTML comments
+            result = result.replace(/<!--[\s\S]*?-->/g, '');
+            
+            // Remove all HTML tags
+            result = result.replace(/<[^>]+>/g, '');
+            
+            // Decode HTML entities if option is enabled
+            if (options.decodeEntities) {
+                result = decodeHTMLEntities(result);
+            }
+            
+            // Preserve line breaks if option is enabled
+            if (options.preserveLineBreaks) {
+                // Normalize whitespace but preserve line breaks
+                result = result.replace(/\s+/g, ' ');
+                result = result.replace(/\n\s*\n/g, '\n\n');
+            } else {
+                // Remove excessive whitespace
+                result = result.replace(/\s+/g, ' ');
+            }
+            
+            // Trim the result
+            return result.trim();
+        }
+
+        // Helper function to decode HTML entities
+        function decodeHTMLEntities(text) {
+            const entities = {
+                '&amp;': '&',
+                '&lt;': '<',
+                '&gt;': '>',
+                '&quot;': '"',
+                '&#39;': "'",
+                '&nbsp;': ' ',
+                '&copy;': '©',
+                '&reg;': '®',
+                '&trade;': '™',
+                '&euro;': '€',
+                '&pound;': '£',
+                '&yen;': '¥',
+                '&cent;': '¢'
+            };
+            
+            return text.replace(/&[a-z0-9#]+;/gi, match => entities[match] || match);
+        }
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        // Option checkboxes
+        const preserveLineBreaksCheckbox = document.getElementById('preserveLineBreaks');
+        const removeScriptsCheckbox = document.getElementById('removeScripts');
+        const removeStylesCheckbox = document.getElementById('removeStyles');
+        const decodeEntitiesCheckbox = document.getElementById('decodeEntities');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            convertBtn.addEventListener('click', handleConversion);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle HTML tag removal
+        function handleConversion() {
+            const html = inputText.value;
+            const options = {
+                preserveLineBreaks: preserveLineBreaksCheckbox.checked,
+                removeScripts: removeScriptsCheckbox.checked,
+                removeStyles: removeStylesCheckbox.checked,
+                decodeEntities: decodeEntitiesCheckbox.checked
+            };
+            
+            const cleanText = removeHTMLTags(html, options);
+            updatePreview(cleanText);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with cleaned text
+        function updatePreview(text) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Cleaned text will appear here';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = 'Clean Text Result';
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            previewText.textContent = text;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy clean text');
+            copyBtn.addEventListener('click', () => copyToClipboard(text, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download TXT';
+            downloadBtn.setAttribute('aria-label', 'Download as text file');
+            downloadBtn.addEventListener('click', () => downloadAsTXT(text));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            previewContainer.appendChild(previewItem);
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as TXT file
+        function downloadAsTXT(text) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'clean-text.txt';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

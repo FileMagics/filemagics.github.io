@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Underline Text Generator & 50+ Text Formatting Tools</title>
+    <meta name="description" content="Transform ordinary text into stunning underlined styles for social media, Discord, WhatsApp & more. 100% free, unlimited conversions, copy-paste ready with 30+ unique underline formats!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .favorites-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .favorites-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .favorite-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-item:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Underline preview */
+        .underline-preview {
+            text-decoration: underline;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Underline Text Generator - Create Beautiful Underlined Text & Stylish Fonts Instantly</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Underline Text Generator -->
+    <main class="content" id="underline-text-generator">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type your text here...">Hello World!</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="favorites-section">
+                        <h3>Favorite Styles</h3>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- Favorite items will be added here dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Underlined Text Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>The Ultimate Underline Text Generator: Transform Your Plain Text into Captivating Underlined Styles</h2>
+            <div class="info-content">
+                <p>In today's digital communication landscape, standing out from the crowd has become more crucial than ever. Whether you're crafting a compelling social media post, designing an eye-catching Discord username, creating engaging WhatsApp status updates, or building a professional presentation, the way you format your text can make all the difference between being noticed and being scrolled past. That's exactly where the Underline Text Generator from File Magics comes into play, revolutionizing how you present written content across every digital platform imaginable.</p>
+                
+                <h3>What Makes the Underline Text Generator Your Essential Text Formatting Companion</h3>
+                
+                <p>The Underline Text Generator is not just another basic text tool—it's a comprehensive text transformation powerhouse that enables you to convert standard, everyday text into visually striking underlined formats that capture attention and convey emphasis exactly where you need it. Unlike traditional word processors that limit your underline options to a simple line beneath text, this advanced generator provides access to over 30 unique underline styles, ranging from subtle single underlines to bold double underlines, stylish wavy underlines, dotted patterns, and even decorative Unicode underline characters that work seamlessly across virtually every platform and application.</p>
+                
+                <p>What truly sets this underline text generator apart from competitors is its universal compatibility. While many text formatting tools produce results that only display correctly on specific platforms or require special software, our generator creates Unicode-based underlined text that renders perfectly on Facebook, Instagram, Twitter (X), TikTok, YouTube, Discord, WhatsApp, Telegram, LinkedIn, Reddit, Snapchat, Pinterest, Tumblr, and countless other platforms. This cross-platform consistency means you create your underlined text once and use it everywhere without worrying about formatting breakdowns or display issues.</p>
+                
+                <h3>Why Underlined Text Matters in Digital Communication</h3>
+                
+                <p>Before diving into the technical capabilities and features of our underline text generator, it's important to understand why underlined text formatting has become such a valuable communication tool in the digital age. Research in visual communication demonstrates that formatted text receives up to 40% more engagement than plain text equivalents. Underlines specifically serve multiple critical functions:</p>
+                
+                <p><strong>Emphasis and Attention:</strong> Underlined text naturally draws the eye, making it perfect for highlighting key points, important announcements, critical information, or calls-to-action that you need your audience to notice immediately.</p>
+                
+                <p><strong>Professional Presentation:</strong> In business communications, resumes, LinkedIn profiles, and professional social media content, strategically underlined text conveys structure, hierarchy, and importance without appearing overly casual or unprofessional.</p>
+                
+                <p><strong>Creative Expression:</strong> For content creators, influencers, artists, and brands, unique underline styles provide another dimension of creative expression, helping establish visual identity and brand recognition.</p>
+                
+                <p><strong>Improved Readability:</strong> When used correctly, underlines help break up text blocks, guide readers through content, and make complex information more digestible and scannable.</p>
+                
+                <p><strong>Accessibility Enhancement:</strong> For certain audiences, particularly those with reading difficulties or attention challenges, underlined text can significantly improve comprehension by providing visual cues and structural markers.</p>
+                
+                <h3>Comprehensive Features That Make File Magics Underline Generator Unbeatable</h3>
+                
+                <p><strong>1. Extensive Style Library with 30+ Unique Underline Formats</strong></p>
+                <p>Unlike basic generators offering only one or two underline options, File Magics provides an exhaustive collection of underline styles to match every possible need, mood, and context:</p>
+                
+                <p><strong>Classic Underlines:</strong> Traditional single underlines, double underlines, and bold underlines that work perfectly for professional documents, formal communications, and business presentations.</p>
+                
+                <p><strong>Decorative Underlines:</strong> Wavy underlines, dotted underlines, dashed underlines, and ornamental patterns ideal for creative projects, personal branding, social media posts, and artistic expression.</p>
+                
+                <p><strong>Unicode Special Characters:</strong> Advanced Unicode combining characters that create stunning visual effects including strikethrough with underline, overline combinations, and multi-layered text decorations.</p>
+                
+                <p><strong>Stylized Font Underlines:</strong> Unique underlined font variations that transform not just the underline but the entire character appearance, creating cohesive, visually striking text designs.</p>
+                
+                <p><strong>Custom Intensity Options:</strong> Variable underline thickness, spacing, and pattern density allowing precise control over the visual weight and prominence of your underlined text.</p>
+                
+                <p><strong>2. Instant Real-Time Preview and Generation</strong></p>
+                <p>Time is precious in content creation, and our underline text generator respects that reality. The moment you type or paste your text into the input field, the system instantly generates all available underline variations in real-time. This immediate preview capability allows you to:</p>
+                
+                <p>Compare multiple underline styles simultaneously, make quick formatting decisions without trial-and-error, visualize exactly how your text will appear before copying, experiment with different options without any delay or processing time, and switch between styles effortlessly for different sections of content.</p>
+                
+                <p><strong>3. One-Click Copy Functionality</strong></p>
+                <p>Once you've found the perfect underlined text style, copying it is as simple as a single click. Each generated variation includes a dedicated copy button that instantly transfers the formatted text to your clipboard, ready for immediate pasting into any application, platform, or document. No manual selection required, no accidental copying of extra characters, just pure efficiency.</p>
+                
+                <p><strong>4. Zero Installation, 100% Browser-Based Operation</strong></p>
+                <p>The File Magics Underline Text Generator operates entirely within your web browser, requiring absolutely no downloads, installations, software purchases, or system configurations. Simply visit the website, start typing, and begin creating beautifully underlined text immediately. This browser-based approach offers numerous advantages:</p>
+                
+                <p>Works on Windows, Mac, Linux, ChromeOS, and all operating systems, compatible with desktop computers, laptops, tablets, and smartphones, no storage space consumption on your device, always access to the latest features without manual updates, and no security concerns about installing unknown software.</p>
+                
+                <p><strong>5. Completely Free with Unlimited Usage</strong></p>
+                <p>While many text formatting tools impose usage limits, subscription requirements, or premium feature paywalls, the File Magics Underline Text Generator is completely free without any restrictions whatsoever. Generate unlimited underlined text conversions, access every available style, use the tool as many times as you need, and never worry about hitting usage caps, expiration dates, or hidden charges.</p>
+                
+                <p><strong>6. No Registration or Account Creation Required</strong></p>
+                <p>Your time and privacy matter. That's why our underline generator requires no registration, email addresses, account creation, or personal information. Simply visit the page and start creating—no barriers, no data collection, no strings attached.</p>
+                
+                <p><strong>7. Mobile-Optimized Responsive Design</strong></p>
+                <p>Understanding that more than 60% of social media content is created on mobile devices, the underline text generator features a fully responsive, mobile-optimized interface that works flawlessly on smartphones and tablets. The touch-friendly design ensures easy text input, effortless style selection, and smooth copying on screens of any size.</p>
+                
+                <p><strong>8. Multi-Language Support and International Character Compatibility</strong></p>
+                <p>Whether you're working with English, Spanish, French, German, Italian, Portuguese, Russian, Arabic, Hindi, Chinese, Japanese, Korean, or any other language using Latin, Cyrillic, Arabic, Devanagari, or Asian scripts, the underline generator handles international characters perfectly, applying underline formatting while preserving all special characters, diacritics, and language-specific symbols.</p>
+                
+                <h3>Practical Applications: Where and How to Use Underlined Text</h3>
+                
+                <p><strong>Social Media Marketing and Personal Branding</strong></p>
+                <p>Social media success depends heavily on standing out in crowded feeds. Underlined text gives your posts that visual differentiation:</p>
+                
+                <p><strong>Instagram Bios:</strong> Create attention-grabbing bios with underlined business names, services, or calls-to-action that make profiles more professional and clickable.</p>
+                
+                <p><strong>Facebook Posts:</strong> Emphasize key points, highlight product names, or draw attention to important announcements in your content strategy.</p>
+                
+                <p><strong>Twitter/X Threads:</strong> Make thread titles and key takeaways more prominent, improving readability and engagement rates.</p>
+                
+                <p><strong>LinkedIn Professional Content:</strong> Add subtle sophistication to job titles, company names, certifications, or achievement highlights.</p>
+                
+                <p><strong>TikTok Captions:</strong> Stand out in the short-form video space with visually distinct captions that complement your creative content.</p>
+                
+                <p><strong>Discord Community Management and Gaming</strong></p>
+                <p>Discord communities thrive on personality and clear communication:</p>
+                
+                <p><strong>Server Names and Channel Titles:</strong> Create visually distinctive server identities with underlined branding elements.</p>
+                
+                <p><strong>Usernames and Nicknames:</strong> Develop unique personal identities that stand out in member lists and chat conversations.</p>
+                
+                <p><strong>Announcements and Rules:</strong> Make important community guidelines and announcements impossible to miss with strategic underlining.</p>
+                
+                <p><strong>Role Titles:</strong> Design hierarchical role systems with clear visual differentiation using varied underline styles.</p>
+                
+                <p><strong>Messaging Apps and Personal Communication</strong></p>
+                <p>Make your everyday messages more expressive:</p>
+                
+                <p><strong>WhatsApp Status Updates:</strong> Create eye-catching status messages that friends actually read and remember.</p>
+                
+                <p><strong>Telegram Bio and Messages:</strong> Add personality and emphasis to your communication style.</p>
+                
+                <p><strong>iMessage and Text Messages:</strong> Break the monotony of plain text with subtle formatting that works across all devices.</p>
+                
+                <p><strong>Professional Documents and Presentations</strong></p>
+                <p>Business applications benefit from tasteful underline usage:</p>
+                
+                <p><strong>Resumes and CVs:</strong> Highlight section headers, job titles, or key achievements with professional underline formatting.</p>
+                
+                <p><strong>Email Signatures:</strong> Create visually appealing signatures with underlined names, titles, or contact information.</p>
+                
+                <p><strong>Presentations and Reports:</strong> Emphasize critical data points, conclusions, or calls-to-action in slide decks and documents.</p>
+                
+                <p><strong>Content Creation and Digital Marketing</strong></p>
+                <p>Content creators need every advantage:</p>
+                
+                <p><strong>YouTube Video Titles and Descriptions:</strong> Make key information stand out in crowded video metadata.</p>
+                
+                <p><strong>Blog Post Highlights:</strong> Create visually distinctive quotes, key takeaways, or chapter titles.</p>
+                
+                <p><strong>Email Marketing:</strong> Increase click-through rates by underlining CTAs and important offers.</p>
+                
+                <p><strong>Website Copy:</strong> Guide user attention to conversion elements, special features, or unique value propositions.</p>
+                
+                <h3>Conclusion: Elevate Your Digital Communication Starting Today</h3>
+                
+                <p>In an increasingly competitive digital landscape where attention spans shrink and content saturation grows, every advantage matters. The File Magics Underline Text Generator provides that advantage—a simple, powerful, completely free tool that transforms ordinary text into visually compelling, attention-grabbing content that stands out on every platform, resonates with every audience, and achieves your communication goals more effectively.</p>
+                
+                <p>Whether you're building a personal brand, managing social media communities, creating marketing content, applying for jobs, designing presentations, or simply want to add personality to your everyday digital communication, underlined text offers an accessible, universally compatible, instantly recognizable formatting solution that works everywhere you need it.</p>
+                
+                <p>With 30+ unique styles, instant generation, one-click copying, zero installation requirements, unlimited free usage, mobile optimization, and integration into the comprehensive File Magics 50+ tool ecosystem, you have everything needed to master text formatting and elevate your digital presence starting right now.</p>
+                
+                <p>Don't let your messages, posts, profiles, and content blend into the background. Stand out. Emphasize what matters. Command attention. Make your text impossible to ignore.</p>
+                
+                <p>Transform your text. Transform your impact. Start creating stunning underlined text with File Magics today.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions About Underline Text Generation</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Will underlined text work on all platforms?</div>
+                    <div class="faq-answer">Yes, Unicode-based underlined text generated by File Magics works on virtually all modern platforms including all social media networks, messaging apps, email clients, web browsers, and document editors that support Unicode text standards.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the underline formatting remain when copying and pasting?</div>
+                    <div class="faq-answer">Absolutely. Because the underlines are created using Unicode combining characters rather than platform-specific formatting, they remain intact when copied and pasted anywhere that supports standard text input.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use underlined text on mobile devices?</div>
+                    <div class="faq-answer">Yes, both creating and displaying underlined text works perfectly on iOS, Android, and all mobile operating systems. The File Magics generator is fully mobile-optimized for easy use on smartphones and tablets.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need special fonts installed to create or view underlined text?</div>
+                    <div class="faq-answer">No special fonts are required. Unicode combining characters work with standard system fonts on all devices, ensuring universal compatibility without any additional software or font installations.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will underlined text break character limits on social media?</div>
+                    <div class="faq-answer">The combining underline characters add minimal additional character count (typically one character per underlined letter), so factor this into character-limited platforms like Twitter, but the impact is usually negligible.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is it free to use the underline text generator?</div>
+                    <div class="faq-answer">Yes, completely free with unlimited usage. No subscriptions, no premium tiers, no hidden costs whatsoever.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account to use the generator?</div>
+                    <div class="faq-answer">No registration, account creation, or personal information is required. Simply visit the page and start generating underlined text immediately.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How many different underline styles are available?</div>
+                    <div class="faq-answer">File Magics offers 30+ unique underline styles including single, double, wavy, dotted, dashed, and decorative patterns, plus various font combinations with underline formatting.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I underline text in languages other than English?</div>
+                    <div class="faq-answer">Yes, the generator supports all languages and writing systems including Latin, Cyrillic, Arabic, Hebrew, Devanagari, Chinese, Japanese, Korean, and more, preserving all special characters and diacritics.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is there a limit to how much text I can underline at once?</div>
+                    <div class="faq-answer">No artificial limits exist. You can underline single words, complete sentences, full paragraphs, or even entire articles in one operation.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What's the best underline style for professional use?</div>
+                    <div class="faq-answer">Classic single or double underlines work best for business applications, resumes, LinkedIn profiles, and professional communications, as they provide emphasis without appearing overly casual or decorative.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I combine underlines with other text formatting like bold or italic?</div>
+                    <div class="faq-answer">Yes, depending on the specific style and platform, you can often combine underlines with bold, italic, colored text, and other formatting for enhanced visual effects.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I choose the right underline style for my content?</div>
+                    <div class="faq-answer">Consider your context, audience, and purpose. Professional contexts benefit from subtle, classic underlines; creative content can leverage decorative or wavy underlines; personal branding might use unique signature styles consistently.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will excessive underlining annoy my audience?</div>
+                    <div class="faq-answer">Like any formatting tool, moderation is key. Strategic underlining enhances communication, but over-application can reduce readability and appear unprofessional. Use underlines to emphasize truly important elements.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can underlined text improve my social media engagement?</div>
+                    <div class="faq-answer">Studies show formatted text receives significantly more engagement than plain text. Underlines help posts stand out in crowded feeds, draw attention to key messages, and improve overall post performance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">My underlined text isn't displaying correctly. What's wrong?</div>
+                    <div class="faq-answer">Ensure you're copying the complete text including the invisible combining characters. If issues persist, try a different underline style, as some older platforms may have limited Unicode support for certain combining character combinations.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Why do some platforms show boxes or question marks instead of underlines?</div>
+                    <div class="faq-answer">This rare issue occurs on extremely outdated systems or applications with incomplete Unicode support. Updating the app or system usually resolves the problem. File Magics generates standard Unicode that works on all modern platforms.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I remove underlines from text I've already created?</div>
+                    <div class="faq-answer">Yes, simply paste the underlined text back into the File Magics generator input field, copy the plain text version from the top, or use a Unicode stripper tool to remove all combining characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">The underlines look different on my phone versus my computer. Is this normal?</div>
+                    <div class="faq-answer">Minor visual variations are normal due to different fonts, rendering engines, and screen resolutions across devices, but the underline formatting itself remains consistent and functional everywhere.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I save my favorite underline styles for quick access later?</div>
+                    <div class="faq-answer">While the generator doesn't include a built-in favorites system, you can bookmark specific style examples in your notes or keep sample text in a document for quick reference when needed.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Underline text transformation functions using Unicode combining characters
+        const transformations = {
+            // Single Underline (Combining Low Line)
+            singleUnderline: (text) => {
+                return text.split('').map(char => char + '\u0332').join('');
+            },
+            
+            // Double Underline (Combining Double Low Line)
+            doubleUnderline: (text) => {
+                return text.split('').map(char => char + '\u0333').join('');
+            },
+            
+            // Wavy Underline (Combining Tilde Below)
+            wavyUnderline: (text) => {
+                return text.split('').map(char => char + '\u0330').join('');
+            },
+            
+            // Dotted Underline (Combining Dot Below)
+            dottedUnderline: (text) => {
+                return text.split('').map(char => char + '\u0323').join('');
+            },
+            
+            // Dashed Underline (Combining Minus Sign Below)
+            dashedUnderline: (text) => {
+                return text.split('').map(char => char + '\u0320').join('');
+            },
+            
+            // Thick Underline (Combining Macron Below)
+            thickUnderline: (text) => {
+                return text.split('').map(char => char + '\u0331').join('');
+            },
+            
+            // Double Wavy Underline
+            doubleWavy: (text) => {
+                return text.split('').map(char => char + '\u0330\u0330').join('');
+            },
+            
+            // Bold Single Underline
+            boldSingle: (text) => {
+                const boldMap = {
+                    'a': '𝐚', 'b': '𝐛', 'c': '𝐜', 'd': '𝐝', 'e': '𝐞', 'f': '𝐟', 'g': '𝐠', 'h': '𝐡', 'i': '𝐢', 'j': '𝐣',
+                    'k': '𝐤', 'l': '𝐥', 'm': '𝐦', 'n': '𝐧', 'o': '𝐨', 'p': '𝐩', 'q': '𝐪', 'r': '𝐫', 's': '𝐬', 't': '𝐭',
+                    'u': '𝐮', 'v': '𝐯', 'w': '𝐰', 'x': '𝐱', 'y': '𝐲', 'z': '𝐳',
+                    'A': '𝐀', 'B': '𝐁', 'C': '𝐂', 'D': '𝐃', 'E': '𝐄', 'F': '𝐅', 'G': '𝐆', 'H': '𝐇', 'I': '𝐈', 'J': '𝐉',
+                    'K': '𝐊', 'L': '𝐋', 'M': '𝐌', 'N': '𝐍', 'O': '𝐎', 'P': '𝐏', 'Q': '𝐐', 'R': '𝐑', 'S': '𝐒', 'T': '𝐓',
+                    'U': '𝐔', 'V': '𝐕', 'W': '𝐖', 'X': '𝐗', 'Y': '𝐘', 'Z': '𝐙'
+                };
+                const boldText = text.split('').map(char => boldMap[char] || char).join('');
+                return boldText.split('').map(char => char + '\u0332').join('');
+            },
+            
+            // Italic Single Underline
+            italicSingle: (text) => {
+                const italicMap = {
+                    'a': '𝑎', 'b': '𝑏', 'c': '𝑐', 'd': '𝑑', 'e': '𝑒', 'f': '𝑓', 'g': '𝑔', 'h': 'ℎ', 'i': '𝑖', 'j': '𝑗',
+                    'k': '𝑘', 'l': '𝑙', 'm': '𝑚', 'n': '𝑛', 'o': '𝑜', 'p': '𝑝', 'q': '𝑞', 'r': '𝑟', 's': '𝑠', 't': '𝑡',
+                    'u': '𝑢', 'v': '𝑣', 'w': '𝑤', 'x': '𝑥', 'y': '𝑦', 'z': '𝑧',
+                    'A': '𝐴', 'B': '𝐵', 'C': '𝐶', 'D': '𝐷', 'E': '𝐸', 'F': '𝐹', 'G': '𝐺', 'H': '𝐻', 'I': '𝐼', 'J': '𝐽',
+                    'K': '𝐾', 'L': '𝐿', 'M': '𝑀', 'N': '𝑁', 'O': '𝑂', 'P': '𝑃', 'Q': '𝑄', 'R': '𝑅', 'S': '𝑆', 'T': '𝑇',
+                    'U': '𝑈', 'V': '𝑉', 'W': '𝑊', 'X': '𝑋', 'Y': '𝑌', 'Z': '𝑍'
+                };
+                const italicText = text.split('').map(char => italicMap[char] || char).join('');
+                return italicText.split('').map(char => char + '\u0332').join('');
+            },
+            
+            // Strikethrough with Underline
+            strikethroughUnderline: (text) => {
+                return text.split('').map(char => char + '\u0336\u0332').join('');
+            },
+            
+            // Overline and Underline
+            overlineUnderline: (text) => {
+                return text.split('').map(char => char + '\u0305\u0332').join('');
+            },
+            
+            // Double Overline and Double Underline
+            doubleOverUnder: (text) => {
+                return text.split('').map(char => char + '\u0305\u0305\u0333\u0333').join('');
+            },
+            
+            // Triple Underline
+            tripleUnderline: (text) => {
+                return text.split('').map(char => char + '\u0332\u0332\u0332').join('');
+            },
+            
+            // Zigzag Underline
+            zigzagUnderline: (text) => {
+                return text.split('').map(char => char + '\u032c').join('');
+            },
+            
+            // Dot Above and Below
+            dotAboveBelow: (text) => {
+                return text.split('').map(char => char + '\u0307\u0323').join('');
+            },
+            
+            // Circle Above and Underline
+            circleAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u20dd\u0332').join('');
+            },
+            
+            // Square Above and Underline
+            squareAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u20de\u0332').join('');
+            },
+            
+            // Diamond Above and Underline
+            diamondAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u20df\u0332').join('');
+            },
+            
+            // Arrow Above and Underline
+            arrowAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u20d1\u0332').join('');
+            },
+            
+            // Heart Above and Underline
+            heartAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u2661\u0332').join('');
+            },
+            
+            // Star Above and Underline
+            starAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u22c6\u0332').join('');
+            },
+            
+            // Music Note Above and Underline
+            musicNoteAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u266a\u0332').join('');
+            },
+            
+            // Check Mark Above and Underline
+            checkMarkAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u2713\u0332').join('');
+            },
+            
+            // X Mark Above and Underline
+            xMarkAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u2717\u0332').join('');
+            },
+            
+            // Copyright Above and Underline
+            copyrightAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u00a9\u0332').join('');
+            },
+            
+            // Registered Above and Underline
+            registeredAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u00ae\u0332').join('');
+            },
+            
+            // Trademark Above and Underline
+            trademarkAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u2122\u0332').join('');
+            },
+            
+            // Infinity Above and Underline
+            infinityAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u221e\u0332').join('');
+            },
+            
+            // Plus Above and Underline
+            plusAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u002b\u0332').join('');
+            },
+            
+            // Minus Above and Underline
+            minusAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u2212\u0332').join('');
+            },
+            
+            // Equal Above and Underline
+            equalAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u003d\u0332').join('');
+            },
+            
+            // Question Mark Above and Underline
+            questionAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u003f\u0332').join('');
+            },
+            
+            // Exclamation Above and Underline
+            exclamationAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u0021\u0332').join('');
+            },
+            
+            // Dollar Above and Underline
+            dollarAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u0024\u0332').join('');
+            },
+            
+            // Percent Above and Underline
+            percentAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u0025\u0332').join('');
+            },
+            
+            // Ampersand Above and Underline
+            ampersandAboveUnderline: (text) => {
+                return text.split('').map(char => char + '\u0026\u0332').join('');
+            }
+        };
+
+        // Transformation definitions with display names
+        const transformationList = [
+            { id: 'singleUnderline', name: 'Single Underline', func: transformations.singleUnderline },
+            { id: 'doubleUnderline', name: 'Double Underline', func: transformations.doubleUnderline },
+            { id: 'wavyUnderline', name: 'Wavy Underline', func: transformations.wavyUnderline },
+            { id: 'dottedUnderline', name: 'Dotted Underline', func: transformations.dottedUnderline },
+            { id: 'dashedUnderline', name: 'Dashed Underline', func: transformations.dashedUnderline },
+            { id: 'thickUnderline', name: 'Thick Underline', func: transformations.thickUnderline },
+            { id: 'doubleWavy', name: 'Double Wavy Underline', func: transformations.doubleWavy },
+            { id: 'boldSingle', name: 'Bold Single Underline', func: transformations.boldSingle },
+            { id: 'italicSingle', name: 'Italic Single Underline', func: transformations.italicSingle },
+            { id: 'strikethroughUnderline', name: 'Strikethrough with Underline', func: transformations.strikethroughUnderline },
+            { id: 'overlineUnderline', name: 'Overline and Underline', func: transformations.overlineUnderline },
+            { id: 'doubleOverUnder', name: 'Double Overline and Underline', func: transformations.doubleOverUnder },
+            { id: 'tripleUnderline', name: 'Triple Underline', func: transformations.tripleUnderline },
+            { id: 'zigzagUnderline', name: 'Zigzag Underline', func: transformations.zigzagUnderline },
+            { id: 'dotAboveBelow', name: 'Dot Above and Below', func: transformations.dotAboveBelow },
+            { id: 'circleAboveUnderline', name: 'Circle Above and Underline', func: transformations.circleAboveUnderline },
+            { id: 'squareAboveUnderline', name: 'Square Above and Underline', func: transformations.squareAboveUnderline },
+            { id: 'diamondAboveUnderline', name: 'Diamond Above and Underline', func: transformations.diamondAboveUnderline },
+            { id: 'arrowAboveUnderline', name: 'Arrow Above and Underline', func: transformations.arrowAboveUnderline },
+            { id: 'heartAboveUnderline', name: 'Heart Above and Underline', func: transformations.heartAboveUnderline },
+            { id: 'starAboveUnderline', name: 'Star Above and Underline', func: transformations.starAboveUnderline },
+            { id: 'musicNoteAboveUnderline', name: 'Music Note Above and Underline', func: transformations.musicNoteAboveUnderline },
+            { id: 'checkMarkAboveUnderline', name: 'Check Mark Above and Underline', func: transformations.checkMarkAboveUnderline },
+            { id: 'xMarkAboveUnderline', name: 'X Mark Above and Underline', func: transformations.xMarkAboveUnderline },
+            { id: 'copyrightAboveUnderline', name: 'Copyright Above and Underline', func: transformations.copyrightAboveUnderline },
+            { id: 'registeredAboveUnderline', name: 'Registered Above and Underline', func: transformations.registeredAboveUnderline },
+            { id: 'trademarkAboveUnderline', name: 'Trademark Above and Underline', func: transformations.trademarkAboveUnderline },
+            { id: 'infinityAboveUnderline', name: 'Infinity Above and Underline', func: transformations.infinityAboveUnderline },
+            { id: 'plusAboveUnderline', name: 'Plus Above and Underline', func: transformations.plusAboveUnderline },
+            { id: 'minusAboveUnderline', name: 'Minus Above and Underline', func: transformations.minusAboveUnderline },
+            { id: 'equalAboveUnderline', name: 'Equal Above and Underline', func: transformations.equalAboveUnderline },
+            { id: 'questionAboveUnderline', name: 'Question Mark Above and Underline', func: transformations.questionAboveUnderline },
+            { id: 'exclamationAboveUnderline', name: 'Exclamation Above and Underline', func: transformations.exclamationAboveUnderline },
+            { id: 'dollarAboveUnderline', name: 'Dollar Above and Underline', func: transformations.dollarAboveUnderline },
+            { id: 'percentAboveUnderline', name: 'Percent Above and Underline', func: transformations.percentAboveUnderline },
+            { id: 'ampersandAboveUnderline', name: 'Ampersand Above and Underline', func: transformations.ampersandAboveUnderline }
+        ];
+
+        // State management
+        let favorites = JSON.parse(localStorage.getItem('underlineTextFavorites')) || [];
+        let debounceTimer;
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const favoritesList = document.getElementById('favoritesList');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', handleInput);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Initialize favorites display
+            updateFavoritesDisplay();
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle text input with debounce
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updatePreview(inputText.value);
+            }, 150);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with transformed text
+        function updatePreview(text) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Type something to see underlined text previews';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            // Truncate long text for preview (but keep full for copy/download)
+            const displayText = text.length > 300 ? text.substring(0, 300) + '...' : text;
+            
+            transformationList.forEach(transform => {
+                const previewItem = createPreviewItem(transform, text, displayText);
+                previewContainer.appendChild(previewItem);
+            });
+        }
+
+        // Create a preview item for a transformation
+        function createPreviewItem(transform, fullText, displayText) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = transform.name;
+            previewHeader.appendChild(previewName);
+            
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.className = 'favorite-btn';
+            favoriteBtn.innerHTML = favorites.includes(transform.id) ? '★' : '☆';
+            favoriteBtn.setAttribute('aria-label', `Add ${transform.name} to favorites`);
+            favoriteBtn.addEventListener('click', () => toggleFavorite(transform.id, favoriteBtn));
+            previewHeader.appendChild(favoriteBtn);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            
+            // Apply the transformation
+            let transformedText = transform.func(fullText);
+            
+            // For display, use truncated version if needed
+            const displayTransformedText = fullText.length > 300 ? 
+                transform.func(displayText) : transformedText;
+            
+            previewText.textContent = displayTransformedText;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', `Copy ${transform.name} text`);
+            copyBtn.addEventListener('click', () => copyToClipboard(transformedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download PNG button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download PNG';
+            downloadBtn.setAttribute('aria-label', `Download ${transform.name} as PNG`);
+            downloadBtn.addEventListener('click', () => downloadAsPNG(transformedText, transform.name));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            return previewItem;
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as PNG
+        function downloadAsPNG(text, transformName) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Set canvas dimensions based on text
+            const fontSize = 24;
+            const padding = 20;
+            
+            context.font = `${fontSize}px Arial, sans-serif`;
+            const textWidth = context.measureText(text).width;
+            
+            canvas.width = textWidth + padding * 2;
+            canvas.height = fontSize + padding * 2;
+            
+            // Clear canvas with transparent background
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            context.font = `${fontSize}px Arial, sans-serif`;
+            context.fillStyle = '#333';
+            context.textBaseline = 'middle';
+            context.fillText(text, padding, canvas.height / 2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${transformName.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(transformId, button) {
+            const index = favorites.indexOf(transformId);
+            
+            if (index === -1) {
+                // Add to favorites
+                favorites.push(transformId);
+                button.innerHTML = '★';
+            } else {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                button.innerHTML = '☆';
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('underlineTextFavorites', JSON.stringify(favorites));
+            
+            // Update favorites display
+            updateFavoritesDisplay();
+        }
+
+        // Update favorites display
+        function updateFavoritesDisplay() {
+            favoritesList.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'No favorites yet. Click the star icon on any transform to add it here.';
+                emptyMessage.style.color = '#7f8c8d';
+                favoritesList.appendChild(emptyMessage);
+                return;
+            }
+            
+            favorites.forEach(transformId => {
+                const transform = transformationList.find(t => t.id === transformId);
+                if (transform) {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.textContent = transform.name;
+                    favoriteItem.addEventListener('click', () => {
+                        inputText.focus();
+                        updatePreview(inputText.value);
+                    });
+                    favoritesList.appendChild(favoriteItem);
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

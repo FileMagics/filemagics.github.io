@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Reverse Text Generator & Advanced Text Manipulation Tools</title>
+    <meta name="description" content="Instantly reverse, flip, and mirror any text online for free. Perfect for social media, creative content, coding, and unique messaging. No installation required!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .reverse-btn {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reverse-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .reverse-btn:active {
+            transform: translateY(0);
+        }
+
+        .reverse-btn.animating {
+            animation: reverseButtonAnimation 0.6s ease-in-out;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .clear-btn.animating {
+            animation: clearButtonAnimation 0.6s ease-in-out;
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .favorites-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .favorites-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .favorite-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-item:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* New animation for reverse button */
+        @keyframes reverseButtonAnimation {
+            0% {
+                transform: scale(1);
+                background-color: var(--primary-color);
+            }
+            25% {
+                transform: scale(0.95);
+                background-color: var(--secondary-color);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(106, 90, 255, 0.2);
+            }
+            75% {
+                transform: scale(1.02);
+                background-color: var(--accent-color);
+            }
+            100% {
+                transform: scale(1);
+                background-color: var(--primary-color);
+            }
+        }
+
+        /* New animation for clear button */
+        @keyframes clearButtonAnimation {
+            0% {
+                transform: scale(1);
+                background-color: #e74c3c;
+            }
+            25% {
+                transform: scale(0.95);
+                background-color: #c0392b;
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(231, 76, 60, 0.2);
+            }
+            75% {
+                transform: scale(1.02);
+                background-color: #d35400;
+            }
+            100% {
+                transform: scale(1);
+                background-color: #e74c3c;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Reverse Text Generator - Flip Your Text Backwards Instantly Online</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Reverse Text Generator -->
+    <main class="content" id="reverse-text-generator">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type your text here...">Hello World!</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="reverse-btn" id="reverseBtn">
+                            <span class="btn-text">Reverse Text</span>
+                        </button>
+                    </div>
+                    
+                    <button class="clear-btn" id="clearBtn">
+                        Clean Text
+                    </button>
+                    
+                    <div class="favorites-section">
+                        <h3>Favorite Styles</h3>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- Favorite items will be added here dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Reversed Text Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Transform Your Words Into Mirror Images: The Ultimate Reverse Text Solution</h2>
+            <div class="info-content">
+                <p>In today's digital landscape, standing out from the crowd requires creativity, innovation, and tools that give you an edge. The Reverse Text Generator from File Magics is not just another text manipulation tool—it's your gateway to creating unique, attention-grabbing content that stops scrollers in their tracks. Whether you're a social media influencer, content creator, developer, educator, or someone who simply loves experimenting with text, this powerful yet intuitive tool offers unlimited possibilities for transforming ordinary text into extraordinary reversed masterpieces.</p>
+                
+                <p>Imagine being able to flip any text backwards in milliseconds, creating mirror images that intrigue your audience, add privacy to your messages, or simply inject a dose of creativity into your daily communications. The Reverse Text Generator delivers precisely this capability, along with a suite of advanced features that make text manipulation effortless and fun.</p>
+                
+                <h3>Why Choose the File Magics Reverse Text Generator?</h3>
+                
+                <p><strong>Instant Text Transformation Without Limitations</strong></p>
+                <p>Unlike many online tools that impose character limits, require subscriptions, or bombard you with advertisements, the File Magics Reverse Text Generator offers completely unlimited usage with zero restrictions. Type or paste any amount of text—from a single word to entire paragraphs or even full documents—and watch as it transforms instantaneously into its reversed counterpart. This lightning-fast processing ensures you never waste precious time waiting for results, making it perfect for both quick social media posts and extensive content projects.</p>
+                
+                <p><strong>Universal Compatibility Across All Platforms</strong></p>
+                <p>One of the most significant advantages of our Reverse Text Generator is its universal compatibility. The reversed text you create works seamlessly across virtually every digital platform imaginable: Facebook, Instagram, Twitter (X), TikTok, LinkedIn, WhatsApp, Telegram, Discord, Reddit, YouTube comments, email clients, SMS messages, and countless others. Because the tool generates standard Unicode characters, your reversed text maintains its integrity regardless of where you paste it, ensuring consistent results across all your favorite platforms and devices.</p>
+                
+                <p><strong>Zero Installation, Maximum Convenience</strong></p>
+                <p>Forget about downloading software, installing applications, or updating programs. The Reverse Text Generator operates entirely within your web browser, making it accessible from any device with internet connectivity. Whether you're working on a desktop computer at the office, browsing on your laptop at a café, or scrolling on your smartphone during your commute, you have instant access to powerful text reversal capabilities. This browser-based architecture means you're always using the latest version with all the newest features, without any manual updates or maintenance on your part.</p>
+                
+                <p><strong>Privacy-First Design Philosophy</strong></p>
+                <p>In an era where data privacy is paramount, the File Magics Reverse Text Generator takes your security seriously. All text processing happens directly in your browser, meaning your content never travels to external servers or databases. Your words, messages, creative content, and sensitive information remain completely private and secure. We don't collect, store, or analyze any text you reverse, giving you complete peace of mind when working with confidential or personal content.</p>
+                
+                <p><strong>Intuitive Interface for Everyone</strong></p>
+                <p>Whether you're a tech-savvy developer or someone who just wants to create fun social media posts, the Reverse Text Generator features an exceptionally user-friendly interface designed for maximum simplicity. The clean, distraction-free design puts the focus squarely on your text transformation task, with clearly labeled buttons, intuitive controls, and helpful visual cues that guide you through the process. No tutorials or manuals required—just paste your text and click to reverse.</p>
+                
+                <h3>How the Reverse Text Generator Works: Behind the Scenes</h3>
+                
+                <p>Understanding how this powerful tool operates helps you appreciate its capabilities and discover creative applications you might not have considered. The Reverse Text Generator employs sophisticated character-level manipulation algorithms that analyze your input text and systematically reorganize it in reverse order.</p>
+                
+                <p><strong>The Reversal Process Explained</strong></p>
+                <p>When you input text into the generator, the tool first breaks down your content into individual characters, including letters, numbers, symbols, spaces, and special characters. It then applies a reverse sequence algorithm that reorders these characters from the last to the first, creating a perfect mirror image of your original text. For example, "Hello World" becomes "dlroW olleH"—every character maintains its identity but appears in reversed order.</p>
+                
+                <p><strong>Advanced Processing Options</strong></p>
+                <p>Beyond basic reversal, the File Magics tool offers multiple processing modes to suit different needs:</p>
+                <p><strong>Standard Reverse Mode:</strong> Flips the entire text string backwards while maintaining character case and special symbols. This is ideal for creating backwards messages, hidden text, or unique visual effects.</p>
+                <p><strong>Word-Level Reverse Mode:</strong> Reverses the order of words while keeping each word's internal spelling intact. "The quick brown fox" becomes "fox brown quick The"—perfect for creating cryptic messages or language learning exercises.</p>
+                <p><strong>Sentence Reverse Mode:</strong> Reverses sentence order within paragraphs while maintaining word and sentence structure. This advanced feature is invaluable for content restructuring and creative writing experiments.</p>
+                <p><strong>Character Flip Mode:</strong> Not only reverses text order but also mirrors individual characters where Unicode alternatives exist, creating an even more dramatic visual effect that truly looks like text reflected in a mirror.</p>
+                
+                <p><strong>Real-Time Processing Engine</strong></p>
+                <p>The generator utilizes client-side JavaScript processing, which means transformations happen instantaneously without any server communication delays. As soon as you click the reverse button, the processing engine springs into action, analyzing and restructuring your text in milliseconds. This real-time capability makes the tool responsive and efficient, even when working with lengthy documents or repeated transformations.</p>
+                
+                <h3>Unlimited Creative Applications Across Industries</h3>
+                
+                <p>The versatility of reversed text extends far beyond simple novelty—it serves legitimate purposes across numerous professional fields and creative endeavors.</p>
+                
+                <p><strong>Social Media Dominance</strong></p>
+                <p>In the crowded social media landscape, capturing attention is increasingly challenging. Reversed text provides an immediate visual hook that stops scrollers and demands attention. Use it in Instagram captions to create curiosity, craft mysterious Twitter posts that encourage engagement, or design TikTok comments that stand out from thousands of others. The unfamiliar appearance of reversed text triggers cognitive curiosity, compelling viewers to pause and decipher your message, significantly increasing engagement rates and comment interactions.</p>
+                
+                <p><strong>Creative Content and Digital Art</strong></p>
+                <p>Content creators, graphic designers, and digital artists leverage reversed text as a design element in various creative projects. Incorporate reversed text into thumbnail designs, video titles, artwork compositions, or promotional materials to add an edgy, contemporary aesthetic. The unconventional appearance of backwards text conveys modernity, innovation, and creative thinking—qualities that resonate strongly with younger, digitally-native audiences.</p>
+                
+                <p><strong>Educational and Linguistic Applications</strong></p>
+                <p>Educators use reversed text as an engaging teaching tool for literacy development, cognitive exercises, and language learning. Reading reversed text activates different neural pathways, improving cognitive flexibility and reading comprehension skills. Language teachers employ reversed text to help students focus on individual letters and word structure, while special education professionals use it in dyslexia therapy and visual processing exercises.</p>
+                
+                <p><strong>Coding and Development</strong></p>
+                <p>Web developers and programmers frequently need to test how applications handle bidirectional text and unusual character sequences. The Reverse Text Generator provides quick test strings for validating text processing functions, testing database handling of reversed Unicode, or debugging display issues in international applications. It's also invaluable for creating obfuscated code comments or easter eggs in software projects.</p>
+                
+                <p><strong>Privacy and Security</strong></p>
+                <p>While not a substitute for proper encryption, reversed text offers a simple layer of casual obfuscation for messages you want to keep semi-private. It prevents casual readers from immediately understanding your content, making it useful for sharing spoilers, hiding surprise details, or creating puzzles and scavenger hunts. Many people use reversed text in public forums or comment sections when discussing sensitive topics that they want to share selectively with engaged readers willing to decode the message.</p>
+                
+                <p><strong>Entertainment and Gaming</strong></p>
+                <p>The gaming community embraces reversed text for usernames, guild names, in-game messages, and forum signatures that express individuality. Role-playing communities use backwards text to represent magical incantations, ancient languages, or cryptic prophecies. Puzzle creators incorporate reversed text into riddles, escape room challenges, and ARG (Alternate Reality Games) that require players to decode messages.</p>
+                
+                <p><strong>Marketing and Branding</strong></p>
+                <p>Forward-thinking marketers incorporate reversed text into attention-grabbing campaigns that generate curiosity and encourage user interaction. Brands use it in teaser campaigns, viral marketing initiatives, and social media challenges that ask followers to decode messages. The unusual nature of reversed text makes content more memorable and shareable, extending campaign reach organically.</p>
+                
+                <h3>Key Features That Set This Tool Apart</h3>
+                
+                <p><strong>One-Click Copy Functionality</strong></p>
+                <p>After reversing your text, a single click on the "Copy" button transfers your transformed content directly to your clipboard, ready for immediate pasting anywhere you need it. This streamlined workflow eliminates tedious manual selection and copying, saving valuable time when you're working with multiple text transformations or batching content for various platforms.</p>
+                
+                <p><strong>Batch Processing Capabilities</strong></p>
+                <p>Need to reverse multiple text strings for different posts, messages, or projects? The tool accommodates bulk processing, allowing you to queue up multiple text transformations without losing previous results. This feature dramatically increases productivity for users who regularly work with reversed text across multiple applications.</p>
+                
+                <p><strong>Character and Word Count Display</strong></p>
+                <p>Professional content creators need to track text length for platform-specific character limits. The integrated character counter displays real-time statistics for both your original and reversed text, helping you stay within Twitter's character constraints, Instagram caption limits, or any other platform-specific requirements. The word count feature assists writers tracking content length for specific project requirements.</p>
+                
+                <p><strong>History and Saved Transformations</strong></p>
+                <p>The built-in history feature remembers your recent text reversals, allowing you to quickly retrieve previous transformations without re-entering text. This functionality proves invaluable when you need to reference earlier versions, compare different reversals, or retrieve accidentally cleared content.</p>
+                
+                <p><strong>Multiple Export Options</strong></p>
+                <p>Beyond simple clipboard copying, the tool offers various export formats including plain text files, formatted documents, and direct social media sharing buttons. These options streamline your workflow, whether you're saving reversed text for later use, archiving creative content, or immediately posting to your favorite platforms.</p>
+                
+                <p><strong>Customizable Processing Settings</strong></p>
+                <p>Advanced users appreciate the configuration options that allow fine-tuning of the reversal process. Adjust settings like preserving or reversing punctuation, handling emoji placement, managing line breaks in multi-paragraph text, and choosing whether to reverse URLs and hashtags or keep them functional.</p>
+                
+                <p><strong>Mobile-Optimized Responsive Design</strong></p>
+                <p>The tool's mobile-first design approach ensures flawless functionality on smartphones and tablets. The interface automatically adapts to different screen sizes, providing an optimal experience whether you're using a large desktop monitor or a compact smartphone screen. Touch-friendly buttons and gesture support make mobile text reversal as effortless as desktop usage.</p>
+                
+                <h3>Getting Started: Step-by-Step Guide</h3>
+                
+                <p><strong>For First-Time Users</strong></p>
+                <p>Navigate to the File Magics Reverse Text Generator page</p>
+                <p>Locate the large text input box prominently displayed</p>
+                <p>Type or paste the text you want to reverse into this input field</p>
+                <p>Click the "Reverse Text" button to initiate transformation</p>
+                <p>Review your reversed text in the output area below</p>
+                <p>Click the "Copy" button to transfer reversed text to your clipboard</p>
+                <p>Paste your reversed text anywhere you need it</p>
+                <p>The entire process takes mere seconds, making it effortless even for users with minimal technical experience.</p>
+                
+                <p><strong>Pro Tips for Power Users</strong></p>
+                <p>Keyboard Shortcuts: Use Ctrl+V (Cmd+V on Mac) to paste into the input field and Ctrl+C (Cmd+C on Mac) after clicking the output field to copy without using mouse buttons.</p>
+                <p>Browser Bookmarking: Save File Magics Reverse Text Generator to your browser bookmarks bar for instant access whenever inspiration strikes.</p>
+                <p>Mobile Home Screen: On smartphones, add the tool to your home screen for app-like access without browser navigation.</p>
+                <p>Preset Templates: Create commonly used reversed text patterns and save them in a notes app for instant access to frequently used transformations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Q1: Is the Reverse Text Generator completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! The File Magics Reverse Text Generator is 100% free with no hidden costs, subscription fees, or premium tiers. All features are available to all users without any payment required.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q2: Do I need to create an account or register to use the tool?</div>
+                    <div class="faq-answer">No registration is necessary. You can start using the Reverse Text Generator immediately without creating an account, providing email addresses, or sharing any personal information.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q3: Is there a limit to how much text I can reverse at once?</div>
+                    <div class="faq-answer">No, there are no character limits or restrictions on text length. You can reverse anything from a single word to entire documents containing thousands of characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q4: Will reversed text work on all social media platforms?</div>
+                    <div class="faq-answer">Yes, reversed text works across virtually all platforms including Facebook, Instagram, Twitter, TikTok, LinkedIn, WhatsApp, Discord, Reddit, YouTube, and many others because it uses standard Unicode characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q5: Is my text data stored or collected when I use the tool?</div>
+                    <div class="faq-answer">No, absolutely not. All text processing happens entirely within your browser. Your text never reaches any servers, and we don't collect, store, or analyze any content you reverse.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q6: Can I use reversed text for commercial purposes?</div>
+                    <div class="faq-answer">Yes, you're free to use reversed text generated by the tool for any purpose including commercial applications, marketing materials, business communications, and client projects.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q7: Does reversed text affect SEO or search engine rankings?</div>
+                    <div class="faq-answer">Using reversed text in your actual website content isn't recommended for SEO purposes as search engines can't properly index it. However, using it strategically in social media and creative contexts can boost engagement metrics that indirectly benefit SEO.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q8: How do I reverse text on my mobile phone?</div>
+                    <div class="faq-answer">Simply visit File Magics on your mobile browser, paste or type your text into the input field, tap the "Reverse Text" button, and then tap "Copy" to transfer the reversed text to your clipboard for pasting anywhere.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q9: Can the tool reverse text in languages other than English?</div>
+                    <div class="faq-answer">Yes, the Reverse Text Generator works with all languages and writing systems including Spanish, French, German, Chinese, Japanese, Arabic, Hindi, Russian, and many others.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q10: What's the difference between reversing text and flipping text upside down?</div>
+                    <div class="faq-answer">Reversing text changes the character order (Hello → olleH), while flipping text upside down rotates individual characters vertically. File Magics offers both tools for different creative effects.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q11: Can I reverse only specific parts of a longer text?</div>
+                    <div class="faq-answer">Yes, simply select and copy only the portion you want to reverse, paste it into the tool, reverse it, then copy the reversed section back into your original text where desired.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q12: Does reversed text work in email?</div>
+                    <div class="faq-answer">Yes, reversed text works in most email clients including Gmail, Outlook, Yahoo Mail, and others. However, some older corporate email systems with strict formatting rules might strip unusual characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q13: Can I combine reversed text with fancy fonts?</div>
+                    <div class="faq-answer">Absolutely! You can first reverse your text, then apply fancy fonts from File Magics' Fancy Text Generator, or vice versa, creating even more unique and eye-catching text effects.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q14: Is there a keyboard shortcut for reversing text?</div>
+                    <div class="faq-answer">While there's no universal keyboard shortcut, you can quickly paste with Ctrl+V (Cmd+V on Mac), click the reverse button, then copy the result with Ctrl+C (Cmd+C on Mac) for efficient workflow.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q15: Can screen readers interpret reversed text for visually impaired users?</div>
+                    <div class="faq-answer">Screen readers will read reversed text character by character in reverse order, which may not be meaningful. Consider providing standard text alternatives when accessibility is important.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q16: Why would someone want to reverse text?</div>
+                    <div class="faq-answer">People reverse text for many reasons: creating attention-grabbing social media posts, adding privacy to messages, educational purposes, coding and development testing, creating puzzles, artistic expression, and generating unique visual effects.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q17: Can I save my reversed text for later use?</div>
+                    <div class="faq-answer">Yes, the tool includes a history feature that remembers recent reversals. You can also copy reversed text to notes apps or documents for permanent storage and future reference.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q18: Does the tool work offline?</div>
+                    <div class="faq-answer">The initial page load requires internet connectivity, but once loaded, the tool can function briefly offline since processing happens in your browser. However, an internet connection ensures access to the latest features and updates.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q19: Can I integrate the Reverse Text Generator into my own website or application?</div>
+                    <div class="faq-answer">While direct embedding isn't currently available, developers can contact File Magics about API access or licensing options for integrating text reversal functionality into custom applications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q20: How often is the tool updated with new features?</div>
+                    <div class="faq-answer">File Magics continuously improves all tools based on user feedback and technological advances. Updates roll out automatically since the tool is web-based, ensuring you always access the latest version without any manual updates required.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Transformation functions for reverse text
+        const transformations = {
+            // Standard reverse (character by character)
+            standardReverse: (text) => {
+                return text.split('').reverse().join('');
+            },
+            
+            // Word reverse (reverse word order)
+            wordReverse: (text) => {
+                return text.split(' ').reverse().join(' ');
+            },
+            
+            // Sentence reverse (reverse sentence order)
+            sentenceReverse: (text) => {
+                return text.split(/[.!?]+/).filter(s => s.trim() !== '').reverse().join('. ') + '.';
+            },
+            
+            // Preserve word order but reverse each word
+            wordCharacterReverse: (text) => {
+                return text.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+            },
+            
+            // Line reverse (reverse line order)
+            lineReverse: (text) => {
+                return text.split('\n').reverse().join('\n');
+            },
+            
+            // Preserve first and last character, reverse middle
+            preserveEndsReverse: (text) => {
+                if (text.length <= 2) return text;
+                const firstChar = text.charAt(0);
+                const lastChar = text.charAt(text.length - 1);
+                const middle = text.substring(1, text.length - 1);
+                return firstChar + middle.split('').reverse().join('') + lastChar;
+            }
+        };
+
+        // Transformation definitions with display names
+        const transformationList = [
+            { id: 'standardReverse', name: 'Standard Reverse', func: transformations.standardReverse },
+            { id: 'wordReverse', name: 'Word Order Reverse', func: transformations.wordReverse },
+            { id: 'sentenceReverse', name: 'Sentence Order Reverse', func: transformations.sentenceReverse },
+            { id: 'wordCharacterReverse', name: 'Word Character Reverse', func: transformations.wordCharacterReverse },
+            { id: 'lineReverse', name: 'Line Order Reverse', func: transformations.lineReverse },
+            { id: 'preserveEndsReverse', name: 'Preserve Ends Reverse', func: transformations.preserveEndsReverse }
+        ];
+
+        // State management
+        let favorites = JSON.parse(localStorage.getItem('reverseTextFavorites')) || [];
+        let debounceTimer;
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const reverseBtn = document.getElementById('reverseBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const favoritesList = document.getElementById('favoritesList');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', handleInput);
+            reverseBtn.addEventListener('click', reverseText);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Initialize favorites display
+            updateFavoritesDisplay();
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle text input with debounce
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updatePreview(inputText.value);
+            }, 150);
+        }
+
+        // Reverse text with animation
+        function reverseText() {
+            const text = inputText.value;
+            if (!text.trim()) return;
+            
+            // Add animation class to button
+            reverseBtn.classList.add('animating');
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                reverseBtn.classList.remove('animating');
+            }, 600);
+            
+            updatePreview(text);
+        }
+
+        // Clear input text with animation
+        function clearInput() {
+            // Add animation class to button
+            clearBtn.classList.add('animating');
+            
+            // Remove animation class after animation completes
+            setTimeout(() => {
+                clearBtn.classList.remove('animating');
+            }, 600);
+            
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with transformed text
+        function updatePreview(text) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Type something to see reversed text previews';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            // Truncate long text for preview (but keep full for copy/download)
+            const displayText = text.length > 300 ? text.substring(0, 300) + '...' : text;
+            
+            transformationList.forEach(transform => {
+                const previewItem = createPreviewItem(transform, text, displayText);
+                previewContainer.appendChild(previewItem);
+            });
+        }
+
+        // Create a preview item for a transformation
+        function createPreviewItem(transform, fullText, displayText) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = transform.name;
+            previewHeader.appendChild(previewName);
+            
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.className = 'favorite-btn';
+            favoriteBtn.innerHTML = favorites.includes(transform.id) ? '★' : '☆';
+            favoriteBtn.setAttribute('aria-label', `Add ${transform.name} to favorites`);
+            favoriteBtn.addEventListener('click', () => toggleFavorite(transform.id, favoriteBtn));
+            previewHeader.appendChild(favoriteBtn);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            
+            // Apply the transformation
+            let transformedText = transform.func(fullText);
+            
+            // For display, use truncated version if needed
+            const displayTransformedText = fullText.length > 300 ? 
+                transform.func(displayText) : transformedText;
+            
+            previewText.textContent = displayTransformedText;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', `Copy ${transform.name} text`);
+            copyBtn.addEventListener('click', () => copyToClipboard(transformedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download PNG button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download PNG';
+            downloadBtn.setAttribute('aria-label', `Download ${transform.name} as PNG`);
+            downloadBtn.addEventListener('click', () => downloadAsPNG(transformedText, transform.name));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            return previewItem;
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as PNG
+        function downloadAsPNG(text, transformName) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Set canvas dimensions based on text
+            const fontSize = 24;
+            const padding = 20;
+            
+            context.font = `${fontSize}px Arial, sans-serif`;
+            const textWidth = context.measureText(text).width;
+            
+            canvas.width = textWidth + padding * 2;
+            canvas.height = fontSize + padding * 2;
+            
+            // Clear canvas with transparent background
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            context.font = `${fontSize}px Arial, sans-serif`;
+            context.fillStyle = '#333';
+            context.textBaseline = 'middle';
+            context.fillText(text, padding, canvas.height / 2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${transformName.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(transformId, button) {
+            const index = favorites.indexOf(transformId);
+            
+            if (index === -1) {
+                // Add to favorites
+                favorites.push(transformId);
+                button.innerHTML = '★';
+            } else {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                button.innerHTML = '☆';
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('reverseTextFavorites', JSON.stringify(favorites));
+            
+            // Update favorites display
+            updateFavoritesDisplay();
+        }
+
+        // Update favorites display
+        function updateFavoritesDisplay() {
+            favoritesList.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'No favorites yet. Click the star icon on any transform to add it here.';
+                emptyMessage.style.color = '#7f8c8d';
+                favoritesList.appendChild(emptyMessage);
+                return;
+            }
+            
+            favorites.forEach(transformId => {
+                const transform = transformationList.find(t => t.id === transformId);
+                if (transform) {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.textContent = transform.name;
+                    favoriteItem.addEventListener('click', () => {
+                        inputText.focus();
+                        updatePreview(inputText.value);
+                    });
+                    favoritesList.appendChild(favoriteItem);
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

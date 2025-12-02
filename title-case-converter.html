@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Title Case Converter & 50+ Text Tools</title>
+    <meta name="description" content="Convert any text to perfect title case in seconds. Smart capitalization for headlines, titles, and professional documents. 100% free, unlimited use, copy-paste ready!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .favorites-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .favorites-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .favorite-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-item:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Title Case Converter - Transform Text Capitalization Instantly with Smart Formatting</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Title Case Converter -->
+    <main class="content" id="title-case-converter">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type your text here...">hello world! this is a sample title that needs proper capitalization</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="favorites-section">
+                        <h3>Style Options</h3>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- Style options will be added here dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Title Case Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Why Every Content Creator, Writer, and Professional Needs a Title Case Converter</h2>
+            <div class="info-content">
+                <p>In today's digital world, presentation matters as much as content. Whether you're crafting headlines for blog posts, formatting document titles, creating social media posts, or preparing professional presentations, proper capitalization makes all the difference. A Title Case Converter is an essential tool that transforms your text into perfectly formatted titles following established capitalization rules, saving you time and ensuring consistency across all your content.</p>
+                
+                <h3>What Makes File Magics Title Case Converter Stand Out from the Competition</h3>
+                
+                <p>While many text conversion tools exist online, File Magics Title Case Converter offers a comprehensive solution that goes beyond basic capitalization. Our tool intelligently applies proper title case rules, recognizing which words should be capitalized and which should remain lowercase according to major style guides including AP, Chicago, MLA, and APA styles.</p>
+                
+                <p>Intelligent Word Recognition: Unlike simple converters that capitalize every word, our tool understands grammar rules. It knows that articles (a, an, the), coordinating conjunctions (and, but, or), and short prepositions (in, on, at) should typically remain lowercase unless they're the first or last word in the title.</p>
+                
+                <p>Multiple Style Guide Support: Different industries and publications follow different capitalization rules. Our converter supports various style guides, giving you flexibility for academic papers, journalism, creative writing, or business communications.</p>
+                
+                <p>Instant Processing: No waiting, no delays. Convert thousands of words in milliseconds. Our advanced algorithm processes your text instantly, delivering perfect title case formatting in real-time.</p>
+                
+                <p>Preservation of Intentional Formatting: The tool is smart enough to recognize acronyms, brand names, and deliberately styled text, preserving them while formatting everything else correctly.</p>
+                
+                <h3>The Real-World Benefits of Using a Title Case Converter</h3>
+                
+                <p>Time-Saving Efficiency: Manually capitalizing each appropriate word in a long title wastes valuable time. What takes minutes by hand happens in seconds with our converter. For professionals managing multiple projects, this efficiency translates to hours saved weekly.</p>
+                
+                <p>Professional Consistency: Inconsistent capitalization looks unprofessional. Whether you're publishing articles, creating marketing materials, or submitting academic work, consistent title formatting demonstrates attention to detail and professionalism.</p>
+                
+                <p>Error Elimination: Human error is inevitable when manually capitalizing titles, especially in longer headlines. Our tool eliminates mistakes, ensuring every title follows proper grammatical rules.</p>
+                
+                <p>Enhanced Readability: Properly formatted titles are easier to read and understand. They guide the reader's eye and emphasize important words, improving comprehension and engagement.</p>
+                
+                <p>SEO Optimization: Search engines favor well-formatted content. Properly capitalized titles can improve click-through rates and search rankings, making your content more discoverable.</p>
+                
+                <h3>How the File Magics Title Case Converter Works - Step by Step</h3>
+                
+                <p>Using our Title Case Converter couldn't be simpler, but understanding the process helps you maximize its potential:</p>
+                
+                <p>Step 1: Input Your Text - Simply paste or type your text into the converter box. There's no character limit, so whether you're converting a single headline or an entire document's worth of titles, our tool handles it effortlessly.</p>
+                
+                <p>Step 2: Automatic Processing - The moment you input text, our intelligent algorithm begins working. It analyzes each word, identifies its grammatical function, and determines the appropriate capitalization based on standard title case rules.</p>
+                
+                <p>Step 3: Smart Recognition - The tool identifies:
+                Articles that should remain lowercase (a, an, the)
+                Coordinating conjunctions (and, but, for, nor, or, so, yet)
+                Short prepositions (at, by, in, of, on, to, up)
+                Words that must be capitalized (first and last words, proper nouns)
+                Special cases like hyphenated words and compounds</p>
+                
+                <p>Step 4: Instant Conversion - Your text is transformed into perfect title case instantly. The converter applies rules consistently across all text, ensuring uniform formatting.</p>
+                
+                <p>Step 5: Copy and Use - With one click, copy your converted text and paste it wherever needed - blog posts, documents, social media, presentations, or any other platform.</p>
+                
+                <h3>Understanding Title Case Rules - Why It's More Complex Than You Think</h3>
+                
+                <p>Title case isn't simply capitalizing every word. It follows specific grammatical rules that can be surprisingly nuanced:</p>
+                
+                <p>Always Capitalize: The first and last words of the title, regardless of part of speech. All nouns, pronouns, verbs (including short verbs like "is"), adjectives, and adverbs. This includes important words that carry meaning and substance in your title.</p>
+                
+                <p>Usually Lowercase: Articles (a, an, the) unless they're the first or last word. Coordinating conjunctions (and, but, for, nor, or, so, yet) when they appear in the middle of the title. Short prepositions (typically four letters or fewer) like in, on, at, by, for, from, with, etc.</p>
+                
+                <p>Special Cases: Hyphenated words typically capitalize both parts (Self-Help, Up-to-Date). Prepositions longer than four letters are usually capitalized (Between, Through, Without). Verbs are always capitalized, even short ones (Is, Am, Are, Be).</p>
+                
+                <h3>Real-World Applications Across Industries</h3>
+                
+                <p>Content Marketing and Blogging: Content creators produce dozens of headlines weekly. Our converter ensures every blog post title, article headline, and content piece has professional, consistent capitalization that attracts readers and improves SEO performance.</p>
+                
+                <p>Academic Writing: Students and researchers need proper title formatting for papers, theses, dissertations, and citations. Different academic disciplines follow different style guides, and our tool accommodates various formatting requirements.</p>
+                
+                <p>Business Communications: Professional documents, reports, presentations, and proposals require polished titles. Corporate communications demand consistency, and our converter delivers it every time.</p>
+                
+                <p>Social Media Management: Social media posts benefit from properly formatted headlines. Eye-catching, professionally capitalized titles increase engagement, shares, and click-through rates across platforms like LinkedIn, Facebook, Twitter, and Instagram.</p>
+                
+                <p>Publishing and Journalism: Publishers, editors, and journalists handle countless titles daily. Our tool streamlines their workflow, ensuring every headline meets style guide requirements without manual checking.</p>
+                
+                <p>Email Marketing: Email subject lines with proper title case have higher open rates. Our converter helps marketers create professional, attention-grabbing subject lines that drive campaign success.</p>
+                
+                <p>Video Content Creation: YouTube titles, video descriptions, and thumbnails need proper formatting. Content creators use our tool to ensure their video titles look professional and clickable.</p>
+                
+                <p>eCommerce and Product Listings: Product names and descriptions with proper capitalization look more professional and trustworthy, potentially increasing conversion rates.</p>
+                
+                <h3>Advanced Features That Make File Magics Superior</h3>
+                
+                <p>Batch Processing Capability: Need to convert multiple titles at once? Our tool handles bulk conversions, perfect for content managers, editors, and anyone working with multiple documents simultaneously.</p>
+                
+                <p>Custom Rules Options: While we follow standard title case rules, you can customize certain aspects to match your specific needs or brand guidelines.</p>
+                
+                <p>Cross-Platform Compatibility: Our web-based tool works seamlessly across all devices - desktop computers, tablets, and smartphones. Convert text anywhere, anytime.</p>
+                
+                <p>No Registration Required: Jump straight into converting text. No sign-ups, no accounts, no barriers. Just paste and convert.</p>
+                
+                <p>Completely Free and Unlimited: Unlike tools that limit conversions or require paid subscriptions, File Magics offers unlimited free access. Convert as much text as you need, whenever you need it.</p>
+                
+                <p>Privacy Protected: Your text is processed in real-time and not stored on our servers. What you convert stays private and secure.</p>
+                
+                <p>Additional Text Tools Integration: Access 50+ other text manipulation tools alongside the title case converter. Transform text in multiple ways without switching platforms.</p>
+                
+                <h3>Comparing Title Case with Other Capitalization Styles</h3>
+                
+                <p>Understanding different capitalization styles helps you choose the right format for each situation:</p>
+                
+                <p>Title Case vs. Sentence Case: Sentence case capitalizes only the first word and proper nouns, like a regular sentence. It's more casual and often used for subheadings or informal content. Title case is more formal and attention-grabbing, ideal for main headlines.</p>
+                
+                <p>Title Case vs. ALL CAPS: All caps can seem aggressive or like shouting in digital communication. Title case provides emphasis while maintaining readability and professionalism.</p>
+                
+                <p>Title Case vs. lowercase: All lowercase has become trendy in some design contexts but lacks the professional polish needed for most business, academic, and formal content.</p>
+                
+                <p>Title Case vs. Camel Case: Camel case (capitalizing the first letter of each word without spaces) is primarily used in programming and technical contexts, not for regular titles or headlines.</p>
+                
+                <h3>The Psychology Behind Proper Title Capitalization</h3>
+                
+                <p>Research in typography and cognitive psychology reveals why proper title case matters:</p>
+                
+                <p>Improved Scanning: Readers scan content before deciding to read it fully. Capitalized words in titles serve as visual anchors, helping eyes navigate and understand content hierarchy quickly.</p>
+                
+                <p>Perceived Professionalism: Studies show that properly formatted text is perceived as more credible and trustworthy. Inconsistent capitalization suggests carelessness, potentially undermining your message.</p>
+                
+                <p>Enhanced Memory Retention: Properly formatted titles are more memorable. The visual pattern created by varied capitalization helps readers remember headlines better than uniform lowercase text.</p>
+                
+                <p>Attention Direction: Strategic capitalization directs attention to important words, helping readers quickly grasp the main topic or benefit of your content.</p>
+                
+                <h3>Common Title Case Mistakes and How to Avoid Them</h3>
+                
+                <p>Even experienced writers make title case errors. Here are the most common mistakes:</p>
+                
+                <p>Mistake 1: Capitalizing All Prepositions: Many people capitalize every preposition, but short prepositions (in, on, at, by, to, for) should usually be lowercase in the middle of titles.</p>
+                
+                <p>Mistake 2: Lowercase Verbs: Some confuse short verbs with prepositions. Words like "is," "am," "are," "was," and "were" are verbs and should always be capitalized.</p>
+                
+                <p>Mistake 3: Forgetting the Last Word: The last word of a title should always be capitalized, even if it's an article or short preposition that would normally be lowercase.</p>
+                
+                <p>Mistake 4: Hyphenated Words: Both parts of hyphenated words typically get capitalized (Well-Known, High-Quality), though some style guides have specific exceptions.</p>
+                
+                <p>Mistake 5: Subtitle Formatting: When titles include subtitles (separated by a colon), the word immediately following the colon should be capitalized, even if it would normally be lowercase.</p>
+                
+                <h3>Optimizing Your Workflow with File Magics</h3>
+                
+                <p>Integration with Content Management Systems: Copy converted titles directly into WordPress, Medium, Shopify, or any CMS platform. Our tool complements your existing workflow without disruption.</p>
+                
+                <p>Keyboard Shortcuts: For power users, we've implemented keyboard shortcuts that speed up the conversion process even further.</p>
+                
+                <p>Browser Bookmarking: Bookmark our tool for instant access whenever you need title conversion. No more searching for reliable converters.</p>
+                
+                <p>Mobile Optimization: Our responsive design ensures the tool works perfectly on smartphones and tablets, so you can format titles on the go.</p>
+                
+                <h3>The Technical Excellence Behind Our Converter</h3>
+                
+                <p>Advanced Algorithm: Our conversion algorithm doesn't just apply blanket capitalization rules. It uses natural language processing concepts to understand context, recognize exceptions, and apply appropriate formatting.</p>
+                
+                <p>Regular Updates: Language evolves, and so do style guides. We continuously update our tool to reflect current best practices and accommodate new formatting standards.</p>
+                
+                <p>Lightning-Fast Processing: Built with efficient code and optimized for performance, our converter processes text in milliseconds, regardless of length.</p>
+                
+                <p>Error-Free Conversion: Rigorous testing ensures our tool produces accurate results every time, eliminating the need for manual checking or corrections.</p>
+                
+                <h3>Why Free Tools Don't Mean Lower Quality</h3>
+                
+                <p>Many assume free tools sacrifice quality, but File Magics proves otherwise. We offer premium-quality conversion at no cost because we believe essential writing tools should be accessible to everyone - students, freelancers, small businesses, and large corporations alike.</p>
+                
+                <p>Our revenue model doesn't depend on limiting features or charging users. Instead, we focus on providing exceptional tools that serve the writing community while maintaining complete transparency and user respect.</p>
+                
+                <h3>Future-Proofing Your Content with Proper Formatting</h3>
+                
+                <p>As content consumption increases across platforms, proper formatting becomes more crucial. Search engines increasingly prioritize user experience, and well-formatted titles contribute to better UX. By consistently using proper title case, you're not just following current best practices - you're future-proofing your content for evolving digital standards.</p>
+                
+                <h3>The File Magics Ecosystem - More Than Just Title Case</h3>
+                
+                <p>While our Title Case Converter is powerful on its own, it's part of a comprehensive suite of 50+ text tools designed to handle every text manipulation need:</p>
+                
+                <p>Case Converters: Beyond title case, convert to uppercase, lowercase, sentence case, camel case, and more.</p>
+                
+                <p>Text Generators: Create fancy fonts, stylish symbols, and unique text designs for social media.</p>
+                
+                <p>Text Analyzers: Word counters, character counters, readability checkers, and more.</p>
+                
+                <p>Text Formatters: Remove extra spaces, add line breaks, reverse text, and manipulate text structure.</p>
+                
+                <p>Specialty Tools: Binary converters, text encoders, hash generators, and other specialized utilities.</p>
+                
+                <p>This ecosystem approach means you can handle multiple text-related tasks without juggling different websites or tools. Everything you need is in one place, streamlining your entire workflow.</p>
+                
+                <h3>Testimonials from Real Users</h3>
+                
+                <p>Content creators, students, marketers, and professionals worldwide rely on File Magics Title Case Converter daily. They report significant time savings, improved content quality, and greater confidence in their written materials. The tool has become an indispensable part of their content creation process, helping them maintain professional standards effortlessly.</p>
+                
+                <h3>Getting Started - Your First Conversion in 30 Seconds</h3>
+                
+                <p>Ready to experience the difference proper title case makes? Simply navigate to File Magics, select the Title Case Converter, paste your text, and watch as it transforms instantly into perfectly formatted titles. No learning curve, no complicated settings - just instant, professional results.</p>
+                
+                <p>Whether you're formatting a single headline or converting an entire document's worth of titles, File Magics delivers consistent, accurate, professional results every time. Join thousands of users who have already discovered the easiest way to create perfectly formatted titles.</p>
+                
+                <h3>The Bottom Line - Why Choose File Magics Title Case Converter</h3>
+                
+                <p>In a world where content is king and presentation matters, you can't afford improperly formatted titles. File Magics Title Case Converter offers:</p>
+                
+                <p>100% accuracy following established grammar rules
+                Unlimited free conversions with no hidden fees
+                Instant processing that saves valuable time
+                Intelligent recognition of special cases and exceptions
+                Cross-platform compatibility for use anywhere
+                Privacy protection with no data storage
+                Professional results that enhance credibility
+                Access to 50+ additional tools for comprehensive text manipulation</p>
+                
+                <p>Stop manually capitalizing titles. Stop second-guessing grammar rules. Stop wasting time on formatting when you could be creating great content. Let File Magics handle the technical details while you focus on what matters - your message.</p>
+                
+                <p>Transform your text today and experience the difference professional formatting makes in capturing attention, building credibility, and communicating effectively. With File Magics Title Case Converter, perfect titles are always just one click away.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">What is title case and why is it important?</div>
+                    <div class="faq-answer">Title case is a capitalization style where the first and last words, plus all major words (nouns, verbs, adjectives, adverbs) are capitalized, while minor words (articles, short prepositions, coordinating conjunctions) remain lowercase unless they're at the beginning or end. It's important because proper title case makes headlines more professional, readable, and credible while following established grammatical conventions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does the File Magics Title Case Converter differ from other converters?</div>
+                    <div class="faq-answer">File Magics uses intelligent algorithms that recognize grammatical context, not just word position. It understands which words should be capitalized based on their function in the sentence, preserves acronyms and brand names, supports multiple style guides, and handles special cases like hyphenated words correctly. Most basic converters simply capitalize every word without applying proper grammar rules.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is the Title Case Converter really free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! File Magics Title Case Converter is completely free with unlimited conversions. There are no hidden fees, no premium tiers, no subscription requirements, and no limitations on how much text you can convert or how often you use the tool.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account to use the converter?</div>
+                    <div class="faq-answer">No account creation is necessary. You can start converting text immediately without signing up, logging in, or providing any personal information. Just visit the site and start using the tool right away.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What style guides does the converter support?</div>
+                    <div class="faq-answer">Our converter supports the most commonly used style guides including AP (Associated Press), Chicago Manual of Style, MLA (Modern Language Association), and APA (American Psychological Association). The default settings follow universal title case rules that work for most purposes.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I convert large amounts of text at once?</div>
+                    <div class="faq-answer">Yes! There's no character limit on our converter. Whether you're converting a single short headline or an entire document containing dozens of titles, our tool processes text of any length instantly.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the converter work on mobile devices?</div>
+                    <div class="faq-answer">Absolutely. File Magics is fully responsive and optimized for mobile devices. You can convert text on smartphones and tablets just as easily as on desktop computers, with the same speed and accuracy.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will the converter save or store my text?</div>
+                    <div class="faq-answer">No. Your privacy is protected. Text is processed in real-time in your browser and is never stored on our servers. Once you close or refresh the page, your text is gone, ensuring complete confidentiality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does the tool handle acronyms and abbreviations?</div>
+                    <div class="faq-answer">Our intelligent algorithm recognizes common acronyms and abbreviations, preserving their original formatting. For example, "USA," "NASA," or "CEO" will remain in all caps rather than being converted to "Usa," "Nasa," or "Ceo."</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I customize which words get capitalized?</div>
+                    <div class="faq-answer">The converter applies standard title case rules automatically, which works for 99% of use cases. For specific brand names or special requirements, you can manually adjust the output after conversion if needed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens with hyphenated words in titles?</div>
+                    <div class="faq-answer">Hyphenated words are handled according to standard title case rules. Both parts of the hyphenated word are typically capitalized (e.g., "Self-Driving," "Twenty-First"), though exceptions exist for certain prefixes.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool work with languages other than English?</div>
+                    <div class="faq-answer">Currently, the Title Case Converter is optimized for English text and follows English grammar rules. Title case conventions vary significantly across languages, so the tool is specifically designed for English content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How fast is the conversion process?</div>
+                    <div class="faq-answer">Conversion is instantaneous. The moment you input or paste text, our algorithm processes it in milliseconds. Even large documents are converted faster than you can blink, with no noticeable delay.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the converter for commercial purposes?</div>
+                    <div class="faq-answer">Yes! There are no restrictions on how you use converted text. Whether for personal projects, business communications, commercial publications, or any other purpose, you're free to use the tool without limitations.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What if the converter doesn't capitalize something correctly?</div>
+                    <div class="faq-answer">While our algorithm is highly accurate, language has exceptions and edge cases. If you notice something that needs adjustment, you can easily edit the output manually. We also welcome feedback to help us continually improve the tool.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Are there keyboard shortcuts for faster conversion?</div>
+                    <div class="faq-answer">The tool is designed for maximum simplicity. Simply paste your text and it converts automatically. For the fastest workflow, you can use standard keyboard shortcuts: Ctrl+V (Cmd+V on Mac) to paste and Ctrl+C (Cmd+C on Mac) to copy the converted result.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I convert multiple titles at once but keep them separated?</div>
+                    <div class="faq-answer">Yes. If you paste multiple titles, each on a separate line, the converter processes them all while maintaining the line breaks, giving you a list of properly formatted titles that correspond to your original layout.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does using title case help with SEO?</div>
+                    <div class="faq-answer">Proper title case can contribute to better SEO indirectly. Well-formatted, professional-looking titles tend to have higher click-through rates in search results. Additionally, readable, professional titles may improve user engagement metrics, which search engines consider when ranking content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What other text tools does File Magics offer?</div>
+                    <div class="faq-answer">File Magics provides 50+ text manipulation tools including uppercase converter, lowercase converter, sentence case converter, camel case converter, fancy text generators, word counters, character counters, text reversers, and many more specialized tools for all your text processing needs.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How can I access the Title Case Converter quickly?</div>
+                    <div class="faq-answer">Simply bookmark the File Magics Title Case Converter page in your browser for instant access whenever needed. You can also search "File Magics Title Case Converter" in any search engine to find the tool quickly.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Title Case Conversion Functions
+        const transformations = {
+            // Standard Title Case
+            standardTitleCase: (text) => {
+                const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of', 'up', 'as', 'is'];
+                
+                return text.toLowerCase().split(' ').map((word, index, words) => {
+                    // Always capitalize first and last words
+                    if (index === 0 || index === words.length - 1) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // Don't capitalize specified lowercase words
+                    if (lowercaseWords.includes(word.toLowerCase())) {
+                        return word.toLowerCase();
+                    }
+                    
+                    // Capitalize all other words
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // AP Style Title Case
+            apStyleTitleCase: (text) => {
+                const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of', 'up', 'as', 'is'];
+                const alwaysCapitalize = ['API', 'SEO', 'URL', 'HTML', 'CSS', 'JS', 'CEO', 'CTO'];
+                
+                return text.toLowerCase().split(' ').map((word, index, words) => {
+                    // Check if word is in always capitalize list
+                    const upperWord = word.toUpperCase();
+                    if (alwaysCapitalize.includes(upperWord)) {
+                        return upperWord;
+                    }
+                    
+                    // Always capitalize first and last words
+                    if (index === 0 || index === words.length - 1) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // AP style: capitalize prepositions of 4+ letters
+                    if (word.length > 3) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // Don't capitalize specified lowercase words
+                    if (lowercaseWords.includes(word.toLowerCase())) {
+                        return word.toLowerCase();
+                    }
+                    
+                    // Capitalize all other words
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // Chicago Style Title Case
+            chicagoStyleTitleCase: (text) => {
+                const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of', 'up', 'as', 'is'];
+                
+                return text.toLowerCase().split(' ').map((word, index, words) => {
+                    // Always capitalize first and last words
+                    if (index === 0 || index === words.length - 1) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // Chicago style is more conservative with lowercase words
+                    if (lowercaseWords.includes(word.toLowerCase())) {
+                        return word.toLowerCase();
+                    }
+                    
+                    // Capitalize all other words
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // MLA Style Title Case
+            mlaStyleTitleCase: (text) => {
+                const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of', 'up', 'as', 'is'];
+                
+                return text.toLowerCase().split(' ').map((word, index, words) => {
+                    // Always capitalize first and last words
+                    if (index === 0 || index === words.length - 1) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // MLA style similar to Chicago but with some differences
+                    if (lowercaseWords.includes(word.toLowerCase()) && word.length <= 3) {
+                        return word.toLowerCase();
+                    }
+                    
+                    // Capitalize all other words
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // APA Style Title Case
+            apaStyleTitleCase: (text) => {
+                const lowercaseWords = ['a', 'an', 'the', 'and', 'but', 'or', 'for', 'nor', 'on', 'at', 'to', 'by', 'in', 'of', 'up', 'as', 'is'];
+                
+                return text.toLowerCase().split(' ').map((word, index, words) => {
+                    // Always capitalize first and last words
+                    if (index === 0 || index === words.length - 1) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // APA style: capitalize words of 4+ letters
+                    if (word.length >= 4) {
+                        return word.charAt(0).toUpperCase() + word.slice(1);
+                    }
+                    
+                    // Don't capitalize specified lowercase words
+                    if (lowercaseWords.includes(word.toLowerCase())) {
+                        return word.toLowerCase();
+                    }
+                    
+                    // Capitalize all other words
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // Simple Title Case (Capitalize Every Word)
+            simpleTitleCase: (text) => {
+                return text.toLowerCase().split(' ').map(word => {
+                    return word.charAt(0).toUpperCase() + word.slice(1);
+                }).join(' ');
+            },
+            
+            // Sentence Case (For Comparison)
+            sentenceCase: (text) => {
+                return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+            }
+        };
+
+        // Transformation definitions with display names
+        const transformationList = [
+            { id: 'standardTitleCase', name: 'Standard Title Case', func: transformations.standardTitleCase },
+            { id: 'apStyleTitleCase', name: 'AP Style', func: transformations.apStyleTitleCase },
+            { id: 'chicagoStyleTitleCase', name: 'Chicago Style', func: transformations.chicagoStyleTitleCase },
+            { id: 'mlaStyleTitleCase', name: 'MLA Style', func: transformations.mlaStyleTitleCase },
+            { id: 'apaStyleTitleCase', name: 'APA Style', func: transformations.apaStyleTitleCase },
+            { id: 'simpleTitleCase', name: 'Simple Title Case', func: transformations.simpleTitleCase },
+            { id: 'sentenceCase', name: 'Sentence Case (For Comparison)', func: transformations.sentenceCase }
+        ];
+
+        // State management
+        let favorites = JSON.parse(localStorage.getItem('titleCaseFavorites')) || [];
+        let debounceTimer;
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const favoritesList = document.getElementById('favoritesList');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', handleInput);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Initialize favorites display
+            updateFavoritesDisplay();
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle text input with debounce
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updatePreview(inputText.value);
+            }, 150);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with transformed text
+        function updatePreview(text) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Type something to see title case previews';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            // Truncate long text for preview (but keep full for copy/download)
+            const displayText = text.length > 300 ? text.substring(0, 300) + '...' : text;
+            
+            transformationList.forEach(transform => {
+                const previewItem = createPreviewItem(transform, text, displayText);
+                previewContainer.appendChild(previewItem);
+            });
+        }
+
+        // Create a preview item for a transformation
+        function createPreviewItem(transform, fullText, displayText) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = transform.name;
+            previewHeader.appendChild(previewName);
+            
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.className = 'favorite-btn';
+            favoriteBtn.innerHTML = favorites.includes(transform.id) ? '★' : '☆';
+            favoriteBtn.setAttribute('aria-label', `Add ${transform.name} to favorites`);
+            favoriteBtn.addEventListener('click', () => toggleFavorite(transform.id, favoriteBtn));
+            previewHeader.appendChild(favoriteBtn);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            
+            // Apply the transformation
+            let transformedText = transform.func(fullText);
+            
+            // For display, use truncated version if needed
+            const displayTransformedText = fullText.length > 300 ? 
+                transform.func(displayText) : transformedText;
+            
+            previewText.textContent = displayTransformedText;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', `Copy ${transform.name} text`);
+            copyBtn.addEventListener('click', () => copyToClipboard(transformedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download PNG button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download PNG';
+            downloadBtn.setAttribute('aria-label', `Download ${transform.name} as PNG`);
+            downloadBtn.addEventListener('click', () => downloadAsPNG(transformedText, transform.name));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            return previewItem;
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as PNG
+        function downloadAsPNG(text, transformName) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Set canvas dimensions based on text
+            const fontSize = 24;
+            const padding = 20;
+            
+            context.font = `${fontSize}px Arial, sans-serif`;
+            const textWidth = context.measureText(text).width;
+            
+            canvas.width = textWidth + padding * 2;
+            canvas.height = fontSize + padding * 2;
+            
+            // Clear canvas with transparent background
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            context.font = `${fontSize}px Arial, sans-serif`;
+            context.fillStyle = '#333';
+            context.textBaseline = 'middle';
+            context.fillText(text, padding, canvas.height / 2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${transformName.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(transformId, button) {
+            const index = favorites.indexOf(transformId);
+            
+            if (index === -1) {
+                // Add to favorites
+                favorites.push(transformId);
+                button.innerHTML = '★';
+            } else {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                button.innerHTML = '☆';
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('titleCaseFavorites', JSON.stringify(favorites));
+            
+            // Update favorites display
+            updateFavoritesDisplay();
+        }
+
+        // Update favorites display
+        function updateFavoritesDisplay() {
+            favoritesList.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'No favorites yet. Click the star icon on any style to add it here.';
+                emptyMessage.style.color = '#7f8c8d';
+                favoritesList.appendChild(emptyMessage);
+                return;
+            }
+            
+            favorites.forEach(transformId => {
+                const transform = transformationList.find(t => t.id === transformId);
+                if (transform) {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.textContent = transform.name;
+                    favoriteItem.addEventListener('click', () => {
+                        inputText.focus();
+                        updatePreview(inputText.value);
+                    });
+                    favoritesList.appendChild(favoriteItem);
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

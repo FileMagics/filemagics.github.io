@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Contact Us</title>
+    
+    <style>
+        /* ========== CSS RESET & BASE STYLES ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== LIGHT/DARK MODE VARIABLES ========== */
+        :root {
+            /* Light Mode Colors */
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #7c3aed;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Light Mode Footer Colors */
+            --footer-bg: #0f172a;
+            --footer-text: #f1f5f9;
+            --footer-text-light: #94a3b8;
+            --footer-border: #1e293b;
+            --accent-color: #06b6d4;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Colors */
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary-color: #8b5cf6;
+            --bg-color: #0f172a;
+            --text-color: #f1f5f9;
+            --text-light: #cbd5e1;
+            --border-color: #334155;
+            --card-bg: #1e293b;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+            
+            /* Dark Mode Footer Colors (Inverted) */
+            --footer-bg: #f1f5f9;
+            --footer-text: #0f172a;
+            --footer-text-light: #475569;
+            --footer-border: #cbd5e1;
+            --accent-color: #22d3ee;
+        }
+
+        /* ========== HEADER & THEME TOGGLE ========== */
+        header {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: rotate(15deg);
+        }
+
+        /* ========== MAIN CONTENT AREA ========== */
+        .main-content {
+            padding: 60px 0 80px;
+            min-height: calc(100vh - 380px);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding-bottom: 25px;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .page-title {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-weight: 500;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ========== GO TO HOME BUTTON ========== */
+        .home-button-container {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-button::before {
+            content: '←';
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            gap: 15px;
+        }
+
+        .home-button:hover::before {
+            transform: translateX(-5px);
+        }
+
+        /* ========== POLICY CONTENT STYLES ========== */
+        .policy-content {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 50px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .policy-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* Automatic Heading Sizes */
+        h1 {
+            font-size: 2.5rem;
+            margin: 35px 0 25px;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            margin: 30px 0 20px;
+            color: var(--text-color);
+            font-weight: 600;
+            padding-left: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            margin: 20px 0 12px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        ul, ol {
+            margin: 0 0 25px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: var(--text-color);
+            line-height: 1.8;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        li::marker {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        em {
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .separator {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 40px 0;
+        }
+
+        .policy-question {
+            background: rgba(37, 99, 235, 0.05);
+            padding: 25px;
+            border-radius: 16px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .policy-question:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-color);
+        }
+
+        .policy-question h2 {
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+            font-size: 1.7rem;
+        }
+
+        /* ========== EMAIL ADDRESS STYLES (FIXED FOR MOBILE) ========== */
+        .email-address {
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            word-break: break-all;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(124, 58, 237, 0.1) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .contact-info p {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* ========== FOOTER STYLES (FIXED VERSION) ========== */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 60px 0 30px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        .footer-section {
+            text-align: center;
+        }
+
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--footer-text);
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+            padding-left: 0;
+        }
+
+        .footer-links li::before {
+            display: none;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.05rem;
+            display: inline-block;
+            padding: 6px 0;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 0;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.6rem;
+            }
+            
+            .policy-content {
+                padding: 35px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .policy-content {
+                padding: 25px;
+                border-radius: 16px;
+            }
+            
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .home-button {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+            }
+            
+            footer {
+                padding: 40px 0 25px;
+            }
+            
+            /* Mobile-specific email fixes */
+            .email-address {
+                font-size: 1rem;
+                padding: 12px 15px;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .contact-info p {
+                font-size: 1rem;
+            }
+            
+            .policy-question h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.9rem;
+            }
+            
+            .policy-content {
+                padding: 20px;
+            }
+            
+            .policy-question {
+                padding: 20px;
+            }
+            
+            .footer-content {
+                gap: 30px;
+            }
+            
+            .footer-section h3 {
+                font-size: 1.3rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            /* Extra small mobile email fixes */
+            .email-address {
+                font-size: 0.9rem;
+                padding: 10px 12px;
+                line-height: 1.4;
+            }
+            
+            .contact-info {
+                padding: 15px;
+            }
+            
+            .contact-info p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .email-address {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
+        }
+
+        /* ========== UTILITY CLASSES ========== */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tools-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tool-item {
+            background: var(--card-bg);
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-item::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tools-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .email-copy-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: var(--transition);
+        }
+
+        .email-copy-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .copy-notification.show {
+            transform: translateX(0);
+        }
+
+        /* Contact Page Specific Styles */
+        .last-updated {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .emoji-heading {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+    
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- HEADER SECTION -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SECTION -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1 class="page-title">Contact Us</h1>
+                <p class="page-subtitle">Get in touch with the File Magics team for support, feedback, and inquiries</p>
+            </div>
+            
+            <!-- Go to Home Button -->
+            <div class="home-button-container">
+                <a href="index.html" class="home-button">Go to Home</a>
+            </div>
+            
+            <!-- Policy Content -->
+            <div class="policy-content">
+                <!-- CONTACT US CONTENT -->
+                
+                <h1>Contact Us – File Magics</h1>
+                <p class="last-updated"><strong>Last Updated:</strong> 03 December 2025</p>
+                
+                <p>At File Magics, we value your feedback, questions, and concerns. As a platform offering 50+ fast, free, and easy-to-use online text tools, we aim to provide the best possible experience to all our users. If you ever need help, want to report an issue, or share suggestions, you can easily reach out to us through our official support email.</p>
+                
+                <div class="separator"></div>
+                
+                <!-- Section 1 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">📩 1. How to Contact Us</h2>
+                    <p>We currently provide support only through email. You can contact our team anytime at:</p>
+                    
+                    <div class="email-address" id="email1">india.trendkart@gmail.com</div>
+                    <button class="email-copy-btn" onclick="copyEmail('email1')">Copy Email Address</button>
+                    
+                    <p>This is our official communication channel, and all queries are handled directly by the website owner and developer, Raunak Anand.</p>
+                </div>
+                
+                <!-- Section 2 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">📘 2. What You Can Contact Us For</h2>
+                    <p>You can email us for:</p>
+                    <ul>
+                        <li>Tool-related issues</li>
+                        <li>Bug reports</li>
+                        <li>Feature requests</li>
+                        <li>Feedback or suggestions</li>
+                        <li>Advertising-related questions</li>
+                        <li>Error or problem related to any of our text tools</li>
+                        <li>Reporting incorrect or broken tool functionality</li>
+                        <li>Reporting content concerns</li>
+                        <li>General inquiries about File Magics</li>
+                    </ul>
+                    <p>We appreciate detailed messages — it helps us respond faster and more accurately.</p>
+                </div>
+                
+                <!-- Section 3 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">⏳ 3. Response Time</h2>
+                    <p>We try our best to reply to all emails as quickly as possible.</p>
+                    <p><strong>📌 Typical Response Time:</strong> 24–48 Hours</p>
+                    <p>Weekends or peak load times may take slightly longer, but we always address every valid request.</p>
+                </div>
+                
+                <!-- Section 4 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">🔒 4. Your Privacy Matters</h2>
+                    <p>Any information you share with us via email is handled safely.</p>
+                    <p>We do not:</p>
+                    <ul>
+                        <li>Sell user data</li>
+                        <li>Share emails with advertisers</li>
+                        <li>Collect unnecessary personal information</li>
+                    </ul>
+                    <p>Email is used only for communication and support purposes.</p>
+                </div>
+                
+                <!-- Section 5 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">🛠 5. Before Contacting Us, Please Check</h2>
+                    <p>Sometimes small issues can be fixed quickly by users themselves. Before emailing, you can:</p>
+                    <ul>
+                        <li>Refresh the page</li>
+                        <li>Clear browser cache</li>
+                        <li>Try another browser</li>
+                        <li>Check your internet connection</li>
+                        <li>Ensure your text input is valid</li>
+                    </ul>
+                    <p>If the issue continues, feel free to contact us.</p>
+                </div>
+                
+                <!-- Section 6 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">📄 6. DMCA, Privacy Policy & Terms Support</h2>
+                    <p>For legal or policy-related concerns, you can also reach us through the same email. All official notices (Privacy Policy, DMCA, Terms & Conditions) should be sent to:</p>
+                    
+                    <div class="email-address" id="email2">india.trendkart@gmail.com</div>
+                    <button class="email-copy-btn" onclick="copyEmail('email2')">Copy Email Address</button>
+                </div>
+                
+                <!-- Section 7 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">🧑‍💻 7. Who Manages Support?</h2>
+                    <p>All email communication is managed by the site owner, developer, and designer:</p>
+                    <div class="contact-info">
+                        <p>Raunak Anand<br>Founder of File Magics – Free Online Text Tools</p>
+                    </div>
+                </div>
+                
+                <!-- Section 8 -->
+                <div class="policy-question">
+                    <h2 class="emoji-heading">✔ Final Line</h2>
+                    <p>If you have any question or need any assistance, feel free to email us.</p>
+                    <p>We're always here to help and improve your experience with File Magics.</p>
+                </div>
+                
+                <!-- END OF CONTACT US CONTENT -->
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION (FIXED VERSION) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copy Notification -->
+    <div class="copy-notification" id="copyNotification">Email copied to clipboard!</div>
+
+    <script>
+        // ========== LIGHT/DARK MODE TOGGLE FUNCTIONALITY ==========
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            // Add transition class for smooth theme switch
+            body.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            
+            // Sync footer theme
+            syncFooterTheme();
+            
+            // Remove transition after animation completes
+            setTimeout(() => {
+                body.style.transition = '';
+            }, 400);
+        });
+        
+        // Update theme icon based on current theme
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+        
+        // ========== FOOTER THEME SYNC ==========
+        function syncFooterTheme() {
+            const currentTheme = body.getAttribute('data-theme');
+            const footer = document.querySelector('footer');
+            
+            if (footer) {
+                footer.setAttribute('data-theme', currentTheme);
+            }
+        }
+        
+        // Initial sync
+        syncFooterTheme();
+        
+        // ========== EMAIL COPY FUNCTIONALITY ==========
+        function copyEmail(emailId) {
+            const emailElement = document.getElementById(emailId);
+            const emailText = emailElement.textContent;
+            
+            // Create a temporary textarea element
+            const textarea = document.createElement('textarea');
+            textarea.value = emailText;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            
+            // Select and copy the text
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopyNotification();
+                }
+            } catch (err) {
+                console.error('Failed to copy email:', err);
+            }
+            
+            // Remove the temporary textarea
+            document.body.removeChild(textarea);
+        }
+        
+        // ========== COPY NOTIFICATION ==========
+        function showCopyNotification() {
+            const notification = document.getElementById('copyNotification');
+            notification.classList.add('show');
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ========== RESPONSIVE ADJUSTMENTS ==========
+        function handleResponsive() {
+            const isMobile = window.innerWidth <= 768;
+            
+            // Adjust font sizes for mobile
+            const pageTitle = document.querySelector('.page-title');
+            if (pageTitle) {
+                if (isMobile) {
+                    pageTitle.style.fontSize = '2.2rem';
+                } else {
+                    pageTitle.style.fontSize = '3.2rem';
+                }
+            }
+            
+            // Adjust tools list for mobile
+            const toolsList = document.querySelector('.tools-list');
+            if (toolsList) {
+                if (isMobile) {
+                    toolsList.style.gridTemplateColumns = '1fr';
+                } else {
+                    toolsList.style.gridTemplateColumns = 'repeat(2, 1fr)';
+                }
+            }
+        }
+        
+        // Initial call
+        handleResponsive();
+        
+        // Listen for window resize
+        window.addEventListener('resize', handleResponsive);
+        
+        // ========== BACK TO TOP BUTTON ==========
+        const backToTopButton = document.createElement('button');
+        backToTopButton.innerHTML = '↑';
+        backToTopButton.style.position = 'fixed';
+        backToTopButton.style.bottom = '30px';
+        backToTopButton.style.right = '30px';
+        backToTopButton.style.width = '50px';
+        backToTopButton.style.height = '50px';
+        backToTopButton.style.borderRadius = '50%';
+        backToTopButton.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+        backToTopButton.style.color = 'white';
+        backToTopButton.style.border = 'none';
+        backToTopButton.style.fontSize = '1.5rem';
+        backToTopButton.style.cursor = 'pointer';
+        backToTopButton.style.boxShadow = 'var(--shadow-lg)';
+        backToTopButton.style.zIndex = '99';
+        backToTopButton.style.display = 'none';
+        backToTopButton.style.transition = 'all 0.3s ease';
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        document.body.appendChild(backToTopButton);
+        
+        // Show/hide back to top button
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+                backToTopButton.style.alignItems = 'center';
+                backToTopButton.style.justifyContent = 'center';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        // Update button colors on theme change
+        themeToggle.addEventListener('click', () => {
+            setTimeout(() => {
+                backToTopButton.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

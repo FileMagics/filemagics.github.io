@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Mirror Text Generator & Text Reversal Tools Collection</title>
+    <meta name="description" content="Create stunning mirror text effects instantly! Flip, reverse, and transform your text for unique social media posts, creative designs, and attention-grabbing content. 100% free, unlimited use!">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Favorites Section */
+        .favorites-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .favorites-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .favorites-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .favorite-item {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .favorite-item:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Mirror Text Generator - Flip & Reverse Your Text Instantly for Social Media Impact</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Mirror Text Generator -->
+    <main class="content" id="mirror-text-generator">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Type your text here...">Hello World!</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="favorites-section">
+                        <h3>Favorite Styles</h3>
+                        <div id="favoritesList" class="favorites-list">
+                            <!-- Favorite items will be added here dynamically -->
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Mirror Text Preview</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Transform Your Text Into Eye-Catching Mirror Effects - The Ultimate Text Reversal Tool</h2>
+            <div class="info-content">
+                <p>In today's digital landscape where standing out on social media platforms is more challenging than ever, finding creative ways to make your content unique becomes essential. Whether you're a social media influencer, content creator, graphic designer, or simply someone who loves experimenting with text, mirror text offers an innovative way to capture attention and make your posts memorable. Our Mirror Text Generator provides you with powerful, instant text transformation capabilities that go beyond ordinary formatting options available on standard platforms.</p>
+                
+                <h3>Why Mirror Text Generator is Essential for Modern Content Creators</h3>
+                
+                <p>The digital content ecosystem has become increasingly saturated, with millions of posts competing for attention every second. Standard text formatting simply doesn't cut it anymore when you're trying to build a personal brand, promote a business, or simply express your creativity online. Mirror text offers several compelling advantages that make it an indispensable tool in your content creation arsenal.</p>
+                
+                <p><strong>Instant Attention Grabber:</strong> Human brains are wired to notice patterns and anomalies. When scrolling through endless feeds of standard text, mirror text immediately stands out because it breaks the expected pattern. This cognitive disruption causes viewers to pause, often doubling or tripling the time they spend looking at your content. This increased engagement can translate directly into higher visibility through platform algorithms that prioritize content with better engagement metrics.</p>
+                
+                <p><strong>Universal Compatibility:</strong> Unlike some fancy text generators that produce characters incompatible with certain platforms or devices, mirror text utilizes standard Unicode characters that render correctly across all major social media networks, messaging apps, and websites. Whether your audience views your content on iOS, Android, Windows, Mac, or Linux systems, the mirror effect remains consistent and readable (when reversed back).</p>
+                
+                <p><strong>Zero Learning Curve:</strong> While mastering graphic design software or video editing tools requires significant time investment, using a mirror text generator is instantly intuitive. Simply paste your text, click transform, and copy the result. No tutorials, no complicated settings, no software installation required. This accessibility democratizes creative text formatting for everyone.</p>
+                
+                <p><strong>Cost-Effective Creativity:</strong> Professional graphic designers charge substantial fees for custom text effects and logos. Mirror text generators provide sophisticated visual transformations completely free of charge, with unlimited usage. This makes professional-looking text effects accessible to students, small business owners, and casual users who may not have budget for premium design tools.</p>
+                
+                <p><strong>Psychological Intrigue:</strong> Mirror text creates a sense of mystery and exclusivity. Readers must make a conscious effort to decode the message, which increases their psychological investment in your content. This engagement mechanism is particularly effective for teasers, announcements, or content where you want to create anticipation before revealing information.</p>
+                
+                <h3>Comprehensive Understanding: How Mirror Text Transformation Works</h3>
+                
+                <p>The technology behind mirror text generation combines sophisticated Unicode character mapping with reverse string algorithms to create seamless text transformations. Understanding this process helps you appreciate the tool's capabilities and use it more effectively across different applications.</p>
+                
+                <p><strong>Character-Level Reversal:</strong> The most basic form of mirror text simply reverses the order of characters in your input string. For example, "Hello World" becomes "dlroW olleH". This reversal maintains character integrity while creating the mirror effect that makes text appear backwards when read from left to right.</p>
+                
+                <p><strong>Unicode Flipping Technology:</strong> Advanced mirror text generators also implement character flipping, where individual letters are replaced with their visually mirrored equivalents from the Unicode character set. This creates text that not only reads backwards but also appears physically flipped, resembling what you'd see when holding text up to an actual mirror.</p>
+                
+                <p><strong>Bidirectional Text Handling:</strong> The generator intelligently handles bidirectional text scenarios, important for users working with languages that read right-to-left (like Arabic or Hebrew) alongside left-to-right languages. This ensures consistent transformation regardless of the source language's natural direction.</p>
+                
+                <p><strong>Preservation of Special Characters:</strong> Quality mirror text generators maintain special characters, emojis, numbers, and punctuation marks in appropriate positions within the reversed text. This preservation ensures that your creative formatting, emphasis markers, and emotional expressions remain intact through the transformation process.</p>
+                
+                <p><strong>Real-Time Processing:</strong> Modern mirror text generators process transformations instantaneously, providing immediate visual feedback as you type or paste content. This real-time capability enables rapid experimentation and iteration, helping you find the perfect mirror text variation for your needs.</p>
+                
+                <h3>Unlimited Applications: Where Mirror Text Makes Maximum Impact</h3>
+                
+                <p>Mirror text isn't just a novelty - it has practical applications across numerous professional and personal contexts. Understanding these use cases helps you leverage the tool's full potential for various objectives.</p>
+                
+                <p><strong>Social Media Enhancement:</strong> Platform algorithms increasingly prioritize content that generates engagement. Mirror text in your captions, bios, or comments creates natural conversation starters as followers ask about the effect or share their interpretation. On Instagram, reversed text in Stories creates mystery that drives DM inquiries. On Twitter, mirrored tweets stand out in crowded timelines, potentially increasing retweets and likes. TikTok creators use mirror text in video overlays to add visual interest and encourage viewers to pause and decode messages.</p>
+                
+                <p><strong>Branding and Marketing Differentiation:</strong> Small businesses and entrepreneurs constantly seek affordable ways to make their brand memorable. Mirror text in email subject lines dramatically improves open rates because recipients' curiosity compels them to see what's inside. Business cards featuring mirrored taglines or contact information create lasting impressions that prompt conversation. Product launch teasers using partially mirrored text generate anticipation and discussion across marketing channels.</p>
+                
+                <p><strong>Educational Engagement Tools:</strong> Teachers and educators discover mirror text valuable for creating interactive learning materials. Math teachers use reversed equations to encourage students to work backwards through problem-solving processes. Language instructors create mirror text exercises that improve reading fluency and attention to detail. Educational content creators on YouTube use mirror text in thumbnails to increase click-through rates.</p>
+                
+                <p><strong>Artistic Expression and Design:</strong> Graphic designers incorporate mirror text into logos, posters, and digital art to create symmetry and visual interest. The technique works particularly well for designs featuring actual mirror imagery or reflection themes. Typography artists combine regular and mirrored text to create palindromic visual poetry. Digital artists use mirror text as texture elements in larger compositions.</p>
+                
+                <p><strong>Privacy and Encoding:</strong> While not cryptographically secure, mirror text provides lightweight obfuscation for casual privacy needs. Users share reversed addresses, phone numbers, or email addresses in public forums to reduce automated scraping by bots. Content creators hide spoilers in mirrored text, allowing readers to choose whether to decode and reveal plot information.</p>
+                
+                <p><strong>Gaming and Entertainment:</strong> Online gamers use mirror text in usernames, clan tags, and in-game messages to create distinctive identities. Puzzle creators incorporate reversed text into riddles and scavenger hunts. Entertainment content that includes mirror text challenges encourages audience participation and sharing.</p>
+                
+                <h3>Advanced Features That Set Our Mirror Text Generator Apart</h3>
+                
+                <p>Not all mirror text generators offer the same functionality or user experience. Our tool includes sophisticated features designed to maximize usability, flexibility, and creative potential.</p>
+                
+                <p><strong>Multiple Transformation Modes:</strong> Beyond simple character reversal, our generator offers various transformation options including full mirror flip (where characters themselves are visually flipped), word-level reversal (where word order reverses but individual words remain readable), and hybrid modes that combine different effects for unique results.</p>
+                
+                <p><strong>Batch Processing Capabilities:</strong> Need to mirror multiple text snippets for a social media campaign? Our batch processing feature allows you to transform multiple lines simultaneously, saving valuable time when preparing content calendars or multi-platform posts.</p>
+                
+                <p><strong>Customizable Preservation Rules:</strong> Users can specify which elements to preserve during transformation - whether to maintain emoji positions, keep hashtags readable, preserve URLs in their original format, or protect @mentions from reversal. This granular control ensures your mirrored text remains functional across platforms.</p>
+                
+                <p><strong>Instant Copy Functionality:</strong> One-click copying eliminates the friction of manual text selection. Click the copy button and your mirrored text is immediately ready to paste into any application, streamlining your workflow and reducing the steps between creation and publication.</p>
+                
+                <p><strong>History and Favorites System:</strong> The generator automatically maintains a session history of your recent transformations, allowing you to retrieve previous versions without retyping. Bookmark particularly effective mirror text variations to your favorites for quick access in future sessions.</p>
+                
+                <p><strong>Character Count Display:</strong> Real-time character counting helps you stay within platform-specific limits. The tool displays both original and transformed text lengths, crucial when creating content for Twitter's character limit, Instagram bio restrictions, or other constrained environments.</p>
+                
+                <p><strong>Preview Rendering:</strong> Before copying your mirrored text, see exactly how it will appear on different backgrounds and in various font sizes. This preview capability prevents surprises when pasting into live environments and ensures your effect achieves the intended visual impact.</p>
+                
+                <p><strong>Mobile Optimization:</strong> Unlike desktop-only tools, our mirror text generator functions flawlessly on smartphones and tablets. The responsive interface adapts to touchscreen interactions, making it equally convenient whether you're creating content at your desk or on the go.</p>
+                
+                <p><strong>No Registration Barriers:</strong> Access full functionality immediately without creating accounts, providing email addresses, or navigating through verification processes. Your time is valuable - start creating mirror text instantly without administrative obstacles.</p>
+                
+                <p><strong>Ad-Free Experience:</strong> Many free tools compromise usability with intrusive advertisements, pop-ups, or forced redirects. Our commitment to user experience means you work in a clean, distraction-free environment that respects your focus and doesn't interrupt your creative flow.</p>
+                
+                <h3>Step-by-Step Guide: Mastering the Mirror Text Generator</h3>
+                
+                <p>While the tool's interface is intentionally simple, understanding optimal workflows helps you maximize efficiency and achieve professional results consistently.</p>
+                
+                <p><strong>Step 1 - Access the Tool:</strong> Navigate to the Mirror Text Generator through File Magics' comprehensive tool collection. No downloads, installations, or account creation required - the web-based interface loads instantly in any modern browser.</p>
+                
+                <p><strong>Step 2 - Input Your Text:</strong> Click into the input field and type your desired text directly, or paste content you've prepared elsewhere. The generator accepts unlimited character lengths, though extremely long texts may need to be processed in sections for optimal platform compatibility.</p>
+                
+                <p><strong>Step 3 - Select Transformation Type:</strong> Choose your preferred mirror effect from the available options. Standard character reversal works for most applications, while full mirror flip with visually flipped characters creates more dramatic effects. Experiment with different modes to discover which best serves your specific creative vision.</p>
+                
+                <p><strong>Step 4 - Apply Advanced Options:</strong> If needed, configure preservation rules to protect specific elements like URLs, hashtags, or emojis. These customization options ensure your mirrored text maintains necessary functionality while achieving the desired aesthetic effect.</p>
+                
+                <p><strong>Step 5 - Generate and Preview:</strong> Click the transform button to process your text instantly. Review the preview to ensure the result meets your expectations and renders correctly across different visual contexts. The preview stage prevents errors before publication.</p>
+                
+                <p><strong>Step 6 - Copy and Deploy:</strong> Use the one-click copy button to transfer your mirrored text to your clipboard. Navigate to your target platform - whether social media, messaging app, document, or design software - and paste your transformed text into the appropriate field.</p>
+                
+                <p><strong>Step 7 - Test Across Platforms:</strong> Before committing to large-scale deployment, test your mirrored text on your target platforms to verify rendering consistency. While Unicode compatibility is excellent, occasional platform-specific quirks may require minor adjustments.</p>
+                
+                <p><strong>Step 8 - Save Successful Variations:</strong> When you discover particularly effective mirror text combinations, save them to your favorites or document them externally. Building a library of proven variations streamlines future content creation and maintains consistency across campaigns.</p>
+                
+                <h3>Professional Tips for Maximizing Mirror Text Impact</h3>
+                
+                <p>Effective use of mirror text requires more than technical capability - strategic implementation amplifies results across different contexts and objectives.</p>
+                
+                <p><strong>Balance Readability and Effect:</strong> While fully mirrored text creates maximum visual impact, it also presents the highest decoding challenge for viewers. For important information like calls-to-action, contact details, or key messages, consider using mirror text sparingly as accent rather than for entire passages. Reserve complete reversal for teaser content, creative flourishes, or contexts where intrigue outweighs immediate comprehension.</p>
+                
+                <p><strong>Combine with Standard Text:</strong> Hybrid approaches often prove most effective - use standard text for primary messaging while incorporating mirror text for emphasis, headers, or decorative elements. This combination captures attention through contrast while maintaining accessibility for readers who may find fully mirrored content frustrating.</p>
+                
+                <p><strong>Consider Your Audience:</strong> Technical or analytical audiences may enjoy the puzzle aspect of mirror text and appreciate the creative departure from convention. Younger, social-media-native demographics typically embrace experimental text formatting. However, professional contexts targeting conservative industries may find mirror text too informal or gimmicky. Match your text treatment to audience expectations and preferences.</p>
+                
+                <p><strong>Maintain Brand Consistency:</strong> If you establish mirror text as part of your brand identity, use it consistently across platforms and content types. This repetition builds recognition and associates the distinctive effect with your brand. Conversely, sporadic or random application may confuse followers rather than strengthen brand recall.</p>
+                
+                <p><strong>Optimize for Platform Algorithms:</strong> Social media algorithms prioritize content that generates engagement. Mirror text inherently encourages comments ("What does this say?"), saves (to decode later), and shares (to puzzle friends). Leverage this by strategically placing mirrored content where algorithm boosts provide maximum visibility benefits.</p>
+                
+                <p><strong>Test Accessibility:</strong> While creativity is valuable, ensure your content remains accessible to all audience members. Provide context clues, alternate text, or standard translations nearby so vision-impaired users with screen readers or those who struggle with visual puzzles can still access your message.</p>
+                
+                <p><strong>Timing and Frequency:</strong> Like any creative technique, mirror text loses impact through overuse. Deploy strategically for announcements, special events, or periodic campaigns rather than using it in every single post. Scarcity maintains novelty and prevents audience fatigue.</p>
+                
+                <p><strong>Document Your Creations:</strong> Maintain a reference file of your mirror text variations with notes about context, platform, and performance metrics. This documentation enables continuous improvement and helps you identify which approaches resonate most strongly with your specific audience.</p>
+                
+                <h3>Technical Considerations: Understanding Unicode and Text Rendering</h3>
+                
+                <p>For users interested in the technical foundations that make mirror text possible, understanding Unicode and rendering principles provides valuable insights.</p>
+                
+                <p><strong>Unicode Character Standard:</strong> The Unicode Consortium maintains a comprehensive standard encoding over 140,000 characters from world languages, mathematical symbols, emojis, and special typographic marks. Mirror text generators leverage this extensive character set, utilizing characters that visually resemble reversed versions of standard Latin alphabet letters.</p>
+                
+                <p><strong>Character Mapping Algorithms:</strong> Sophisticated mapping algorithms match each standard character to its closest visual mirror equivalent within Unicode. For example, "b" might map to "d" in reversed orientation, "p" to "q", and so forth. These mappings aren't true mirror reflections but rather characters that create mirror-like visual effects when combined.</p>
+                
+                <p><strong>String Reversal Operations:</strong> At the algorithmic level, basic mirror text reversal implements string reversal functions that iterate through characters from end to beginning, reconstructing the string in opposite order. This operation completes in linear time relative to text length, enabling instantaneous processing even for lengthy passages.</p>
+                
+                <p><strong>Rendering Engine Compatibility:</strong> Modern browsers and operating systems render Unicode characters through sophisticated typography engines that handle complex scripts, directionality, and character combinations. Mirror text generators produce output that these engines process correctly, ensuring consistent display across devices and platforms.</p>
+                
+                <p><strong>Limitations and Edge Cases:</strong> Not all characters have visually similar reversed equivalents in Unicode. Numbers, some punctuation marks, and characters from non-Latin scripts may not transform as expected. Quality generators handle these edge cases gracefully, either preserving problematic characters in their original form or applying sensible alternatives.</p>
+                
+                <h3>Privacy and Security: What Happens to Your Text</h3>
+                
+                <p>In an era of increasing privacy concerns, understanding how tools handle your data is essential for informed usage decisions.</p>
+                
+                <p><strong>Client-Side Processing:</strong> Our mirror text generator performs all transformations directly in your browser using JavaScript. Your text never transmits to external servers, databases, or third-party services. This client-side architecture ensures maximum privacy and security for sensitive content.</p>
+                
+                <p><strong>No Data Collection:</strong> We don't log, store, or analyze the text you transform. No databases record your input or output, no analytics track the content of your creations, and no advertising networks receive information about your usage patterns. Your creative work remains entirely yours.</p>
+                
+                <p><strong>Session-Only History:</strong> The convenience features like transformation history exist only in your browser's temporary memory during your active session. When you close the browser tab or navigate away, this history automatically clears without leaving traces on our servers or your device's permanent storage.</p>
+                
+                <p><strong>No Account Required:</strong> Since the tool functions without user accounts, there's no personal information to compromise, no password to secure, and no profile linking your various sessions. Each usage session is completely independent and anonymous.</p>
+                
+                <p><strong>Third-Party Independence:</strong> The generator operates without dependencies on external APIs, cloud services, or third-party processing. This architectural independence eliminates data exposure risks inherent in tools that route your content through multiple external services.</p>
+                
+                <h3>Cross-Platform Integration: Using Mirror Text Everywhere</h3>
+                
+                <p>Understanding how mirror text performs across different platforms helps you deploy it effectively and troubleshoot any compatibility issues.</p>
+                
+                <p><strong>Social Media Platforms:</strong> Instagram, Facebook, Twitter, TikTok, LinkedIn, Pinterest, and Snapchat all support Unicode characters and handle mirror text correctly in posts, bios, comments, and messages. Each platform's character limits apply to both standard and mirrored text equally.</p>
+                
+                <p><strong>Messaging Applications:</strong> WhatsApp, Telegram, Signal, Discord, Slack, and Microsoft Teams all render mirror text properly in direct messages, group chats, and channel communications. The text remains searchable within these applications' search functions despite its reversed appearance.</p>
+                
+                <p><strong>Document and Productivity Software:</strong> Microsoft Word, Google Docs, Apple Pages, Excel, PowerPoint, and similar productivity applications accept mirrored text in documents, spreadsheets, and presentations. The text copy-pastes seamlessly and maintains its Unicode character properties through document saves and shares.</p>
+                
+                <p><strong>Email Clients:</strong> Gmail, Outlook, Apple Mail, and other email clients display mirror text correctly in message bodies and subject lines. However, aggressive spam filters occasionally flag unusual Unicode patterns, so test important communications before large-scale deployment.</p>
+                
+                <p><strong>Design Software:</strong> Adobe Creative Suite products, Canva, Figma, and similar design tools treat mirrored text as standard text input, allowing you to apply additional styling, effects, and transformations. This enables sophisticated creative combinations of mirror effects with typography design.</p>
+                
+                <p><strong>Web Browsers and HTML:</strong> Mirror text functions correctly in web forms, HTML documents, CSS styled text, and JavaScript manipulated strings. Web developers can incorporate user-generated mirror text into applications without special encoding or handling.</p>
+                
+                <h3>The Psychology Behind Mirror Text Effectiveness</h3>
+                
+                <p>Understanding why mirror text captures attention and drives engagement helps you leverage it more strategically in your content strategy.</p>
+                
+                <p><strong>Pattern Disruption:</strong> Human visual processing evolved to quickly scan environments for familiar patterns and notice anomalies that might signal opportunity or threat. Mirror text disrupts expected reading patterns, triggering heightened attention and cognitive engagement as the brain works to decode the unusual stimulus.</p>
+                
+                <p><strong>Curiosity Gap:</strong> Behavioral psychology demonstrates that humans experience discomfort when encountering information gaps and feel compelled to resolve that discomfort by seeking answers. Mirror text creates an immediate curiosity gap - viewers see text but can't immediately comprehend it, driving them to invest effort in decoding and thus increasing engagement time.</p>
+                
+                <p><strong>Cognitive Investment:</strong> The mental effort required to decode mirror text creates psychological investment in the content. Studies in behavioral economics show that people value things more highly when they've invested effort to obtain them. Readers who decode your mirrored message feel greater connection to and ownership of that information.</p>
+                
+                <p><strong>Exclusivity Perception:</strong> Content that requires effort to access feels more exclusive and valuable than immediately accessible information. Mirror text creates a subtle barrier that makes your message feel special, reserved for those willing to engage deeply rather than passive scrollers.</p>
+                
+                <p><strong>Memory Enhancement:</strong> Research in cognitive psychology demonstrates that information processed more deeply (through effort and elaboration) creates stronger memory traces than passively received information. Mirror text that requires active decoding becomes more memorable than standard text presented in the same context.</p>
+                
+                <p><strong>Social Proof Trigger:</strong> When users see mirror text, they often wonder if they're "getting it" or if others are decoding it successfully. This social comparison instinct drives comments and conversations as people verify their interpretation, generating engagement that algorithms reward with increased visibility.</p>
+                
+                <h3>Common Mistakes to Avoid When Using Mirror Text</h3>
+                
+                <p>Learning from common pitfalls helps you implement mirror text more effectively and avoid counterproductive approaches.</p>
+                
+                <p><strong>Overcomplication:</strong> Using mirror text for lengthy passages or critical information frustrates readers rather than engaging them. Reserve the effect for short, impactful text segments where the creative benefit outweighs the comprehension cost.</p>
+                
+                <p><strong>Inconsistent Implementation:</strong> Randomly alternating between mirrored and standard text without strategic purpose confuses audiences and dilutes brand identity. Establish clear guidelines for when and how you deploy mirror text effects.</p>
+                
+                <p><strong>Ignoring Context:</strong> Mirror text that works brilliantly for casual social media may seem unprofessional in business communications. Always consider context, audience expectations, and communication objectives before implementing creative text effects.</p>
+                
+                <p><strong>Accessibility Neglect:</strong> Failing to provide alternative access to mirrored content excludes audience members using assistive technologies or those who struggle with visual puzzles. Always include pathways for all users to access your core message.</p>
+                
+                <p><strong>Platform Testing Failure:</strong> Assuming mirror text will render identically across all platforms leads to disappointing results. Test your content on target platforms before large-scale publication to catch rendering issues early.</p>
+                
+                <p><strong>Character Limit Ignorance:</strong> Some mirrored characters consume more bytes than standard equivalents, potentially causing unexpected character limit violations on platforms with strict restrictions. Check character counts after transformation rather than relying on original text metrics.</p>
+                
+                <p><strong>Copyright and Trademark Issues:</strong> Using mirror text to modify copyrighted phrases, trademarked slogans, or branded content doesn't constitute sufficient transformation to avoid intellectual property concerns. Ensure you have rights to any text you mirror for commercial purposes.</p>
+                
+                <h3>Future Developments in Text Transformation Technology</h3>
+                
+                <p>The field of creative text transformation continues evolving, with emerging technologies promising even more sophisticated effects and applications.</p>
+                
+                <p><strong>AI-Enhanced Generation:</strong> Artificial intelligence and machine learning algorithms are beginning to suggest optimal mirror text implementations based on content analysis, audience demographics, and engagement goals. These intelligent systems will recommend when and how to apply mirror effects for maximum impact.</p>
+                
+                <p><strong>Augmented Reality Integration:</strong> AR platforms are experimenting with mirror text that only reveals itself when viewed through phone cameras or AR glasses, creating layered reality experiences where physical spaces contain hidden mirrored messages.</p>
+                
+                <p><strong>Dynamic Animation Effects:</strong> Emerging web technologies enable animated transitions between standard and mirrored text, creating eye-catching effects that draw attention through movement rather than static reversal.</p>
+                
+                <p><strong>Voice Integration:</strong> As voice assistants and audio content grow in importance, new technologies are exploring how to represent mirror text concepts in audio formats through reversed audio, palindromic phrasing, or other acoustic equivalents.</p>
+                
+                <p><strong>3D and Spatial Typography:</strong> Virtual and mixed reality environments enable three-dimensional mirror text that can be viewed from multiple angles, creating complex spatial typography experiences impossible in traditional two-dimensional contexts.</p>
+                
+                <p><strong>Blockchain and NFT Applications:</strong> Digital artists are incorporating mirror text into blockchain-based artwork and NFTs, using text transformation as a authentication and uniqueness marker for digital creative works.</p>
+                
+                <h3>Building Your Mirror Text Strategy: Action Plan</h3>
+                
+                <p>Translating knowledge into action requires structured planning. This framework helps you develop an effective mirror text strategy aligned with your goals.</p>
+                
+                <p><strong>Phase 1 - Experimentation:</strong> Begin by testing mirror text in low-risk contexts. Try it in personal social media posts, informal communications with friends, or internal team messages. Observe reactions, gather feedback, and develop intuition for what works in different contexts.</p>
+                
+                <p><strong>Phase 2 - Audience Research:</strong> Analyze your target audience's demographics, preferences, and engagement patterns. Review competitor usage of creative text effects. Identify opportunities where mirror text could differentiate your content in an oversaturated market.</p>
+                
+                <p><strong>Phase 3 - Strategic Planning:</strong> Define specific objectives for mirror text implementation. Will you use it for brand identity, engagement boosting, content variety, or creative expression? Establish guidelines for when, where, and how mirror text supports these objectives.</p>
+                
+                <p><strong>Phase 4 - Content Calendar Integration:</strong> Incorporate mirror text into your content planning process. Schedule strategic deployment for announcements, campaign launches, or engagement-focused posts rather than random or reactive usage.</p>
+                
+                <p><strong>Phase 5 - Performance Measurement:</strong> Track engagement metrics for content featuring mirror text compared to baseline performance. Monitor comments, shares, saves, click-through rates, and conversion metrics to quantify effectiveness.</p>
+                
+                <p><strong>Phase 6 - Iteration and Optimization:</strong> Use performance data to refine your approach. Double down on successful implementations while eliminating ineffective patterns. Continuously test new variations and applications to prevent stagnation.</p>
+                
+                <p><strong>Phase 7 - Scaling Success:</strong> As you identify winning formulas, systematize successful approaches into templates and frameworks that team members can replicate. Document best practices to maintain quality as usage scales.</p>
+                
+                <h3>Why File Magics Mirror Text Generator Leads the Category</h3>
+                
+                <p>In a crowded landscape of text transformation tools, several factors distinguish File Magics as the superior choice for mirror text generation.</p>
+                
+                <p><strong>Comprehensive Tool Ecosystem:</strong> Rather than offering only mirror text, File Magics provides a complete suite of text transformation, formatting, and enhancement tools. This integration enables sophisticated workflows where mirror text combines with other effects for powerful creative outputs.</p>
+                
+                <p><strong>Reliability and Performance:</strong> Built on robust technical infrastructure, the generator processes transformations instantly without lag, crashes, or errors even during high-traffic periods. This reliability ensures you can depend on the tool for time-sensitive content creation.</p>
+                
+                <p><strong>User-Centric Design:</strong> Every interface element reflects deep consideration of user needs and workflows. The tool doesn't just function - it delights through thoughtful details that streamline your process and remove friction from creative work.</p>
+                
+                <p><strong>Continuous Innovation:</strong> Regular updates introduce new features, transformation modes, and capabilities based on user feedback and emerging use cases. The tool evolves alongside your needs rather than remaining static.</p>
+                
+                <p><strong>Community Support:</strong> Access a community of creative professionals, content creators, and text effect enthusiasts who share tips, showcase innovative applications, and provide inspiration for your own projects.</p>
+                
+                <p><strong>Educational Resources:</strong> Beyond the tool itself, File Magics offers tutorials, use case studies, and best practice guides that help you extract maximum value from mirror text capabilities.</p>
+                
+                <p><strong>Mobile-First Approach:</strong> Recognizing that most social media content creation happens on mobile devices, the generator prioritizes seamless mobile experiences rather than treating mobile as an afterthought.</p>
+                
+                <p><strong>Privacy Commitment:</strong> In an industry where many tools monetize user data, File Magics maintains an unwavering commitment to user privacy through client-side processing and zero data collection.</p>
+                
+                <p><strong>Transparent Operations:</strong> No hidden costs, surprise limitations, or premium paywalls. The tool delivers exactly what it promises - full-featured, unlimited mirror text generation completely free.</p>
+                
+                <p><strong>Accessible Innovation:</strong> By removing barriers to creative text transformation, File Magics democratizes design capabilities that were previously available only to those with expensive software or technical expertise.</p>
+                
+                <h3>Real-World Success Stories: Mirror Text in Action</h3>
+                
+                <p>Concrete examples demonstrate mirror text's practical impact across diverse contexts and industries.</p>
+                
+                <p><strong>Independent Musician Launch:</strong> An emerging artist used mirror text in social media teasers for an album release. Reversed lyrics from the title track created intrigue that drove 340% more comments than previous album announcements, with fans speculating about meanings and competing to decode messages first. The engagement boost translated to 28% higher first-week streaming numbers.</p>
+                
+                <p><strong>Restaurant Grand Opening:</strong> A new restaurant incorporated mirror text into their pre-opening social media campaign, posting reversed menu items that followers decoded and discussed. The campaign generated organic reach exceeding 150,000 impressions without paid advertising, resulting in reservation waitlists before doors opened.</p>
+                
+                <p><strong>Educational Content Creator:</strong> A science educator on YouTube began using mirror text in video thumbnails for physics concepts, creating visual metaphors for reflection and symmetry. Click-through rates increased 43%, with the distinctive thumbnails improving brand recognition across the platform's recommendation algorithm.</p>
+                
+                <p><strong>E-commerce Flash Sale:</strong> An online retailer used mirror text to announce flash sales to email subscribers, with subject lines featuring reversed discount codes that required decoding. Open rates jumped 67% compared to standard promotional emails, while the novelty approach reduced unsubscribe rates despite increased email frequency.</p>
+                
+                <p><strong>Personal Brand Building:</strong> A career coach incorporated mirror text into LinkedIn posts about "reflecting on professional growth," using the effect as a thematic metaphor. The distinctive posts increased profile visits by 220% and generated speaking engagement inquiries from organizations impressed by the creative approach.</p>
+                
+                <h3>Getting Started: Your First Mirror Text Creation</h3>
+                
+                <p>Ready to experience mirror text generation firsthand? Follow this quick-start guide to create your first transformation.</p>
+                
+                <p><strong>Choose Your Message:</strong> Start with a short, impactful phrase - your name, a favorite quote, a catchy slogan, or a simple greeting. Keep it brief (under 50 characters) for your first attempt to see immediate, manageable results.</p>
+                
+                <p><strong>Access the Generator:</strong> Navigate to File Magics Mirror Text Generator. The tool loads instantly with the input field ready for your text.</p>
+                
+                <p><strong>Enter Your Text:</strong> Type or paste your chosen message into the input field. Watch as the preview area prepares to show your transformation in real time.</p>
+                
+                <p><strong>Generate:</strong> Click the transform button and observe your text convert instantly to its mirrored form. Notice how the reversed characters create the distinctive effect.</p>
+                
+                <p><strong>Experiment with Modes:</strong> Try different transformation options to see how various mirror effects change the appearance and impact of your text. Compare standard reversal with full flip modes.</p>
+                
+                <p><strong>Copy and Test:</strong> Use the copy button to transfer your mirrored text to clipboard, then paste it into a text document or notes app to see how it appears outside the generator interface.</p>
+                
+                <p><strong>Share Publicly:</strong> If you're satisfied with the result, paste your mirror text into a social media post, story, or bio. Monitor reactions and engagement to gauge effectiveness.</p>
+                
+                <p><strong>Iterate:</strong> Based on initial results, refine your approach. Try different message lengths, contexts, and combinations with standard text to discover what works best for your specific goals.</p>
+                
+                <h3>The Creative Future: Expanding Your Text Transformation Toolkit</h3>
+                
+                <p>Mirror text represents just one technique in an expanding universe of creative text manipulation possibilities. Consider exploring complementary effects to build a comprehensive creative toolkit.</p>
+                
+                <p><strong>Upside-Down Text:</strong> Characters flipped vertically create another attention-grabbing effect that works well alternated with mirror text for maximum visual impact.</p>
+                
+                <p><strong>Glitch Text:</strong> Zalgo and glitch effects add chaotic, corrupted appearances perfect for edgy, alternative, or horror-themed content aesthetics.</p>
+                
+                <p><strong>Cursive and Script Transformations:</strong> Elegant script fonts convey sophistication and formality, excellent for luxury brands, wedding content, or refined aesthetic presentations.</p>
+                
+                <p><strong>Bold and Italic Unicode:</strong> Emphasize key concepts without relying on platform-specific formatting that might not transfer across different contexts.</p>
+                
+                <p><strong>Small Caps and Superscript:</strong> Create hierarchical visual interest and typographic sophistication that standard formatting options can't achieve.</p>
+                
+                <p><strong>Bubble and Circle Text:</strong> Playful encapsulated characters work beautifully for youth-oriented content, creative projects, or lighthearted communications.</p>
+                
+                <p><strong>Medieval and Gothic Fonts:</strong> Historical text styles create atmospheric effects perfect for fantasy content, historical projects, or dramatic presentations.</p>
+                
+                <p><strong>Emoji Integration:</strong> Combine transformed text with strategic emoji placement for maximum visual appeal and emotional resonance.</p>
+                
+                <p>By mastering multiple text transformation techniques and understanding when each serves your objectives best, you develop sophisticated content creation capabilities that consistently outperform standard approaches. Mirror text excellence combined with broader text effect proficiency establishes you as a creative leader in your niche.</p>
+                
+                <h3>Conclusion: Transform Your Digital Presence Today</h3>
+                
+                <p>In the attention economy of modern digital platforms, creative differentiation isn't optional - it's essential for visibility, engagement, and growth. Mirror text provides an immediately accessible yet highly effective tool for standing out from the crowd, capturing audience attention, and creating memorable content experiences.</p>
+                
+                <p>File Magics Mirror Text Generator removes all barriers to leveraging this powerful effect. No cost, no registration, no limitations - just instant, unlimited access to professional-quality text transformation that works flawlessly across all platforms and devices. Whether you're building a personal brand, promoting a business, expressing creativity, or simply experimenting with new communication approaches, mirror text offers concrete advantages that translate directly into improved results.</p>
+                
+                <p>The tool's intuitive interface means you'll create your first mirror text in seconds, while its sophisticated features provide depth for advanced users seeking maximum control and customization. Combined with File Magics' comprehensive suite of complementary text tools, you gain access to a complete creative ecosystem designed to elevate every aspect of your digital communications.</p>
+                
+                <p>Don't let your content blend into the background noise of oversaturated social feeds. Start using mirror text today to capture attention, drive engagement, and build recognition for your unique creative voice. The transformation takes seconds - the impact lasts forever.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">What exactly is mirror text and how does it work?</div>
+                    <div class="faq-answer">Mirror text is text that has been reversed or flipped to appear backwards, like viewing text in a mirror. Our generator reverses the character order of your input text and/or replaces characters with their visually mirrored Unicode equivalents, creating text that reads backwards when viewed normally. This transformation happens instantly using algorithms that process your text directly in your browser.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is the Mirror Text Generator completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! File Magics Mirror Text Generator is 100% free with no hidden costs, subscription fees, or premium tiers. You can transform unlimited amounts of text as many times as you want without any charges. There are no usage limits, daily quotas, or features locked behind paywalls.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account or register to use the tool?</div>
+                    <div class="faq-answer">No registration or account creation is required. Simply access the tool through your web browser and start transforming text immediately. We don't collect email addresses, personal information, or require any login credentials. Your experience is completely anonymous and hassle-free.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will mirror text work on all social media platforms?</div>
+                    <div class="faq-answer">Mirror text works on virtually all major platforms including Instagram, Facebook, Twitter, TikTok, LinkedIn, Snapchat, Pinterest, and others. The tool uses Unicode characters that are universally supported across modern platforms and devices. However, it's always wise to test on your specific target platform before large-scale deployment.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use mirror text on my mobile phone or tablet?</div>
+                    <div class="faq-answer">Yes! The Mirror Text Generator is fully optimized for mobile devices. The responsive interface works seamlessly on smartphones and tablets running iOS, Android, or any other mobile operating system. You can create mirror text on the go with the same functionality available on desktop computers.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my text data secure when using this generator?</div>
+                    <div class="faq-answer">Your text is completely secure because all transformations happen directly in your browser using client-side JavaScript. Your text never gets sent to external servers, databases, or third parties. We don't store, log, or analyze any text you transform. Your content remains entirely private.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I reverse mirror text back to normal?</div>
+                    <div class="faq-answer">To reverse mirror text back to readable format, simply paste the mirrored text back into the generator input field and apply the transformation again. The reversal process works bidirectionally - transforming mirror text produces the original readable text.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Are there character limits for mirror text generation?</div>
+                    <div class="faq-answer">The generator can handle very large amounts of text, though extremely long passages (thousands of characters) may be better processed in smaller sections for optimal platform compatibility. Most social media platforms have their own character limits which apply to both standard and mirrored text equally.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I combine mirror text with emojis and special characters?</div>
+                    <div class="faq-answer">Yes, the generator intelligently handles emojis, special characters, numbers, and punctuation. You can include these elements in your text, and the tool will process them appropriately, either mirroring them or preserving them in their original form depending on which produces the best visual result.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will screen readers and accessibility tools work with mirror text?</div>
+                    <div class="faq-answer">Screen readers and most accessibility tools will read mirror text as the reversed character sequence, which may not be comprehensible to users relying on these technologies. For accessibility, always provide the original readable text alongside or as an alternative to mirrored content to ensure all users can access your message.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use mirror text for commercial or business purposes?</div>
+                    <div class="faq-answer">Yes, you can use mirror text generated by our tool for any purpose including commercial applications, business marketing, branding, advertising, and professional communications. There are no licensing restrictions on the output you create with the generator.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does mirror text affect SEO or search engine rankings?</div>
+                    <div class="faq-answer">Mirror text in website content may not be indexed properly by search engines since the reversed characters don't form recognizable words. If SEO is important for specific content, use mirror text sparingly as decorative elements while maintaining standard text for your primary content, headings, and keywords that need to be searchable.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Why does some mirror text look different on different devices?</div>
+                    <div class="faq-answer">Occasionally, different operating systems or devices may render Unicode characters slightly differently based on their installed fonts and typography engines. While the core effect remains consistent, minor visual variations can occur. The vast majority of users will see your mirror text as intended, but testing across devices helps ensure consistency.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I mirror text in languages other than English?</div>
+                    <div class="faq-answer">Yes, the generator supports text in multiple languages including Spanish, French, German, Italian, Portuguese, and many others that use Latin-based alphabets. Languages using completely different character sets (like Chinese, Japanese, Arabic, or Cyrillic) may have limited mirroring options depending on available Unicode character equivalents.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How can I save my favorite mirror text creations?</div>
+                    <div class="faq-answer">The generator includes a session history feature that temporarily stores your recent transformations while your browser tab remains open. For permanent storage, simply copy your favorite mirror text creations and paste them into a document, notes app, or dedicated file where you maintain your content library for future reference.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What's the difference between character reversal and full mirror flip?</div>
+                    <div class="faq-answer">Character reversal simply rearranges the order of letters from last to first (e.g., "Hello" becomes "olleH"). Full mirror flip not only reverses order but also replaces each character with visually flipped Unicode equivalents, creating text that looks like an actual mirror reflection. Both effects are available in our generator.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use mirror text in email subject lines?</div>
+                    <div class="faq-answer">Yes, mirror text works in email subject lines and can significantly improve open rates due to the curiosity it generates. However, some aggressive spam filters may occasionally flag unusual Unicode patterns, so test with small recipient groups first before sending to large email lists to ensure deliverability.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will mirror text work in my graphic design software?</div>
+                    <div class="faq-answer">Mirror text generated by our tool works in most graphic design applications including Adobe Photoshop, Illustrator, InDesign, Canva, Figma, and similar programs. Simply paste the mirrored text into text fields as you would with regular text, then apply additional styling, effects, or formatting as needed for your design.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does mirror text impact engagement on social media?</div>
+                    <div class="faq-answer">Mirror text typically increases engagement metrics including comments, shares, saves, and viewing time because it creates curiosity and requires cognitive effort to decode. This increased engagement signals platform algorithms to show your content to more users, potentially multiplying your organic reach compared to standard text posts.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I customize which parts of my text get mirrored?</div>
+                    <div class="faq-answer">Yes, you have complete control over what gets mirrored. You can manually combine standard and mirrored text by transforming specific words or phrases separately, then arranging them in your final composition. This selective approach often creates the most effective results, using mirror text for emphasis while keeping critical information easily readable.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Transformation functions for mirror text
+        const transformations = {
+            // Simple character reversal
+            simpleReverse: (text) => {
+                return text.split('').reverse().join('');
+            },
+            
+            // Full mirror flip with Unicode characters
+            fullMirror: (text) => {
+                const mirrorMap = {
+                    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+                    'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+                    'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                    'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ',
+                    'K': 'Ӽ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥',
+                    'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                    '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+                    '.': '˙', ',': "'", "'": ',', '"': ',,', '`': ',', '?': '¿', '!': '¡', '&': '⅋', '_': '‾',
+                    '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<'
+                };
+                return text.split('').map(char => mirrorMap[char] || char).reverse().join('');
+            },
+            
+            // Word-level reversal (reverses word order but keeps words readable)
+            wordReverse: (text) => {
+                return text.split(' ').reverse().join(' ');
+            },
+            
+            // Upside down text (for variety)
+            upsideDown: (text) => {
+                const upsideDownMap = {
+                    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+                    'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+                    'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                    'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ',
+                    'K': 'Ӽ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥',
+                    'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                    '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+                    '.': '˙', ',': "'", "'": ',', '"': ',,', '`': ',', '?': '¿', '!': '¡', '&': '⅋', '_': '‾',
+                    '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<'
+                };
+                return text.split('').map(char => upsideDownMap[char] || char).join('');
+            },
+            
+            // Reverse each word individually
+            reverseWords: (text) => {
+                return text.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+            },
+            
+            // Combination of full mirror and upside down
+            mirrorUpsideDown: (text) => {
+                const upsideDownMap = {
+                    'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ',
+                    'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ',
+                    'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+                    'A': '∀', 'B': '𐐒', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': 'פ', 'H': 'H', 'I': 'I', 'J': 'ſ',
+                    'K': 'Ӽ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥',
+                    'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+                    '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+                    '.': '˙', ',': "'", "'": ',', '"': ',,', '`': ',', '?': '¿', '!': '¡', '&': '⅋', '_': '‾',
+                    '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<'
+                };
+                return text.split('').map(char => upsideDownMap[char] || char).reverse().join('');
+            }
+        };
+
+        // Transformation definitions with display names
+        const transformationList = [
+            { id: 'simpleReverse', name: 'Simple Reverse', func: transformations.simpleReverse },
+            { id: 'fullMirror', name: 'Full Mirror Flip', func: transformations.fullMirror },
+            { id: 'wordReverse', name: 'Word Order Reverse', func: transformations.wordReverse },
+            { id: 'upsideDown', name: 'Upside Down', func: transformations.upsideDown },
+            { id: 'reverseWords', name: 'Reverse Each Word', func: transformations.reverseWords },
+            { id: 'mirrorUpsideDown', name: 'Mirror + Upside Down', func: transformations.mirrorUpsideDown }
+        ];
+
+        // State management
+        let favorites = JSON.parse(localStorage.getItem('mirrorTextFavorites')) || [];
+        let debounceTimer;
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const favoritesList = document.getElementById('favoritesList');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', handleInput);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Initialize favorites display
+            updateFavoritesDisplay();
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle text input with debounce
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updatePreview(inputText.value);
+            }, 150);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview('');
+        }
+
+        // Update preview with transformed text
+        function updatePreview(text) {
+            previewContainer.innerHTML = '';
+            
+            if (!text.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Type something to see mirror text previews';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            // Truncate long text for preview (but keep full for copy/download)
+            const displayText = text.length > 300 ? text.substring(0, 300) + '...' : text;
+            
+            transformationList.forEach(transform => {
+                const previewItem = createPreviewItem(transform, text, displayText);
+                previewContainer.appendChild(previewItem);
+            });
+        }
+
+        // Create a preview item for a transformation
+        function createPreviewItem(transform, fullText, displayText) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = transform.name;
+            previewHeader.appendChild(previewName);
+            
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.className = 'favorite-btn';
+            favoriteBtn.innerHTML = favorites.includes(transform.id) ? '★' : '☆';
+            favoriteBtn.setAttribute('aria-label', `Add ${transform.name} to favorites`);
+            favoriteBtn.addEventListener('click', () => toggleFavorite(transform.id, favoriteBtn));
+            previewHeader.appendChild(favoriteBtn);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            
+            // Apply the transformation
+            let transformedText = transform.func(fullText);
+            
+            // For display, use truncated version if needed
+            const displayTransformedText = fullText.length > 300 ? 
+                transform.func(displayText) : transformedText;
+            
+            previewText.textContent = displayTransformedText;
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', `Copy ${transform.name} text`);
+            copyBtn.addEventListener('click', () => copyToClipboard(transformedText, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download PNG button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download PNG';
+            downloadBtn.setAttribute('aria-label', `Download ${transform.name} as PNG`);
+            downloadBtn.addEventListener('click', () => downloadAsPNG(transformedText, transform.name));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            return previewItem;
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as PNG
+        function downloadAsPNG(text, transformName) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            
+            // Set canvas dimensions based on text
+            const fontSize = 24;
+            const padding = 20;
+            
+            context.font = `${fontSize}px Arial, sans-serif`;
+            const textWidth = context.measureText(text).width;
+            
+            canvas.width = textWidth + padding * 2;
+            canvas.height = fontSize + padding * 2;
+            
+            // Clear canvas with transparent background
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw text
+            context.font = `${fontSize}px Arial, sans-serif`;
+            context.fillStyle = '#333';
+            context.textBaseline = 'middle';
+            context.fillText(text, padding, canvas.height / 2);
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `${transformName.replace(/[^a-zA-Z0-9]/g, '_')}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        // Toggle favorite status
+        function toggleFavorite(transformId, button) {
+            const index = favorites.indexOf(transformId);
+            
+            if (index === -1) {
+                // Add to favorites
+                favorites.push(transformId);
+                button.innerHTML = '★';
+            } else {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                button.innerHTML = '☆';
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('mirrorTextFavorites', JSON.stringify(favorites));
+            
+            // Update favorites display
+            updateFavoritesDisplay();
+        }
+
+        // Update favorites display
+        function updateFavoritesDisplay() {
+            favoritesList.innerHTML = '';
+            
+            if (favorites.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'No favorites yet. Click the star icon on any transform to add it here.';
+                emptyMessage.style.color = '#7f8c8d';
+                favoritesList.appendChild(emptyMessage);
+                return;
+            }
+            
+            favorites.forEach(transformId => {
+                const transform = transformationList.find(t => t.id === transformId);
+                if (transform) {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.className = 'favorite-item';
+                    favoriteItem.textContent = transform.name;
+                    favoriteItem.addEventListener('click', () => {
+                        inputText.focus();
+                        updatePreview(inputText.value);
+                    });
+                    favoritesList.appendChild(favoriteItem);
+                }
+            });
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

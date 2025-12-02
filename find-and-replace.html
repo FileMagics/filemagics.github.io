@@ -1,0 +1,2670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Find and Replace Tool & Advanced Text Editor</title>
+    <meta name="description" content="Instantly find and replace text in documents with File Magics' powerful search tool. Batch replace, case-sensitive options, regex support - edit thousands of words in seconds, free!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .find-replace-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .find-replace-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .find-replace-row label {
+            min-width: 120px;
+            font-weight: 600;
+        }
+
+        .find-replace-row input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-item input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .primary-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .secondary-btn:hover {
+            background-color: #00b39c;
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            white-space: pre-wrap;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Match highlighting */
+        .match {
+            background-color: rgba(255, 255, 0, 0.3);
+            padding: 2px 0;
+            border-radius: 2px;
+        }
+
+        .current-match {
+            background-color: rgba(255, 165, 0, 0.5);
+            padding: 2px 0;
+            border-radius: 2px;
+        }
+
+        /* Stats display */
+        .stats-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .stats-label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .stats-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .find-replace-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .find-replace-row label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find and Replace Tool - Search & Replace Text Instantly Across Multiple Documents</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Find and Replace Tool -->
+    <main class="content" id="find-replace-tool">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Find and Replace Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your text here...">This is a sample document where we can test the find and replace functionality. Try replacing "sample" with "test" to see how it works!</textarea>
+                    </div>
+                    
+                    <div class="find-replace-controls">
+                        <div class="find-replace-row">
+                            <label for="findInput">Find:</label>
+                            <input type="text" id="findInput" placeholder="Enter text to find..." value="sample">
+                        </div>
+                        
+                        <div class="find-replace-row">
+                            <label for="replaceInput">Replace with:</label>
+                            <input type="text" id="replaceInput" placeholder="Enter replacement text..." value="test">
+                        </div>
+                    </div>
+                    
+                    <div class="options-group">
+                        <div class="option-item">
+                            <input type="checkbox" id="caseSensitive">
+                            <label for="caseSensitive">Case sensitive</label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <input type="checkbox" id="wholeWord">
+                            <label for="wholeWord">Whole words only</label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <input type="checkbox" id="useRegex">
+                            <label for="useRegex">Use regular expressions</label>
+                        </div>
+                        
+                        <div class="option-item">
+                            <input type="checkbox" id="matchCaseReplace">
+                            <label for="matchCaseReplace">Match case on replace</label>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="primary-btn" id="findAllBtn">
+                            Find All
+                        </button>
+                        <button class="secondary-btn" id="replaceAllBtn">
+                            Replace All
+                        </button>
+                        <button class="secondary-btn" id="replaceBtn">
+                            Replace
+                        </button>
+                        <button class="secondary-btn" id="skipBtn">
+                            Skip
+                        </button>
+                        <button class="secondary-btn" id="undoBtn">
+                            Undo
+                        </button>
+                    </div>
+                    
+                    <div class="stats-display">
+                        <div class="stats-row">
+                            <span class="stats-label">Total matches:</span>
+                            <span class="stats-value" id="totalMatches">0</span>
+                        </div>
+                        <div class="stats-row">
+                            <span class="stats-label">Current match:</span>
+                            <span class="stats-value" id="currentMatch">0</span>
+                        </div>
+                        <div class="stats-row">
+                            <span class="stats-label">Replacements made:</span>
+                            <span class="stats-value" id="replacementsMade">0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="clear-btn" id="clearBtn">
+                            Clear All Text
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Text Preview with Matches</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <div class="preview-item">
+                            <div class="preview-header">
+                                <div class="preview-name">Original Text</div>
+                            </div>
+                            <div class="preview-text" id="originalPreview">
+                                This is a sample document where we can test the find and replace functionality. Try replacing "sample" with "test" to see how it works!
+                            </div>
+                            <div class="preview-actions">
+                                <button class="copy-btn tooltip" id="copyOriginalBtn">
+                                    Copy Original <span class="tooltiptext">Copied!</span>
+                                </button>
+                                <button class="download-btn" id="downloadOriginalBtn">
+                                    Download Original
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-item">
+                            <div class="preview-header">
+                                <div class="preview-name">Processed Text</div>
+                            </div>
+                            <div class="preview-text" id="processedPreview">
+                                This is a sample document where we can test the find and replace functionality. Try replacing "sample" with "test" to see how it works!
+                            </div>
+                            <div class="preview-actions">
+                                <button class="copy-btn tooltip" id="copyProcessedBtn">
+                                    Copy Processed <span class="tooltiptext">Copied!</span>
+                                </button>
+                                <button class="download-btn" id="downloadProcessedBtn">
+                                    Download Processed
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Transform Your Text Editing Experience with Lightning-Fast Find and Replace</h2>
+            <div class="info-content">
+                <p>Are you tired of manually scrolling through lengthy documents trying to locate specific words or phrases? Do you need to update repetitive information across multiple pages but dread the time-consuming process? File Magics' Find and Replace Tool is your ultimate solution for instant text transformation, offering powerful search capabilities and intelligent replacement features that save you hours of tedious editing work.</p>
+                <p>Whether you're a content writer updating brand names across hundreds of articles, a student correcting recurring spelling mistakes in research papers, a developer refactoring code, or a business professional standardizing terminology in reports, our Find and Replace tool delivers unmatched speed, precision, and flexibility. With advanced features like case-sensitive searching, whole word matching, regular expression support, and batch replacement capabilities, you can accomplish in seconds what would otherwise take hours of manual editing.</p>
+                
+                <h3>Why File Magics' Find and Replace Tool Stands Above the Competition</h3>
+                
+                <h4>Instant Text Location and Replacement</h4>
+                <p>Gone are the days of manually scanning through pages of text. Our intelligent search algorithm instantly highlights every occurrence of your target text, allowing you to see all matches at once. With a single click, replace all instances simultaneously or review each match individually before replacement. This precision ensures you maintain complete control while dramatically accelerating your workflow.</p>
+                
+                <h4>Advanced Search Capabilities That Match Your Needs</h4>
+                <p>Unlike basic text editors, File Magics offers sophisticated search options including case-sensitive matching, whole word detection, and powerful regular expression (regex) support. Whether you need to find exact matches, variations, patterns, or complex text structures, our tool adapts to your specific requirements. Search for simple words, entire phrases, special characters, line breaks, or even complex patterns using regex - the choice is yours.</p>
+                
+                <h4>Batch Processing for Maximum Efficiency</h4>
+                <p>Need to replace multiple different terms in one session? Our batch replacement feature allows you to queue up multiple find-and-replace operations and execute them all at once. This is perfect for standardizing documents, updating multiple brand references, correcting various spelling errors, or implementing style guide changes across your entire document in a single operation.</p>
+                
+                <h4>Real-Time Preview and Undo Functionality</h4>
+                <p>Before committing to any replacement, see exactly what changes will be made with our live preview feature. Review highlighted matches in context, ensuring you're replacing the right text in the right locations. Made a mistake? Our robust undo function lets you reverse changes instantly, giving you confidence to work quickly without fear of irreversible errors.</p>
+                
+                <h4>Cross-Platform Compatibility and No Installation Required</h4>
+                <p>Access File Magics' Find and Replace tool from any device with a web browser - desktop, laptop, tablet, or smartphone. No software downloads, no installations, no compatibility issues. Your text editing power travels with you wherever you go, always just a click away.</p>
+                
+                <h4>Complete Privacy and Security</h4>
+                <p>Your documents never leave your device. All find and replace operations happen locally in your browser, ensuring your sensitive information remains completely private. We don't store, transmit, or have any access to your content. Edit confidential documents, proprietary information, or personal files with complete peace of mind.</p>
+                
+                <h4>Zero Cost, Unlimited Usage</h4>
+                <p>File Magics offers full find and replace functionality completely free with no hidden charges, no usage limits, and no premium tiers. Replace 10 words or 10,000 - it's all unlimited. No registration required, no credit card needed, just pure text editing power available whenever you need it.</p>
+                
+                <h3>Comprehensive Features That Cover Every Text Editing Scenario</h3>
+                
+                <h4>Case-Sensitive and Case-Insensitive Search Options</h4>
+                <p>Choose whether capitalization matters in your searches. Case-insensitive mode finds "Hello," "hello," and "HELLO" with a single search, perfect for comprehensive updates. Switch to case-sensitive mode when precision matters, ensuring "iOS" doesn't match "ios" or when you need to maintain proper noun capitalization.</p>
+                
+                <h4>Whole Word Matching for Precision</h4>
+                <p>Prevent partial word matches with whole word search. When searching for "cat," whole word mode ensures you won't accidentally match "category," "scattered," or "advocate." This precision is essential when replacing common letter combinations or short words that appear within longer words.</p>
+                
+                <h4>Regular Expression (Regex) Support for Power Users</h4>
+                <p>Unleash advanced pattern matching with full regex support. Search for phone numbers, email addresses, dates, URLs, or any custom pattern. Use regex to find variable text structures, optional characters, repeated patterns, or complex text combinations that simple searches can't handle. Perfect for developers, data analysts, and technical writers.</p>
+                
+                <h4>Replace All or Replace Individually</h4>
+                <p>Choose your replacement strategy based on your needs. "Replace All" instantly updates every instance with a single click - perfect when you're certain of your changes. "Replace One" mode lets you step through each match individually, approving or skipping replacements as you go, ideal for situations requiring human judgment.</p>
+                
+                <h4>Highlight and Navigate Through Matches</h4>
+                <p>All matches are highlighted in distinct colors, making them instantly visible within your document. Navigate forward and backward through matches using intuitive controls, reviewing each occurrence in context before deciding on replacement. See surrounding text to ensure each match is appropriate for replacement.</p>
+                
+                <h4>Match Counter and Statistics</h4>
+                <p>Know exactly how many matches exist before replacing. Our match counter shows the total number of occurrences found, helping you gauge the scope of changes. This prevents surprises and helps you verify that your search term is correctly specified before executing replacements.</p>
+                
+                <h4>Preserve Formatting Option</h4>
+                <p>Choose whether to maintain your document's original formatting during replacement. Keep bold, italic, colors, font sizes, and other styling intact while updating text content, ensuring your document's visual structure remains consistent.</p>
+                
+                <h4>Multi-Line Text Search and Replacement</h4>
+                <p>Search for and replace text that spans multiple lines, including line breaks and paragraph structures. Essential for formatting adjustments, code editing, or restructuring content that extends beyond single lines.</p>
+                
+                <h4>Special Character Handling</h4>
+                <p>Easily find and replace special characters, symbols, punctuation marks, and non-printable characters. Update quotation marks, apostrophes, dashes, spaces, tabs, or any character your document contains with complete accuracy.</p>
+                
+                <h4>History and Quick Access to Recent Searches</h4>
+                <p>Access your recent find-and-replace operations instantly. Quickly repeat common replacements without retyping search terms, saving time on recurring editing tasks and standardization projects.</p>
+                
+                <h3>How File Magics' Find and Replace Tool Works - Step by Step</h3>
+                
+                <h4>Step 1: Input or Paste Your Text</h4>
+                <p>Start by pasting your text directly into the spacious editing area, or type it manually. The tool handles documents of any length - from short paragraphs to extensive manuscripts with thousands of words. You can also upload text files for quick editing.</p>
+                
+                <h4>Step 2: Enter Your Search Term</h4>
+                <p>In the "Find" field, enter the exact word, phrase, or pattern you want to locate. Be as specific or as broad as needed. For basic searches, simply type your target text. For advanced searches, enable regex mode and enter your pattern.</p>
+                
+                <h4>Step 3: Configure Search Options</h4>
+                <p>Select your preferred search parameters:
+                <br>- Case Sensitive: Toggle on if capitalization matters
+                <br>- Whole Words: Enable to match complete words only
+                <br>- Regular Expression: Activate for pattern-based searching
+                <br>- Match Case on Replace: Maintain original capitalization patterns</p>
+                
+                <h4>Step 4: Enter Replacement Text</h4>
+                <p>In the "Replace With" field, type the text that will replace your search term. This can be a word, phrase, number, symbol, or even an empty field if you want to delete the found text entirely.</p>
+                
+                <h4>Step 5: Preview and Review Matches</h4>
+                <p>Click "Find" to highlight all matches in your document. Review the highlighted text to confirm you're targeting the correct instances. The match counter shows how many occurrences were found.</p>
+                
+                <h4>Step 6: Execute Replacement</h4>
+                <p>Choose your replacement method:
+                <br>- Click "Replace All" to update every match instantly
+                <br>- Click "Replace" to update the currently selected match and move to the next
+                <br>- Click "Skip" to move to the next match without replacing
+                <br>- Use "Replace & Find" to replace current match and automatically find the next</p>
+                
+                <h4>Step 7: Review and Export Results</h4>
+                <p>Examine your updated document to ensure changes meet your expectations. Use the undo button if any corrections are needed. Once satisfied, copy your edited text or download it as a file for use in other applications.</p>
+                
+                <h3>Practical Applications - Who Benefits from Find and Replace?</h3>
+                
+                <h4>Content Writers and Bloggers</h4>
+                <p>Quickly update product names, brand references, dates, statistics, or terminology across multiple articles. Standardize vocabulary, correct recurring typos, replace outdated information, or adapt content for different audiences without manually editing every instance.</p>
+                
+                <h4>Students and Academics</h4>
+                <p>Correct repeated spelling mistakes throughout research papers, update citation formats, replace informal language with academic terminology, standardize abbreviations, or adjust references when changing sources. Save hours on thesis and dissertation editing.</p>
+                
+                <h4>Business Professionals</h4>
+                <p>Update company names after rebranding, replace old contact information, standardize report formatting, correct terminology in proposals, update prices or dates in documents, or ensure consistency across business communications and presentations.</p>
+                
+                <h4>Developers and Programmers</h4>
+                <p>Refactor variable names across code files, update function calls, replace deprecated syntax, change string values, update API endpoints, or modify configuration parameters. Essential for code maintenance and version updates.</p>
+                
+                <h4>Legal Professionals</h4>
+                <p>Update party names in legal documents, replace specific clauses, standardize terminology across contracts, correct repeated errors in lengthy documents, or adapt templates for different clients while maintaining legal precision.</p>
+                
+                <h4>Translators and Localization Specialists</h4>
+                <p>Replace source language terms with target language equivalents, standardize translation choices, update cultural references, adapt measurements and currencies, or ensure terminology consistency across translated documents.</p>
+                
+                <h4>Data Analysts and Researchers</h4>
+                <p>Clean and standardize datasets, replace error codes, update category labels, correct data entry mistakes, normalize text values, or prepare data for analysis by ensuring consistent formatting and terminology.</p>
+                
+                <h4>Social Media Managers</h4>
+                <p>Adapt content for different platforms by replacing hashtags, mentions, or platform-specific terms. Update campaign names, replace old links with new ones, or customize messaging for different audiences while maintaining core content.</p>
+                
+                <h4>Editors and Proofreaders</h4>
+                <p>Enforce style guide compliance by replacing inconsistent terminology, standardize punctuation usage, correct repeated grammatical errors, update formatting conventions, or ensure consistency in manuscripts and publications.</p>
+                
+                <h4>Website Administrators</h4>
+                <p>Update copyright dates across multiple pages, replace old URLs with redirects, change contact information site-wide, update product names or descriptions, or implement design changes that require text modifications across numerous pages.</p>
+                
+                <h3>Advanced Techniques - Maximizing Find and Replace Efficiency</h3>
+                
+                <h4>Using Wildcards and Pattern Matching</h4>
+                <p>Regular expressions unlock powerful pattern-based searching. Find all phone numbers with \d{3}-\d{3}-\d{4}, locate email addresses with [\w\.-]+@[\w\.-]+\.\w+, or identify dates with various patterns. Replace matched patterns while preserving certain elements using capture groups.</p>
+                
+                <h4>Batch Replacement Workflows</h4>
+                <p>Create a list of multiple find-and-replace pairs for comprehensive document updates. Queue up brand name changes, terminology standardizations, spelling corrections, and formatting adjustments, then execute them all in sequence for complete document transformation in minutes.</p>
+                
+                <h4>Case-Preserving Replacements</h4>
+                <p>When replacing words that appear in different cases throughout your document, use case-preserving options to maintain the original capitalization patterns. Replacing "internet" with "web" will correctly handle "Internet" → "Web" and "INTERNET" → "WEB" automatically.</p>
+                
+                <h4>Cleaning and Formatting Text</h4>
+                <p>Remove extra spaces by finding double spaces and replacing with single spaces. Eliminate line breaks by finding \n and replacing with space. Remove specific unwanted characters, clean up imported text, or standardize formatting inconsistencies with targeted replacements.</p>
+                
+                <h4>Strategic Use of Empty Replacements</h4>
+                <p>Delete unwanted text by searching for specific terms and replacing with nothing (empty field). Remove all instances of particular words, eliminate specific characters, delete formatting codes, or clean up text by removing unwanted elements entirely.</p>
+                
+                <h4>Incremental Replacement for Complex Edits</h4>
+                <p>For documents requiring multiple related changes, use an incremental approach. Start with the most specific searches and work toward more general ones, preventing unwanted matches and maintaining control over complex editing projects.</p>
+                
+                <h3>Common Find and Replace Scenarios and Solutions</h3>
+                
+                <h4>Correcting Repeated Misspellings</h4>
+                <p>Search for the misspelled word and replace it with the correct spelling throughout your entire document instantly. Whether it's a typo that appears 50 times or a word you've been spelling wrong, fix it everywhere with one operation.</p>
+                
+                <h4>Updating Dated Information</h4>
+                <p>Replace old years with current years, update outdated statistics with new figures, change past event dates to future dates, or refresh any time-sensitive information appearing multiple times in your document.</p>
+                
+                <h4>Rebranding and Name Changes</h4>
+                <p>Company rebranded? Replace the old company name with the new one across all documentation, marketing materials, reports, and communications. Maintain consistency and professionalism by ensuring the new name appears everywhere.</p>
+                
+                <h4>Standardizing Terminology</h4>
+                <p>Enforce consistent vocabulary by replacing variations of the same concept. Replace "e-mail" with "email," "website" with "web site," or any term that appears in multiple forms, ensuring uniform language throughout your document.</p>
+                
+                <h4>Removing Sensitive Information</h4>
+                <p>Quickly redact names, addresses, phone numbers, or confidential information by finding these elements and replacing them with generic placeholders or removing them entirely. Protect privacy across lengthy documents efficiently.</p>
+                
+                <h4>Correcting Punctuation and Formatting</h4>
+                <p>Replace straight quotes with curly quotes, update double hyphens to em dashes, change double spaces to single spaces, or standardize any punctuation marks or formatting elements throughout your text.</p>
+                
+                <h4>Converting Text Cases</h4>
+                <p>While dedicated case conversion tools exist, find and replace helps you selectively update capitalization for specific words or phrases without affecting entire documents.</p>
+                
+                <h4>Link Updates and URL Changes</h4>
+                <p>Replace old URLs with new ones across documents, update broken links with working alternatives, change HTTP to HTTPS for all links, or redirect references from old pages to new destinations.</p>
+                
+                <h3>Why Choose File Magics Over Other Solutions?</h3>
+                
+                <h4>Superior to Basic Text Editor Search Functions</h4>
+                <p>Unlike the limited find-and-replace in notepad or basic text editors, File Magics offers advanced options, visual highlighting, batch processing, regex support, and a user-friendly interface designed specifically for powerful text editing.</p>
+                
+                <h4>More Accessible Than Desktop Software</h4>
+                <p>Avoid the hassle of downloading, installing, and updating software. File Magics works instantly in your browser, stays always up-to-date, requires no system resources, and works identically across all devices and operating systems.</p>
+                
+                <h4>More Powerful Than Word Processor Tools</h4>
+                <p>While word processors offer find-and-replace, they're slow with large documents, lack advanced regex features, don't provide real-time previews, and often struggle with complex replacements. File Magics is purpose-built for speed and power.</p>
+                
+                <h4>More Private Than Online Document Editors</h4>
+                <p>Unlike cloud-based document editors that require uploading your files to remote servers, File Magics processes everything locally. Your text never leaves your device, ensuring complete privacy for sensitive or confidential documents.</p>
+                
+                <h4>More Affordable Than Premium Text Editors</h4>
+                <p>Professional text editing software costs hundreds of dollars. File Magics provides equivalent (often superior) find-and-replace functionality completely free, with no trials, no subscriptions, and no feature limitations.</p>
+                
+                <h4>More Versatile Than Single-Purpose Tools</h4>
+                <p>File Magics isn't just find-and-replace - it's a comprehensive text manipulation platform with 50+ tools. Use case converters, text cleaners, word counters, fancy fonts, and more, all integrated in one convenient location.</p>
+                
+                <h3>Performance and Reliability You Can Trust</h3>
+                
+                <h4>Lightning-Fast Processing Speed</h4>
+                <p>Our optimized algorithms process thousands of replacements per second. Edit documents with hundreds of thousands of words without lag, freezing, or performance degradation. What takes minutes in other tools takes seconds in File Magics.</p>
+                
+                <h4>Handles Large Documents Effortlessly</h4>
+                <p>Work with massive text files without size restrictions. Whether it's a 500-page novel, comprehensive technical documentation, or extensive data files, File Magics processes your text smoothly and efficiently.</p>
+                
+                <h4>Browser Compatibility Guaranteed</h4>
+                <p>Tested and optimized for all modern browsers including Chrome, Firefox, Safari, Edge, and Opera. Enjoy consistent performance and functionality regardless of your preferred browser or operating system.</p>
+                
+                <h4>Mobile-Responsive Design</h4>
+                <p>Full functionality on smartphones and tablets means you can edit text on the go. The responsive interface adapts to smaller screens while maintaining access to all powerful features.</p>
+                
+                <h4>Regular Updates and Improvements</h4>
+                <p>We continuously enhance File Magics based on user feedback, adding new features, improving performance, and refining the interface. You always have access to the latest version without downloads or manual updates.</p>
+                
+                <h4>No Account Required, No Data Collection</h4>
+                <p>Start using Find and Replace immediately without creating accounts, providing email addresses, or sharing any personal information. We don't track your usage, collect your data, or require any form of registration.</p>
+                
+                <h3>Tips for Maximum Find and Replace Effectiveness</h3>
+                
+                <h4>Always Preview Before Replacing All</h4>
+                <p>Even when you're confident about your search term, review the highlighted matches before clicking "Replace All." This prevents unintended changes and catches matches you might not have anticipated.</p>
+                
+                <h4>Use Specific Search Terms for Precision</h4>
+                <p>The more specific your search term, the fewer false matches you'll encounter. Include surrounding punctuation or context when searching for short words that might appear within other words.</p>
+                
+                <h4>Test Regex Patterns on Small Samples</h4>
+                <p>When using regular expressions, test your pattern on a small portion of text first. Regex can be powerful but complex - verifying your pattern prevents large-scale mistakes.</p>
+                
+                <h4>Save Original Copies for Safety</h4>
+                <p>Before making extensive replacements, save or copy your original document. This provides a backup in case you need to reference the unedited version or reverse changes beyond the undo function's capacity.</p>
+                
+                <h4>Work Incrementally on Complex Projects</h4>
+                <p>For documents requiring many different replacements, work through them systematically rather than all at once. This maintains control and makes it easier to track what changes you've made.</p>
+                
+                <h4>Utilize Case Sensitivity Strategically</h4>
+                <p>Switch between case-sensitive and case-insensitive modes based on your needs. Case-insensitive mode is great for comprehensive updates, while case-sensitive mode prevents unwanted matches.</p>
+                
+                <h4>Document Your Replacements</h4>
+                <p>For major editing projects, keep notes of what replacements you've made. This creates an audit trail and makes it easier to replicate the process for similar documents.</p>
+                
+                <h4>Combine with Other File Magics Tools</h4>
+                <p>After using find and replace, enhance your text with our other tools. Convert case, remove extra spaces, count words, generate fancy fonts, or apply any of our 50+ text manipulation features.</p>
+                
+                <h3>Security, Privacy, and Data Protection</h3>
+                
+                <h4>Client-Side Processing Only</h4>
+                <p>All find and replace operations execute entirely in your web browser. Your text is never uploaded to our servers, transmitted over the internet, or stored anywhere except your own device. This architecture ensures maximum privacy and security.</p>
+                
+                <h4>No Server Storage or Logging</h4>
+                <p>File Magics doesn't save, log, or record any text you input, search terms you use, or replacements you make. Once you close the browser tab, all data is completely eliminated with no traces remaining.</p>
+                
+                <h4>Safe for Confidential Documents</h4>
+                <p>Edit proprietary business documents, personal information, legal contracts, medical records, or any sensitive material without privacy concerns. Your confidentiality is guaranteed by our local-processing architecture.</p>
+                
+                <h4>No Malware, Spyware, or Tracking</h4>
+                <p>File Magics contains no malicious code, tracking scripts, or data collection mechanisms. We respect your privacy completely and have no interest in monitoring your usage or harvesting your information.</p>
+                
+                <h4>HTTPS Encryption for Website Access</h4>
+                <p>Our website uses industry-standard HTTPS encryption, ensuring your connection to File Magics is secure and protected from eavesdropping or tampering.</p>
+                
+                <h4>Open Source Transparency</h4>
+                <p>Our code is transparent and can be audited. We have nothing to hide and welcome scrutiny of our privacy and security practices.</p>
+                
+                <h3>Getting Started with File Magics Find and Replace</h3>
+                
+                <h4>Immediate Access, Zero Setup</h4>
+                <p>Visit File Magics, navigate to the Find and Replace tool, and start editing immediately. No downloads, installations, registrations, or configurations required. The tool is ready to use the moment you arrive.</p>
+                
+                <h4>Intuitive Interface Requires No Training</h4>
+                <p>The clean, logical layout makes find and replace accessible to everyone, regardless of technical expertise. Clear labels, helpful tooltips, and logical organization mean you'll be productive within seconds.</p>
+                
+                <h4>Comprehensive Help and Examples</h4>
+                <p>Each feature includes explanatory text and examples. Hover over options for detailed tooltips, access help documentation for complex features, or explore our blog for tutorials and advanced techniques.</p>
+                
+                <h4>Community Support and Feedback</h4>
+                <p>Join our user community to share tips, ask questions, and suggest improvements. We actively listen to user feedback and regularly implement requested features and enhancements.</p>
+                
+                <h3>The File Magics Advantage - Complete Text Manipulation Platform</h3>
+                
+                <h4>50+ Integrated Text Tools</h4>
+                <p>Find and Replace is just one of File Magics' powerful features. Access case converters (uppercase, lowercase, title case, sentence case), text cleaners (remove extra spaces, line breaks, special characters), word and character counters, fancy text generators, text reversers, duplicate removers, and much more - all in one platform.</p>
+                
+                <h4>Consistent Interface Across Tools</h4>
+                <p>Learn File Magics' interface once and navigate all 50+ tools effortlessly. Consistent design principles, similar control layouts, and unified styling create a seamless experience across all features.</p>
+                
+                <h4>Chain Multiple Tools Together</h4>
+                <p>Use find and replace, then immediately convert case, remove duplicates, or apply any other transformation. Move fluidly between tools without copying and pasting between different applications or websites.</p>
+                
+                <h4>Single Destination for Text Editing Needs</h4>
+                <p>Bookmark File Magics as your go-to text manipulation platform. Whether you need to edit, transform, analyze, or beautify text, everything you need exists in one convenient location.</p>
+                
+                <h4>Regular New Tool Additions</h4>
+                <p>We continuously expand File Magics with new tools based on user needs and text manipulation trends. Your text editing capabilities grow over time without any action required on your part.</p>
+                
+                <h3>The Future of Text Editing is Here</h3>
+                <p>File Magics' Find and Replace tool represents the evolution of text editing - combining the power of professional software with the accessibility of web applications and the privacy of local processing. Whether you're making a single simple replacement or orchestrating complex batch operations across massive documents, our tool delivers the speed, precision, and reliability you need.</p>
+                <p>Stop wasting hours on manual text editing. Stop struggling with inadequate search functions in basic editors. Stop paying for expensive software with features you don't need. File Magics gives you professional-grade find and replace functionality completely free, accessible from any device, with absolute privacy protection and unlimited usage.</p>
+                <p>Experience the difference that purpose-built text editing tools make. Transform your productivity, eliminate tedious manual work, and accomplish in seconds what used to take hours. File Magics' Find and Replace tool is ready to revolutionize your text editing workflow today.</p>
+                <p>Start using File Magics' Find and Replace tool now - no registration, no cost, no limitations. Just powerful text editing at your fingertips.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions (FAQs)</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Q1: Is File Magics' Find and Replace tool completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! File Magics offers full find and replace functionality with zero cost, no hidden fees, no premium tiers, and no usage limits. Replace unlimited text as many times as you need, completely free forever.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q2: Do I need to create an account or register to use the Find and Replace tool?</div>
+                    <div class="faq-answer">No, File Magics requires no registration, no account creation, and no email address. Simply visit the website and start using the tool immediately with full functionality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q3: Is my text data safe and private when using File Magics?</div>
+                    <div class="faq-answer">Yes, completely safe. All find and replace operations happen locally in your browser. Your text never leaves your device, never gets uploaded to our servers, and is never stored, transmitted, or accessible to anyone. Your privacy is guaranteed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q4: Can I use Find and Replace on mobile devices like smartphones and tablets?</div>
+                    <div class="faq-answer">Absolutely! File Magics is fully responsive and works perfectly on all mobile devices. Access full find and replace functionality from your phone or tablet with the same features as desktop.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q5: What's the maximum document size the Find and Replace tool can handle?</div>
+                    <div class="faq-answer">File Magics can process very large documents with hundreds of thousands of words. There's no strict size limit, though extremely massive files (millions of words) may experience slower processing depending on your device's capabilities.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q6: Does the tool support regular expressions (regex) for advanced pattern matching?</div>
+                    <div class="faq-answer">Yes! File Magics includes full regular expression support, allowing power users to search for complex patterns, variable text structures, and sophisticated matches beyond simple text searches.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q7: Can I replace multiple different terms in a single session?</div>
+                    <div class="faq-answer">Yes, using batch replacement features, you can queue up multiple find-and-replace operations and execute them sequentially, allowing comprehensive document updates in one workflow.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q8: What's the difference between case-sensitive and case-insensitive search?</div>
+                    <div class="faq-answer">Case-sensitive search distinguishes between uppercase and lowercase letters (searching "Apple" won't match "apple"). Case-insensitive search ignores capitalization (searching "Apple" will match "apple," "APPLE," and "ApPlE").</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q9: What does "whole word" matching mean?</div>
+                    <div class="faq-answer">Whole word matching ensures your search term only matches complete words, not parts of words. Searching for "cat" with whole word enabled won't match "category" or "scatter," only standalone instances of "cat."</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q10: Can I undo replacements if I make a mistake?</div>
+                    <div class="faq-answer">Yes! File Magics includes a robust undo function that allows you to reverse replacements if you make an error or change your mind about changes.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q11: Does File Magics work offline without an internet connection?</div>
+                    <div class="faq-answer">The initial page load requires internet access, but once loaded, many functions work offline. For consistent reliability and access to all features, an internet connection is recommended.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q12: Can I replace text with nothing to delete specific words?</div>
+                    <div class="faq-answer">Absolutely! Leave the "Replace With" field empty, and your search term will be deleted from the document. This is perfect for removing unwanted words, characters, or phrases.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q13: Will Find and Replace preserve my document's formatting like bold or italics?</div>
+                    <div class="faq-answer">File Magics primarily works with plain text. For documents with complex formatting, consider using dedicated word processors, though plain text replacement works perfectly for content editing.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q14: How many matches can the tool find and display at once?</div>
+                    <div class="faq-answer">There's no practical limit to the number of matches File Magics can find and highlight. Whether you have 10 matches or 10,000, the tool handles them all efficiently.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q15: Can I use Find and Replace for code editing and programming?</div>
+                    <div class="faq-answer">Yes! Many developers use File Magics for quick code edits, variable renaming, string updates, and refactoring tasks. The regex support is particularly useful for code-related find and replace operations.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q16: Does the tool support special characters and symbols in searches?</div>
+                    <div class="faq-answer">Yes, you can search for and replace any characters including punctuation marks, symbols, special characters, and even non-printable characters like tabs and line breaks.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q17: Can I search for and replace text that spans multiple lines?</div>
+                    <div class="faq-answer">Yes! File Magics supports multi-line searches, allowing you to find and replace text that includes line breaks and spans across multiple lines.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q18: What browsers are compatible with File Magics Find and Replace?</div>
+                    <div class="faq-answer">File Magics works on all modern browsers including Chrome, Firefox, Safari, Edge, Opera, and their mobile versions. Any up-to-date browser provides full functionality.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q19: Can I save my frequently used find-and-replace operations?</div>
+                    <div class="faq-answer">File Magics includes a history feature that remembers your recent searches, allowing quick access to commonly used find-and-replace terms without retyping them each time.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Q20: How does File Magics' Find and Replace compare to the function in Microsoft Word or Google Docs?</div>
+                    <div class="faq-answer">File Magics offers comparable or superior functionality with advantages including faster processing, better regex support, no file size limitations, complete privacy (local processing), and accessibility from any device without requiring specific software installations.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Find and Replace Tool Functionality
+        class FindReplaceTool {
+            constructor() {
+                this.text = '';
+                this.findText = '';
+                this.replaceText = '';
+                this.matches = [];
+                this.currentMatchIndex = 0;
+                this.replacementsMade = 0;
+                this.history = [];
+                this.historyIndex = -1;
+                
+                // Options
+                this.caseSensitive = false;
+                this.wholeWord = false;
+                this.useRegex = false;
+                this.matchCaseReplace = false;
+                
+                // DOM Elements
+                this.inputText = document.getElementById('inputText');
+                this.findInput = document.getElementById('findInput');
+                this.replaceInput = document.getElementById('replaceInput');
+                this.caseSensitiveCheckbox = document.getElementById('caseSensitive');
+                this.wholeWordCheckbox = document.getElementById('wholeWord');
+                this.useRegexCheckbox = document.getElementById('useRegex');
+                this.matchCaseReplaceCheckbox = document.getElementById('matchCaseReplace');
+                
+                this.findAllBtn = document.getElementById('findAllBtn');
+                this.replaceAllBtn = document.getElementById('replaceAllBtn');
+                this.replaceBtn = document.getElementById('replaceBtn');
+                this.skipBtn = document.getElementById('skipBtn');
+                this.undoBtn = document.getElementById('undoBtn');
+                this.clearBtn = document.getElementById('clearBtn');
+                
+                this.copyOriginalBtn = document.getElementById('copyOriginalBtn');
+                this.copyProcessedBtn = document.getElementById('copyProcessedBtn');
+                this.downloadOriginalBtn = document.getElementById('downloadOriginalBtn');
+                this.downloadProcessedBtn = document.getElementById('downloadProcessedBtn');
+                
+                this.originalPreview = document.getElementById('originalPreview');
+                this.processedPreview = document.getElementById('processedPreview');
+                
+                this.totalMatchesSpan = document.getElementById('totalMatches');
+                this.currentMatchSpan = document.getElementById('currentMatch');
+                this.replacementsMadeSpan = document.getElementById('replacementsMade');
+                
+                this.init();
+            }
+            
+            init() {
+                // Add event listeners
+                this.inputText.addEventListener('input', () => {
+                    this.text = this.inputText.value;
+                    this.updatePreviews();
+                });
+                
+                this.findInput.addEventListener('input', () => {
+                    this.findText = this.findInput.value;
+                    this.findAll();
+                });
+                
+                this.replaceInput.addEventListener('input', () => {
+                    this.replaceText = this.replaceInput.value;
+                });
+                
+                this.caseSensitiveCheckbox.addEventListener('change', () => {
+                    this.caseSensitive = this.caseSensitiveCheckbox.checked;
+                    this.findAll();
+                });
+                
+                this.wholeWordCheckbox.addEventListener('change', () => {
+                    this.wholeWord = this.wholeWordCheckbox.checked;
+                    this.findAll();
+                });
+                
+                this.useRegexCheckbox.addEventListener('change', () => {
+                    this.useRegex = this.useRegexCheckbox.checked;
+                    this.findAll();
+                });
+                
+                this.matchCaseReplaceCheckbox.addEventListener('change', () => {
+                    this.matchCaseReplace = this.matchCaseReplaceCheckbox.checked;
+                });
+                
+                this.findAllBtn.addEventListener('click', () => {
+                    this.findAll();
+                });
+                
+                this.replaceAllBtn.addEventListener('click', () => {
+                    this.replaceAll();
+                });
+                
+                this.replaceBtn.addEventListener('click', () => {
+                    this.replaceCurrent();
+                });
+                
+                this.skipBtn.addEventListener('click', () => {
+                    this.skipCurrent();
+                });
+                
+                this.undoBtn.addEventListener('click', () => {
+                    this.undo();
+                });
+                
+                this.clearBtn.addEventListener('click', () => {
+                    this.clearAll();
+                });
+                
+                this.copyOriginalBtn.addEventListener('click', () => {
+                    this.copyToClipboard(this.text, this.copyOriginalBtn);
+                });
+                
+                this.copyProcessedBtn.addEventListener('click', () => {
+                    const processedText = this.getProcessedText();
+                    this.copyToClipboard(processedText, this.copyProcessedBtn);
+                });
+                
+                this.downloadOriginalBtn.addEventListener('click', () => {
+                    this.downloadText(this.text, 'original_text.txt');
+                });
+                
+                this.downloadProcessedBtn.addEventListener('click', () => {
+                    const processedText = this.getProcessedText();
+                    this.downloadText(processedText, 'processed_text.txt');
+                });
+                
+                // Initialize with default values
+                this.text = this.inputText.value;
+                this.findText = this.findInput.value;
+                this.replaceText = this.replaceInput.value;
+                this.findAll();
+            }
+            
+            findAll() {
+                if (!this.findText) {
+                    this.matches = [];
+                    this.currentMatchIndex = 0;
+                    this.updateStats();
+                    this.updatePreviews();
+                    return;
+                }
+                
+                try {
+                    let regex;
+                    
+                    if (this.useRegex) {
+                        // Use regex directly
+                        const flags = this.caseSensitive ? 'g' : 'gi';
+                        regex = new RegExp(this.findText, flags);
+                    } else {
+                        // Escape regex special characters for literal search
+                        const escapedFind = this.findText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        
+                        // Add word boundaries if whole word option is enabled
+                        let pattern = escapedFind;
+                        if (this.wholeWord) {
+                            pattern = `\\b${escapedFind}\\b`;
+                        }
+                        
+                        const flags = this.caseSensitive ? 'g' : 'gi';
+                        regex = new RegExp(pattern, flags);
+                    }
+                    
+                    this.matches = [];
+                    let match;
+                    
+                    // Reset regex lastIndex to start from beginning
+                    regex.lastIndex = 0;
+                    
+                    while ((match = regex.exec(this.text)) !== null) {
+                        this.matches.push({
+                            index: match.index,
+                            length: match[0].length,
+                            text: match[0]
+                        });
+                    }
+                    
+                    this.currentMatchIndex = this.matches.length > 0 ? 0 : -1;
+                    this.updateStats();
+                    this.updatePreviews();
+                } catch (error) {
+                    console.error('Regex error:', error);
+                    this.matches = [];
+                    this.currentMatchIndex = -1;
+                    this.updateStats();
+                    this.updatePreviews();
+                }
+            }
+            
+            replaceAll() {
+                if (this.matches.length === 0) return;
+                
+                // Save current state for undo
+                this.saveState();
+                
+                let result = this.text;
+                let offset = 0;
+                
+                for (const match of this.matches) {
+                    const actualIndex = match.index + offset;
+                    const before = result.substring(0, actualIndex);
+                    const after = result.substring(actualIndex + match.length);
+                    
+                    let replacement = this.replaceText;
+                    
+                    // Handle match case on replace
+                    if (this.matchCaseReplace) {
+                        if (match.text === match.text.toUpperCase()) {
+                            replacement = replacement.toUpperCase();
+                        } else if (match.text === match.text.toLowerCase()) {
+                            replacement = replacement.toLowerCase();
+                        } else if (match.text[0] === match.text[0].toUpperCase()) {
+                            replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1).toLowerCase();
+                        }
+                    }
+                    
+                    result = before + replacement + after;
+                    offset += replacement.length - match.length;
+                }
+                
+                this.text = result;
+                this.inputText.value = this.text;
+                this.replacementsMade += this.matches.length;
+                this.matches = [];
+                this.currentMatchIndex = -1;
+                this.updateStats();
+                this.updatePreviews();
+            }
+            
+            replaceCurrent() {
+                if (this.currentMatchIndex < 0 || this.currentMatchIndex >= this.matches.length) return;
+                
+                // Save current state for undo
+                this.saveState();
+                
+                const match = this.matches[this.currentMatchIndex];
+                let replacement = this.replaceText;
+                
+                // Handle match case on replace
+                if (this.matchCaseReplace) {
+                    if (match.text === match.text.toUpperCase()) {
+                        replacement = replacement.toUpperCase();
+                    } else if (match.text === match.text.toLowerCase()) {
+                        replacement = replacement.toLowerCase();
+                    } else if (match.text[0] === match.text[0].toUpperCase()) {
+                        replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1).toLowerCase();
+                    }
+                }
+                
+                const before = this.text.substring(0, match.index);
+                const after = this.text.substring(match.index + match.length);
+                this.text = before + replacement + after;
+                this.inputText.value = this.text;
+                this.replacementsMade++;
+                
+                // Update matches after replacement
+                this.findAll();
+                
+                // If we still have matches, move to the next one
+                if (this.matches.length > 0) {
+                    this.currentMatchIndex = Math.min(this.currentMatchIndex, this.matches.length - 1);
+                } else {
+                    this.currentMatchIndex = -1;
+                }
+                
+                this.updateStats();
+                this.updatePreviews();
+            }
+            
+            skipCurrent() {
+                if (this.currentMatchIndex < this.matches.length - 1) {
+                    this.currentMatchIndex++;
+                } else {
+                    this.currentMatchIndex = 0; // Loop back to the beginning
+                }
+                this.updateStats();
+                this.updatePreviews();
+            }
+            
+            undo() {
+                if (this.historyIndex > 0) {
+                    this.historyIndex--;
+                    const state = this.history[this.historyIndex];
+                    this.text = state.text;
+                    this.inputText.value = this.text;
+                    this.matches = state.matches;
+                    this.currentMatchIndex = state.currentMatchIndex;
+                    this.replacementsMade = state.replacementsMade;
+                    this.updateStats();
+                    this.updatePreviews();
+                }
+            }
+            
+            clearAll() {
+                // Save current state for undo
+                this.saveState();
+                
+                this.text = '';
+                this.inputText.value = '';
+                this.matches = [];
+                this.currentMatchIndex = -1;
+                this.replacementsMade = 0;
+                this.updateStats();
+                this.updatePreviews();
+            }
+            
+            saveState() {
+                // Remove any future states if we're not at the end of history
+                if (this.historyIndex < this.history.length - 1) {
+                    this.history = this.history.slice(0, this.historyIndex + 1);
+                }
+                
+                const state = {
+                    text: this.text,
+                    matches: [...this.matches],
+                    currentMatchIndex: this.currentMatchIndex,
+                    replacementsMade: this.replacementsMade
+                };
+                
+                this.history.push(state);
+                this.historyIndex = this.history.length - 1;
+                
+                // Limit history size to prevent memory issues
+                if (this.history.length > 50) {
+                    this.history.shift();
+                    this.historyIndex--;
+                }
+            }
+            
+            getProcessedText() {
+                if (this.matches.length === 0) return this.text;
+                
+                let result = '';
+                let lastIndex = 0;
+                
+                for (let i = 0; i < this.matches.length; i++) {
+                    const match = this.matches[i];
+                    result += this.text.substring(lastIndex, match.index);
+                    
+                    if (i === this.currentMatchIndex) {
+                        result += `<span class="current-match">${this.text.substring(match.index, match.index + match.length)}</span>`;
+                    } else {
+                        result += `<span class="match">${this.text.substring(match.index, match.index + match.length)}</span>`;
+                    }
+                    
+                    lastIndex = match.index + match.length;
+                }
+                
+                result += this.text.substring(lastIndex);
+                return result;
+            }
+            
+            updatePreviews() {
+                // Original preview (no highlighting)
+                this.originalPreview.innerHTML = this.escapeHtml(this.text);
+                
+                // Processed preview (with highlighting)
+                if (this.matches.length > 0) {
+                    this.processedPreview.innerHTML = this.getProcessedText();
+                } else {
+                    this.processedPreview.innerHTML = this.escapeHtml(this.text);
+                }
+            }
+            
+            updateStats() {
+                this.totalMatchesSpan.textContent = this.matches.length;
+                this.currentMatchSpan.textContent = this.currentMatchIndex >= 0 ? this.currentMatchIndex + 1 : 0;
+                this.replacementsMadeSpan.textContent = this.replacementsMade;
+            }
+            
+            copyToClipboard(text, button) {
+                // Remove HTML tags for plain text copy
+                const plainText = text.replace(/<[^>]*>/g, '');
+                
+                navigator.clipboard.writeText(plainText).then(() => {
+                    // Show tooltip
+                    button.classList.add('show');
+                    setTimeout(() => {
+                        button.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    alert('Failed to copy text to clipboard');
+                });
+            }
+            
+            downloadText(text, filename) {
+                // Remove HTML tags for plain text download
+                const plainText = text.replace(/<[^>]*>/g, '');
+                
+                const blob = new Blob([plainText], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+            
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initialize the tool when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new FindReplaceTool();
+            handleAdVisibility();
+        });
+
+        // Resize listener for ad visibility
+        window.addEventListener('resize', handleAdVisibility);
+    </script>
+</body>
+</html>

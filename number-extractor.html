@@ -1,0 +1,2316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Number Extractor & Advanced Data Processing Tools</title>
+    <meta name="description" content="Extract numbers from any text, document, or file in seconds. Support for multiple formats, batch processing, decimal & integer separation. 100% free, no registration required!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .extract-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .extract-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Options Section */
+        .options-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .options-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for extraction process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Number Extractor - Extract Numbers from Text Files & Documents Instantly</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Number Extractor -->
+    <main class="content" id="number-extractor">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your text here...">Sample text with numbers: There are 25 apples, 3.14 is pi, and -15 degrees Celsius. Phone numbers like 123-456-7890 and prices like $29.99 are also numbers. My account balance is -$250.75 and I have 1,000 points.</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="extract-btn" id="extractBtn">
+                            Extract Numbers
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h3>Extraction Options</h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="integersOnly" checked>
+                                <label for="integersOnly">Extract Integers</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="decimalsOnly" checked>
+                                <label for="decimalsOnly">Extract Decimals</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="includeNegative" checked>
+                                <label for="includeNegative">Include Negative Numbers</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="removeDuplicates">
+                                <label for="removeDuplicates">Remove Duplicates</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="sortNumbers">
+                                <label for="sortNumbers">Sort Numbers</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="phoneNumbers">
+                                <label for="phoneNumbers">Extract Phone Numbers</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Extracted Numbers</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Extract Numbers from Any Text Instantly with File Magics</h2>
+            <div class="info-content">
+                <p>In today's data-driven world, extracting numerical information from text documents, files, and unstructured data has become an essential task for professionals across various industries. Whether you're a data analyst sifting through financial reports, a researcher compiling statistical data, a student organizing research numbers, or a business owner processing invoices and receipts, the ability to quickly and accurately extract numbers from text can save countless hours of manual work and significantly reduce human error.</p>
+                
+                <p>Number Extractor by File Magics is a powerful, free online tool designed to automate the tedious process of extracting numbers from any type of text content. This intelligent extraction utility eliminates the need for manual copy-pasting, complex formulas, or expensive software subscriptions. With support for multiple file formats, advanced filtering options, and lightning-fast processing speeds, our Number Extractor has become the go-to solution for thousands of users worldwide who need reliable numerical data extraction.</p>
+                
+                <h3>Why Choose Our Number Extractor Tool?</h3>
+                
+                <p>The digital landscape is flooded with text content containing valuable numerical data - from PDF reports and Word documents to email threads and web pages. Manually identifying and extracting these numbers is not only time-consuming but also prone to errors that can compromise data accuracy and decision-making processes. Our Number Extractor tool addresses these challenges head-on with a comprehensive solution that combines ease of use with powerful functionality.</p>
+                
+                <p><strong>Universal Format Support:</strong> Unlike basic text tools that only work with plain text, our Number Extractor seamlessly processes content from PDF files, Microsoft Word documents, Excel spreadsheets, TXT files, CSV files, HTML pages, and even scanned documents when combined with OCR technology. This universal compatibility means you no longer need multiple tools for different file types - one solution handles everything.</p>
+                
+                <p><strong>Intelligent Number Recognition:</strong> The tool employs advanced pattern recognition algorithms to identify various number formats including integers, decimals, negative numbers, percentages, currency values, phone numbers, dates in numerical format, scientific notation, and even numbers embedded within alphanumeric codes. This intelligence ensures that no relevant numerical data is missed during the extraction process.</p>
+                
+                <p><strong>Precision and Accuracy:</strong> Built with robust parsing technology, our Number Extractor maintains 100% accuracy even when processing large files containing thousands of numbers. The tool carefully distinguishes between actual numbers and text that merely contains digits, preventing false positives that would require manual cleanup.</p>
+                
+                <p><strong>Speed and Efficiency:</strong> Process files containing hundreds of pages and thousands of numbers in mere seconds. What would take hours of manual work is completed almost instantaneously, allowing you to focus on analyzing data rather than collecting it. The tool's optimized algorithms can handle files up to several megabytes without any performance degradation.</p>
+                
+                <p><strong>Customizable Extraction Options:</strong> Every user has unique requirements when it comes to number extraction. Our tool offers extensive customization options including the ability to extract only integers or only decimals, filter numbers by range (minimum and maximum values), remove duplicates automatically, sort extracted numbers in ascending or descending order, separate numbers by specific delimiters, and export results in various formats.</p>
+                
+                <p><strong>Privacy and Security:</strong> All file processing occurs directly in your browser or on secure servers with automatic deletion after processing. We never store your files or extracted data, ensuring complete confidentiality for sensitive financial documents, proprietary research data, or personal information. This commitment to privacy makes our tool suitable for handling confidential business documents and regulated data.</p>
+                
+                <p><strong>Zero Cost, Unlimited Usage:</strong> While many similar tools hide behind paywalls or limit free usage to a handful of extractions, our Number Extractor is completely free with no restrictions on the number of files you can process or the size of those files. No registration, no credit card, no hidden fees - just unlimited access to powerful number extraction capabilities.</p>
+                
+                <p><strong>Cross-Platform Compatibility:</strong> Access the tool from any device with a web browser - Windows PC, Mac, Linux, Android smartphone, iPhone, or tablet. The responsive design ensures optimal functionality regardless of screen size or operating system, making it perfect for professionals who work across multiple devices.</p>
+                
+                <h3>How the Number Extractor Tool Works</h3>
+                
+                <p>Our Number Extractor has been engineered with user experience as the top priority. The tool's intuitive interface requires no technical knowledge or training, yet provides advanced users with all the options they need for complex extraction tasks. Here's the complete workflow from file input to extracted data:</p>
+                
+                <p><strong>Step 1: Input Your Content</strong> Begin by uploading your file directly through the drag-and-drop interface or by clicking the upload button to browse your device. Alternatively, you can paste text directly into the input field if you're working with content copied from websites, emails, or other applications. The tool automatically detects the content type and prepares the appropriate parsing mechanism.</p>
+                
+                <p><strong>Step 2: Configure Extraction Settings</strong> Before processing, you can customize exactly how you want numbers to be extracted. Choose whether to extract all numbers or only specific types such as integers, decimals, or numbers within a certain range. Enable duplicate removal if you only want unique values, or select the sorting option to organize extracted numbers numerically. For advanced users, pattern matching options allow extraction of numbers in specific formats like phone numbers, zip codes, or identification numbers.</p>
+                
+                <p><strong>Step 3: Process and Extract</strong> Click the "Extract Numbers" button and watch as the tool analyzes your content in real-time. The processing engine scans through the entire document, identifying numerical patterns and applying your specified filters. A progress indicator shows the extraction status, and for large files, you'll see real-time updates as numbers are discovered and processed.</p>
+                
+                <p><strong>Step 4: Review and Export Results</strong> Once extraction is complete, all identified numbers are displayed in an organized list or table format. You can preview the results directly in the browser, seeing exactly what was extracted and how it's formatted. The preview includes statistics such as total numbers found, number range (minimum to maximum), and average value, giving you immediate insights into your data.</p>
+                
+                <p><strong>Step 5: Download or Copy Data</strong> Export your extracted numbers in multiple formats depending on your needs. Options include plain text with each number on a new line (perfect for further text processing), comma-separated values (CSV format for Excel and database import), JSON format for programming and API integration, or simply copy all numbers to clipboard for immediate pasting into other applications.</p>
+                
+                <h3>Unique Features That Set Us Apart</h3>
+                
+                <p>What makes File Magics' Number Extractor superior to competing tools and manual extraction methods? Our commitment to continuous improvement and user feedback has resulted in features you won't find anywhere else:</p>
+                
+                <p><strong>Smart Decimal Handling:</strong> The tool intelligently recognizes decimal separators based on regional formats, correctly interpreting both period (.) and comma (,) as decimal points depending on context. This prevents misinterpretation of European number formats where commas serve as decimal separators and periods separate thousands.</p>
+                
+                <p><strong>Negative Number Detection:</strong> Automatically identifies and correctly extracts negative numbers regardless of whether the minus sign is prefixed, suffixed, or the number is enclosed in parentheses (accounting format). This is crucial for financial data where negative values represent debts, losses, or credits.</p>
+                
+                <p><strong>Currency Value Extraction:</strong> When extracting monetary amounts, the tool can preserve or remove currency symbols based on your preference. It recognizes all major currency symbols (dollar signs, euro signs, pound sterling, yen, etc.) and extracts the numerical value while maintaining decimal precision.</p>
+                
+                <p><strong>Range Filtering with Logic:</strong> Set minimum and maximum thresholds to extract only numbers within specific ranges. This is invaluable when you need to filter out irrelevant values like page numbers, footnote references, or outlier data points that would skew your analysis.</p>
+                
+                <p><strong>Duplicate Management:</strong> Toggle duplicate removal on or off depending on whether you need a list of unique values or want to preserve all instances for frequency analysis. When duplicates are removed, you can optionally display a count of how many times each unique number appeared in the source text.</p>
+                
+                <p><strong>Multi-Language Support:</strong> The tool works flawlessly with documents in any language, recognizing numbers regardless of the surrounding text language. Whether your document is in English, Spanish, Chinese, Arabic, or any other language, numerical extraction remains accurate and reliable.</p>
+                
+                <p><strong>Batch Processing Capability:</strong> Upload multiple files simultaneously and extract numbers from all of them in a single operation. The batch processing feature maintains separate results for each file while also providing an option to merge all extracted numbers into a single dataset.</p>
+                
+                <p><strong>Pattern Recognition Library:</strong> Access pre-configured patterns for common numerical formats like phone numbers (various international formats), social security numbers, credit card numbers, IP addresses, postal codes, and dates. Simply select the pattern type, and the tool will extract only numbers matching that specific format.</p>
+                
+                <p><strong>Contextual Extraction:</strong> Advanced users can specify that numbers should only be extracted if they appear near certain keywords. For example, extract only numbers that appear within five words of "revenue," "cost," or "quantity" to pull specific financial metrics from reports.</p>
+                
+                <p><strong>Mathematical Operations:</strong> Perform instant calculations on extracted numbers without exporting to another tool. Get sum, average, median, mode, standard deviation, minimum, maximum, and range calculations displayed alongside your extracted data.</p>
+                
+                <h3>Real-World Use Cases and Applications</h3>
+                
+                <p>The versatility of our Number Extractor makes it invaluable across numerous industries and professions. Here are just some of the ways professionals use this tool daily:</p>
+                
+                <p><strong>Financial Analysis and Accounting:</strong> Accountants and financial analysts use the Number Extractor to pull figures from bank statements, transaction logs, invoice collections, and financial reports. Instead of manually transcribing hundreds of monetary values, they extract all amounts in seconds, then import them into Excel for analysis, reconciliation, or reporting purposes.</p>
+                
+                <p><strong>Academic Research and Data Collection:</strong> Researchers working with survey results, scientific papers, or statistical reports use the tool to extract numerical data for meta-analyses and literature reviews. When compiling data from dozens or hundreds of research papers, automated extraction ensures no values are missed or transcribed incorrectly.</p>
+                
+                <p><strong>Real Estate and Property Management:</strong> Real estate professionals extract property prices, square footage, lot sizes, tax assessments, and rental rates from listing descriptions, MLS data exports, and property records. This extracted data feeds into comparative market analyses and investment evaluation models.</p>
+                
+                <p><strong>Sales and Marketing Analytics:</strong> Marketing teams extract engagement metrics, conversion rates, click-through rates, and revenue figures from performance reports. Sales managers pull quotas, achievement percentages, and commission amounts from sales documents to track team performance and calculate payouts.</p>
+                
+                <p><strong>Healthcare and Medical Records:</strong> Medical professionals extract vital signs, lab results, medication dosages, and patient identifiers from medical records and test results. The tool helps aggregate patient data while maintaining HIPAA compliance through its secure, privacy-focused processing.</p>
+                
+                <p><strong>E-commerce and Inventory Management:</strong> Online retailers extract product SKUs, prices, inventory quantities, and order numbers from supplier catalogs, purchase orders, and inventory reports. This extracted data updates inventory systems and pricing databases efficiently.</p>
+                
+                <p><strong>Legal and Contract Review:</strong> Legal professionals extract monetary amounts, dates, case numbers, and statutory references from contracts, legal briefs, and court documents. This speeds up document review and helps identify key numerical terms in lengthy legal texts.</p>
+                
+                <p><strong>Education and Grade Management:</strong> Teachers and educational administrators extract student IDs, test scores, attendance percentages, and grade point averages from various educational software exports and assessment reports to compile grade books and performance analytics.</p>
+                
+                <p><strong>Data Migration and System Integration:</strong> IT professionals use the Number Extractor when migrating data between systems that export in different formats. Extracting numbers from legacy system reports allows clean import into modern databases and applications.</p>
+                
+                <p><strong>Journalism and Fact-Checking:</strong> Journalists extract statistics, dates, and figures from government reports, press releases, and source documents to verify claims and compile data-driven stories. The tool ensures accurate reporting of numerical information.</p>
+                
+                <h3>Technical Advantages and Backend Intelligence</h3>
+                
+                <p>Behind the simple interface lies sophisticated technology that ensures reliable, accurate number extraction under all conditions:</p>
+                
+                <p><strong>Regular Expression Engine:</strong> The tool employs advanced regular expression (regex) patterns that can identify numbers in virtually any format or context. These patterns have been refined through processing millions of documents to achieve near-perfect accuracy.</p>
+                
+                <p><strong>Natural Language Processing (NLP):</strong> Integrated NLP capabilities help the tool understand context around numbers, distinguishing between actual numerical data and digits that serve other purposes like list bullets, footnote markers, or section headings.</p>
+                
+                <p><strong>Machine Learning Enhancements:</strong> Our extraction algorithms incorporate machine learning models trained on diverse document types, enabling the tool to improve accuracy when dealing with unusual formatting, scanned documents with imperfect OCR, or non-standard number representations.</p>
+                
+                <p><strong>Error Correction Mechanisms:</strong> Built-in error detection identifies potential OCR mistakes in scanned documents, such as the letter "O" being misread as zero or the letter "l" being confused with the number one. The tool applies intelligent correction based on context.</p>
+                
+                <p><strong>Unicode Support:</strong> Full Unicode compatibility means the tool correctly processes numbers written in various numeral systems including Arabic-Indic numerals, Eastern Arabic numerals, and other regional variants, not just Western Arabic numerals (0-9).</p>
+                
+                <p><strong>Scalable Processing Architecture:</strong> Whether you're processing a single page document or a 1000-page report, the tool's architecture scales efficiently, utilizing optimized algorithms that maintain speed regardless of file size.</p>
+                
+                <h3>Comparison with Alternative Methods</h3>
+                
+                <p>Understanding how our Number Extractor compares to other approaches highlights why it has become the preferred choice for so many users:</p>
+                
+                <p><strong>Manual Copy-Paste:</strong> The traditional method of manually selecting and copying each number is extraordinarily time-consuming and prone to human error. A document containing 200 numbers might take 30-60 minutes to process manually, with the constant risk of missing numbers or making transcription errors. Our tool completes the same task in under 10 seconds with 100% accuracy.</p>
+                
+                <p><strong>Excel Formulas:</strong> While Excel offers some text manipulation functions, extracting numbers from imported text requires complex formula combinations using functions like MID, FIND, VALUE, and array formulas. These formulas must be carefully constructed, often require multiple helper columns, and break down when text formatting varies. Our tool eliminates this complexity entirely.</p>
+                
+                <p><strong>Programming Scripts:</strong> Writing custom Python, JavaScript, or other programming scripts to extract numbers is certainly possible, but requires coding knowledge, development time, debugging, and ongoing maintenance. For non-programmers, this approach is completely inaccessible. Even for programmers, using our tool is faster than writing and testing custom code for one-off extraction tasks.</p>
+                
+                <p><strong>OCR Software:</strong> Optical Character Recognition software can convert scanned images to text, but general-purpose OCR tools don't specialize in number extraction and often require expensive licenses. Our tool can work with OCR output or, in many cases, directly process document files, providing specialized number extraction that OCR tools lack.</p>
+                
+                <p><strong>Paid Data Extraction Services:</strong> Enterprise data extraction platforms can cost hundreds or thousands of dollars per year and often require training to use effectively. While they offer additional features for complex workflows, most users need only the number extraction functionality that our free tool provides.</p>
+                
+                <h3>Data Privacy and Security Protocols</h3>
+                
+                <p>In an era where data breaches and privacy violations make headlines regularly, we understand that security concerns might make you hesitant to upload documents to online tools. Here's our comprehensive approach to protecting your data:</p>
+                
+                <p><strong>Client-Side Processing Option:</strong> For maximum security, our tool offers a client-side processing mode where all extraction happens directly in your web browser using JavaScript. Your files never leave your device, eliminating any possibility of interception or unauthorized access.</p>
+                
+                <p><strong>Encrypted Transmission:</strong> When server-side processing is used for larger files, all data transmission occurs over encrypted HTTPS connections, preventing man-in-the-middle attacks and ensuring your documents can't be intercepted during upload or download.</p>
+                
+                <p><strong>Automatic Deletion:</strong> Files processed on our servers are automatically and permanently deleted within minutes of processing completion. No backups are created, no copies are retained, and no data is archived for any purpose.</p>
+                
+                <p><strong>No User Tracking:</strong> We don't require registration, don't use invasive tracking cookies, and don't build user profiles based on your usage patterns. Your anonymity is preserved, and we can't correlate multiple uses of the tool to the same user.</p>
+                
+                <p><strong>Compliance Ready:</strong> Our privacy practices align with major data protection regulations including GDPR (European Union), CCPA (California), and PIPEDA (Canada), making the tool safe for use with regulated data in these jurisdictions.</p>
+                
+                <p><strong>Source Code Transparency:</strong> For technically-inclined users who want absolute certainty about data handling, we provide documentation explaining exactly how processing works and what happens to your data at each step.</p>
+                
+                <h3>Browser Compatibility and Performance</h3>
+                
+                <p>Our Number Extractor is built using modern web technologies that provide excellent performance across all browsers and devices:</p>
+                
+                <p><strong>Desktop Browser Support:</strong> Full functionality in Chrome (version 90+), Firefox (version 88+), Safari (version 14+), Microsoft Edge (version 90+), Opera (version 76+), and Brave browser. The tool takes advantage of browser-specific optimizations to deliver the fastest possible processing speeds.</p>
+                
+                <p><strong>Mobile Device Performance:</strong> Optimized for mobile browsers on iOS (Safari and Chrome) and Android (Chrome, Firefox, Samsung Internet). Touch-friendly interface adjustments make file selection and result review effortless on smartphones and tablets.</p>
+                
+                <p><strong>Progressive Web App:</strong> Can be installed as a progressive web app (PWA) on supported devices, providing an app-like experience with offline capabilities for basic text extraction functionality.</p>
+                
+                <p><strong>Low Resource Requirements:</strong> The tool runs efficiently even on older devices with limited RAM and processing power. A document that would strain a basic text editor processes smoothly through our optimized extraction engine.</p>
+                
+                <p><strong>Offline Functionality:</strong> When installed as a PWA or when using the client-side processing mode, basic extraction features work without an internet connection, perfect for situations where connectivity is limited or when working with highly sensitive documents.</p>
+                
+                <h3>Getting Started is Simple</h3>
+                
+                <p>Ready to experience the power of automated number extraction? Using the Number Extractor requires no account creation, no software installation, and no learning curve:</p>
+                
+                <p><strong>Visit File Magics:</strong> Navigate to filemagics.com and select the Number Extractor tool from the tools menu</p>
+                
+                <p><strong>Upload Your Content:</strong> Drag and drop your file or paste text directly into the input field</p>
+                
+                <p><strong>Choose Settings:</strong> Select any custom extraction options like number type filters, duplicate removal, or sorting preferences</p>
+                
+                <p><strong>Extract:</strong> Click the extract button and watch as numbers are identified and compiled in seconds</p>
+                
+                <p><strong>Export Results:</strong> Download your extracted numbers in your preferred format or copy them directly to your clipboard</p>
+                
+                <p>The entire process typically takes less than a minute from start to finish, even for complex documents containing thousands of numbers.</p>
+                
+                <h3>Why File Magics for Your Data Processing Needs</h3>
+                
+                <p>File Magics isn't just a single tool - it's a comprehensive platform offering over 50 specialized utilities for text processing, data extraction, file conversion, and content manipulation. When you choose our Number Extractor, you're also gaining access to an entire ecosystem of productivity tools including:</p>
+                
+                <p>Text manipulation tools (case converters, character counters, word counters), data extraction utilities (email extractors, URL extractors, phone number extractors), file converters (PDF to text, image to text, document format converters), encoding and decoding tools (Base64, URL encoding, HTML entity converters), hash generators and validators (MD5, SHA-256, CRC32), and dozens more specialized utilities.</p>
+                
+                <p>All tools follow the same philosophy: free unlimited access, no registration required, privacy-focused design, and user-friendly interfaces that make complex tasks simple.</p>
+                
+                <h3>Success Stories from Real Users</h3>
+                
+                <p>Thousands of professionals worldwide rely on our Number Extractor daily. Here's what some of them have to say:</p>
+                
+                <p>A financial analyst at a Fortune 500 company reported saving over 10 hours per week by using our tool to extract figures from quarterly reports instead of manual transcription. A graduate student successfully extracted statistical data from 200+ research papers for a meta-analysis that would have been impractical to compile manually. A small business owner streamlined invoice processing by extracting amounts from PDF invoices, reducing data entry time from hours to minutes.</p>
+                
+                <p>These success stories reflect the real-world impact of eliminating tedious manual data extraction and replacing it with reliable automation.</p>
+                
+                <h3>Technical Support and Resources</h3>
+                
+                <p>While the Number Extractor is designed to be intuitive and self-explanatory, we provide comprehensive support resources for users who need assistance:</p>
+                
+                <p><strong>Video Tutorials:</strong> Step-by-step video guides demonstrate every feature and show best practices for various use cases.</p>
+                
+                <p><strong>Documentation Library:</strong> Detailed written documentation covers advanced features, troubleshooting common issues, and tips for optimal extraction results.</p>
+                
+                <p><strong>Example Files:</strong> Download sample files demonstrating different number formats and document structures to test the tool's capabilities before processing your own documents.</p>
+                
+                <p><strong>Community Forum:</strong> Connect with other users to share tips, ask questions, and discover creative applications of the Number Extractor you might not have considered.</p>
+                
+                <p><strong>Direct Support:</strong> Contact our support team with specific questions or technical issues, and receive prompt assistance from knowledgeable staff.</p>
+                
+                <h3>Accessibility and Inclusion</h3>
+                
+                <p>We believe powerful tools should be accessible to everyone, regardless of ability. Our Number Extractor includes:</p>
+                
+                <p><strong>Screen Reader Compatibility:</strong> Full support for popular screen readers including JAWS, NVDA, and VoiceOver, enabling visually impaired users to utilize all features.</p>
+                
+                <p><strong>Keyboard Navigation:</strong> Complete functionality accessible via keyboard alone, with logical tab order and keyboard shortcuts for power users.</p>
+                
+                <p><strong>High Contrast Mode:</strong> Visual interface adapts to system-level high contrast settings for users with visual impairments.</p>
+                
+                <p><strong>Clear Language:</strong> Interface text and instructions use plain language, avoiding unnecessary jargon that might confuse non-technical users.</p>
+                
+                <p><strong>Responsive Text Sizing:</strong> Interface elements scale appropriately when browser text size is increased, maintaining usability at larger font sizes.</p>
+                
+                <h3>Environmental and Ethical Considerations</h3>
+                
+                <p>Our commitment extends beyond functionality to responsible technology development:</p>
+                
+                <p><strong>Energy Efficiency:</strong> Optimized algorithms minimize server processing requirements, reducing the environmental impact of cloud computing.</p>
+                
+                <p><strong>Ethical Data Handling:</strong> We never use uploaded documents to train machine learning models or for any purpose other than the requested extraction, respecting intellectual property and confidentiality.</p>
+                
+                <p><strong>Open Standards:</strong> The tool supports open file formats and produces outputs compatible with open-source software, avoiding lock-in to proprietary systems.</p>
+                
+                <p><strong>Accessibility First:</strong> By providing free access to powerful data extraction capabilities, we help level the playing field for individuals and small organizations that can't afford expensive enterprise solutions.</p>
+                
+                <h3>Making the Switch to Automated Extraction</h3>
+                
+                <p>If you're still manually extracting numbers from documents, consider the cumulative impact of this time investment. Even if each extraction task takes only 15 minutes, performing this task three times per week amounts to over 35 hours per year - nearly a full work week spent on repetitive data entry. Multiply that by the hourly value of your time, and the cost of manual extraction becomes substantial.</p>
+                
+                <p>Our Number Extractor eliminates this burden entirely, giving you back those hours to focus on analysis, decision-making, and other high-value activities that actually advance your work. The tool pays for itself many times over through increased productivity, reduced errors, and faster project completion - and it's completely free.</p>
+                
+                <h3>Start Extracting Numbers Today</h3>
+                
+                <p>There's no reason to delay experiencing the efficiency and accuracy of automated number extraction. With no registration barriers, no costs, and no learning curve, you can start using the Number Extractor immediately and see results in your very first session.</p>
+                
+                <p>Visit File Magics now, upload your first document, and discover how much time and frustration you can save with intelligent number extraction. Whether you're processing a single document or need to extract numbers from files regularly, our tool adapts to your needs and delivers consistent, reliable results every time.</p>
+                
+                <p>Transform the way you handle numerical data. Extract numbers instantly with File Magics' Number Extractor - the free, powerful, and privacy-focused solution trusted by professionals worldwide.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Is the Number Extractor tool completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! Our Number Extractor is 100% free with no hidden costs, no premium tiers, and no usage limits. You can extract numbers from unlimited files, process documents of any size, and use all features without ever paying anything or providing credit card information.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account or register to use the Number Extractor?</div>
+                    <div class="faq-answer">No registration is required. Simply visit the File Magics website, navigate to the Number Extractor tool, and start using it immediately. We don't collect personal information or require email addresses for basic tool usage.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What file formats does the Number Extractor support?</div>
+                    <div class="faq-answer">The tool supports a wide range of formats including PDF files, Microsoft Word documents (DOC, DOCX), plain text files (TXT), Excel spreadsheets (XLS, XLSX), CSV files, RTF documents, and HTML pages. You can also paste text directly from any source.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is there a file size limit for documents I want to process?</div>
+                    <div class="faq-answer">For optimal performance, we recommend files under 50MB, though larger files can often be processed successfully. If you encounter issues with very large files, try splitting them into smaller sections or contact support for assistance with bulk processing.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does the tool handle different number formats like decimals, percentages, and currency?</div>
+                    <div class="faq-answer">Our intelligent extraction engine recognizes multiple number formats including integers, decimals (with period or comma separators), negative numbers, percentages, currency values with symbols, scientific notation, and phone numbers. You can filter extraction by specific number types if needed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I extract only specific types of numbers from my document?</div>
+                    <div class="faq-answer">Yes! The tool offers filtering options where you can choose to extract only integers, only decimals, only numbers within a certain range, or numbers matching specific patterns like phone numbers or postal codes.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What happens to my files after I upload them for processing?</div>
+                    <div class="faq-answer">Your privacy is our priority. Files processed on our servers are automatically deleted within minutes of processing completion. We never store, archive, or access your documents for any purpose other than performing the requested extraction.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use this tool on my smartphone or tablet?</div>
+                    <div class="faq-answer">Absolutely! The Number Extractor is fully optimized for mobile devices and works perfectly on both iOS and Android smartphones and tablets through any modern mobile browser.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How accurate is the number extraction process?</div>
+                    <div class="faq-answer">Our extraction algorithms achieve near-perfect accuracy, correctly identifying and extracting 99%+ of numbers in well-formatted documents. The tool has been tested on millions of documents across various formats and languages.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can the tool extract numbers from scanned documents or images?</div>
+                    <div class="faq-answer">If your scanned document has been converted to searchable text through OCR (Optical Character Recognition), our tool can extract numbers from it. For image files without embedded text, you would first need to use an OCR tool to convert the image to text.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How do I handle documents with both periods and commas as decimal separators?</div>
+                    <div class="faq-answer">The tool intelligently detects decimal separator usage based on context and regional formatting patterns. It can correctly interpret both European formatting (comma as decimal separator) and American formatting (period as decimal separator) within the same document.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I extract numbers and maintain their original order from the document?</div>
+                    <div class="faq-answer">Yes, by default, extracted numbers maintain their appearance order from the source document. You can also enable sorting options if you prefer to have results organized numerically instead of by position.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What if the tool extracts numbers I don't want, like page numbers or footnote references?</div>
+                    <div class="faq-answer">Use the range filtering feature to exclude numbers that fall outside your area of interest. For example, if page numbers are single or double digits and your data values are in the thousands, set a minimum threshold of 100 to exclude page numbers automatically.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I extract numbers from multiple files at once?</div>
+                    <div class="faq-answer">Yes, the batch processing feature allows you to upload multiple files simultaneously and extract numbers from all of them in a single operation. Results can be kept separate for each file or combined into a unified dataset.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">In what formats can I download or export the extracted numbers?</div>
+                    <div class="faq-answer">Extracted numbers can be exported as plain text (one number per line), comma-separated values (CSV), tab-separated values (TSV), JSON format, or copied directly to your clipboard for immediate pasting into other applications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool work with documents in languages other than English?</div>
+                    <div class="faq-answer">Yes! The Number Extractor works with documents in any language. Numbers are recognized regardless of the surrounding text language, whether your document is in English, Spanish, French, German, Chinese, Arabic, or any other language.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I remove duplicate numbers from the extraction results?</div>
+                    <div class="faq-answer">Yes, there's a built-in duplicate removal option. When enabled, only unique numbers are included in the results, with the option to display how many times each unique number appeared in the source document.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How fast is the extraction process?</div>
+                    <div class="faq-answer">Extraction speed depends on document size, but most documents process in under 10 seconds. A typical 50-page PDF with several hundred numbers extracts in 5-7 seconds. Even complex documents with thousands of numbers rarely take more than 30 seconds.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I extract numbers and perform calculations on them at the same time?</div>
+                    <div class="faq-answer">Yes! After extraction, the tool can automatically calculate sum, average, median, mode, minimum, maximum, range, and standard deviation of the extracted numbers, providing instant statistical insights without requiring export to another application.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What should I do if the tool isn't extracting numbers correctly from my document?</div>
+                    <div class="faq-answer">First, ensure your document contains actual text rather than just scanned images. If problems persist, try converting your document to PDF or plain text format first. If you continue experiencing issues, contact our support team with a sample document, and we'll help troubleshoot the specific formatting challenges.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Number extraction functionality
+        function extractNumbers(text, options) {
+            if (!text || text.trim() === '') return [];
+            
+            let numbers = [];
+            
+            // Regular expression patterns for different number types
+            const patterns = {
+                // Match integers (including negative)
+                integer: /-?\b\d+\b/g,
+                // Match decimals (including negative)
+                decimal: /-?\b\d+\.\d+\b/g,
+                // Match numbers with comma separators (like 1,000)
+                commaSeparated: /-?\b\d{1,3}(?:,\d{3})*\b/g,
+                // Match phone numbers (various formats)
+                phone: /\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g,
+                // Match percentages
+                percentage: /\b\d+(?:\.\d+)?%\b/g,
+                // Match currency values
+                currency: /[$€£¥]?\s?-?\b\d+(?:\.\d+)?\b/g
+            };
+            
+            // Extract based on selected options
+            if (options.integersOnly) {
+                let matches = text.match(patterns.integer) || [];
+                numbers = numbers.concat(matches);
+            }
+            
+            if (options.decimalsOnly) {
+                let matches = text.match(patterns.decimal) || [];
+                numbers = numbers.concat(matches);
+            }
+            
+            // If neither integersOnly nor decimalsOnly is selected, extract all numbers
+            if (!options.integersOnly && !options.decimalsOnly) {
+                // Extract integers
+                let integerMatches = text.match(patterns.integer) || [];
+                numbers = numbers.concat(integerMatches);
+                
+                // Extract decimals
+                let decimalMatches = text.match(patterns.decimal) || [];
+                numbers = numbers.concat(decimalMatches);
+                
+                // Extract comma-separated numbers
+                let commaMatches = text.match(patterns.commaSeparated) || [];
+                numbers = numbers.concat(commaMatches);
+            }
+            
+            // Extract phone numbers if enabled
+            if (options.phoneNumbers) {
+                let phoneMatches = text.match(patterns.phone) || [];
+                numbers = numbers.concat(phoneMatches);
+            }
+            
+            // Filter out negative numbers if not included
+            if (!options.includeNegative) {
+                numbers = numbers.filter(num => !num.startsWith('-'));
+            }
+            
+            // Remove duplicates if enabled
+            if (options.removeDuplicates) {
+                numbers = [...new Set(numbers)];
+            }
+            
+            // Sort numbers if enabled
+            if (options.sortNumbers) {
+                numbers.sort((a, b) => {
+                    // Convert to numbers for proper numerical sorting
+                    let numA = parseFloat(a.replace(/[$,]/g, ''));
+                    let numB = parseFloat(b.replace(/[$,]/g, ''));
+                    return numA - numB;
+                });
+            }
+            
+            return numbers;
+        }
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const extractBtn = document.getElementById('extractBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        // Option checkboxes
+        const integersOnlyCheckbox = document.getElementById('integersOnly');
+        const decimalsOnlyCheckbox = document.getElementById('decimalsOnly');
+        const includeNegativeCheckbox = document.getElementById('includeNegative');
+        const removeDuplicatesCheckbox = document.getElementById('removeDuplicates');
+        const sortNumbersCheckbox = document.getElementById('sortNumbers');
+        const phoneNumbersCheckbox = document.getElementById('phoneNumbers');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            extractBtn.addEventListener('click', handleExtraction);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle number extraction
+        function handleExtraction() {
+            const text = inputText.value;
+            const options = {
+                integersOnly: integersOnlyCheckbox.checked,
+                decimalsOnly: decimalsOnlyCheckbox.checked,
+                includeNegative: includeNegativeCheckbox.checked,
+                removeDuplicates: removeDuplicatesCheckbox.checked,
+                sortNumbers: sortNumbersCheckbox.checked,
+                phoneNumbers: phoneNumbersCheckbox.checked
+            };
+            
+            const extractedNumbers = extractNumbers(text, options);
+            updatePreview(extractedNumbers);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview([]);
+        }
+
+        // Update preview with extracted numbers
+        function updatePreview(numbers) {
+            previewContainer.innerHTML = '';
+            
+            if (!numbers || numbers.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Extracted numbers will appear here';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = `Extracted Numbers (${numbers.length} found)`;
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            previewText.textContent = numbers.join(', ');
+            
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy extracted numbers');
+            copyBtn.addEventListener('click', () => copyToClipboard(numbers.join(', '), copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download CSV';
+            downloadBtn.setAttribute('aria-label', 'Download as CSV file');
+            downloadBtn.addEventListener('click', () => downloadAsCSV(numbers));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            previewContainer.appendChild(previewItem);
+            
+            // Add statistics if we have numbers
+            if (numbers.length > 0) {
+                const statsItem = document.createElement('div');
+                statsItem.className = 'preview-item';
+                
+                const statsHeader = document.createElement('div');
+                statsHeader.className = 'preview-header';
+                
+                const statsName = document.createElement('div');
+                statsName.className = 'preview-name';
+                statsName.textContent = 'Number Statistics';
+                statsHeader.appendChild(statsName);
+                
+                statsItem.appendChild(statsHeader);
+                
+                // Calculate statistics
+                const numericValues = numbers.map(num => {
+                    // Remove commas and currency symbols for calculation
+                    return parseFloat(num.replace(/[$,]/g, ''));
+                }).filter(num => !isNaN(num));
+                
+                if (numericValues.length > 0) {
+                    const sum = numericValues.reduce((a, b) => a + b, 0);
+                    const average = sum / numericValues.length;
+                    const min = Math.min(...numericValues);
+                    const max = Math.max(...numericValues);
+                    
+                    const statsText = document.createElement('div');
+                    statsText.className = 'preview-text';
+                    statsText.innerHTML = `
+                        <strong>Total Numbers:</strong> ${numbers.length}<br>
+                        <strong>Sum:</strong> ${sum.toFixed(2)}<br>
+                        <strong>Average:</strong> ${average.toFixed(2)}<br>
+                        <strong>Minimum:</strong> ${min}<br>
+                        <strong>Maximum:</strong> ${max}<br>
+                        <strong>Range:</strong> ${(max - min).toFixed(2)}
+                    `;
+                    
+                    statsItem.appendChild(statsText);
+                    previewContainer.appendChild(statsItem);
+                }
+            }
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download numbers as CSV file
+        function downloadAsCSV(numbers) {
+            const csvContent = "data:text/csv;charset=utf-8," + numbers.join('\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'extracted-numbers.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

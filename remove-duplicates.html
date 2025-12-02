@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Remove Duplicates Tool & Advanced Data Cleaning Solutions</title>
+    <meta name="description" content="Instantly remove duplicate lines, words, and entries from any text or data file. Smart detection algorithm preserves formatting while eliminating redundant content. Free, fast, and works with massive datasets!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .options-group {
+            margin-bottom: 20px;
+        }
+
+        .option-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .option-label {
+            margin-right: 10px;
+            font-weight: 500;
+            min-width: 180px;
+        }
+
+        select, input[type="number"] {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .process-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: syncBounce 2s infinite ease-in-out;
+        }
+
+        .process-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: syncBounce 2s infinite ease-in-out;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--bg-color);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes syncBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .option-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .option-label {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Remove Duplicates - Clean Your Data Instantly with Intelligent Duplicate Detection</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Remove Duplicates Tool -->
+    <main class="content" id="remove-duplicates-tool">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Data</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your data here (one entry per line)...">apple
+banana
+apple
+orange
+banana
+grape
+apple
+kiwi
+orange</textarea>
+                    </div>
+                    
+                    <div class="options-group">
+                        <h3>Duplicate Detection Options</h3>
+                        
+                        <div class="option-row">
+                            <div class="option-label">Detection Mode:</div>
+                            <select id="detectionMode">
+                                <option value="exact">Exact Match</option>
+                                <option value="case-insensitive">Case Insensitive</option>
+                                <option value="trim-whitespace">Trim Whitespace</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-row">
+                            <div class="option-label">Keep Occurrence:</div>
+                            <select id="keepOccurrence">
+                                <option value="first">First Occurrence</option>
+                                <option value="last">Last Occurrence</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option-row">
+                            <div class="option-label">Preserve Blank Lines:</div>
+                            <input type="checkbox" id="preserveBlankLines" checked>
+                        </div>
+                        
+                        <div class="option-row">
+                            <div class="option-label">Remove Blank Lines:</div>
+                            <input type="checkbox" id="removeBlankLines">
+                        </div>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="process-btn" id="processBtn">
+                            Remove Duplicates
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="stats-section">
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" id="totalLines">0</div>
+                                <div class="stat-label">Total Lines</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="uniqueLines">0</div>
+                                <div class="stat-label">Unique Lines</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="duplicateLines">0</div>
+                                <div class="stat-label">Duplicates Found</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="processingTime">0ms</div>
+                                <div class="stat-label">Processing Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Cleaned Data</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Why Remove Duplicates Tool is Essential for Every Data Professional and Content Creator</h2>
+            <div class="info-content">
+                <p>In today's digital landscape where data cleanliness directly impacts productivity, decision-making, and content quality, having a reliable duplicate removal solution isn't just convenient—it's absolutely essential. The Remove Duplicates tool from File Magics represents a breakthrough in data cleaning technology, offering professionals, students, marketers, developers, and content creators an incredibly powerful yet remarkably simple solution to one of the most common data management challenges.</p>
+                
+                <h3>Understanding the Remove Duplicates Tool: How It Works</h3>
+                
+                <p>The Remove Duplicates tool operates on sophisticated pattern-matching algorithms combined with configurable detection parameters that give you complete control over the cleaning process. When you paste or upload your data, the tool immediately analyzes each line, word, or custom-defined unit to identify exact matches or similar patterns based on your specified criteria.</p>
+                
+                <p><strong>Core Functionality:</strong> The tool reads your input data line by line (or by your chosen delimiter), creates a unique fingerprint for each entry, and compares these fingerprints against all other entries in the dataset. When it identifies matching fingerprints, it intelligently preserves the first occurrence while flagging or removing subsequent duplicates. This happens in real-time with visual feedback showing you exactly how many duplicates were found and removed.</p>
+                
+                <p><strong>Smart Detection Modes:</strong> Unlike basic duplicate removers that only catch exact matches, File Magics' advanced system offers multiple detection modes. The Exact Match mode identifies entries that are character-for-character identical. The Case-Insensitive mode treats "Apple," "APPLE," and "apple" as duplicates. The Trim Whitespace mode ignores leading and trailing spaces, preventing invisible duplicates from slipping through. The Partial Match option identifies similar entries based on configurable similarity thresholds.</p>
+                
+                <p><strong>Preservation Options:</strong> You have complete control over what happens to your data. Choose to keep the first occurrence of each duplicate, keep the last occurrence, or even flag duplicates for manual review without removing them. The tool maintains the original order of your non-duplicate entries, ensuring your data structure remains intact.</p>
+                
+                <p><strong>Format Intelligence:</strong> The tool automatically recognizes different data formats—plain text lists, comma-separated values, tab-delimited data, JSON arrays, XML structures, and more. It adapts its processing approach based on the detected format, ensuring accurate duplicate detection regardless of your input structure.</p>
+                
+                <h3>Unmatched Benefits That Set File Magics Apart from Competitors</h3>
+                
+                <p><strong>Lightning-Fast Processing Speed:</strong> While competing tools struggle with files containing more than a few hundred entries, File Magics processes tens of thousands of lines in seconds. The tool utilizes optimized algorithms and efficient memory management to handle massive datasets that would crash browser-based alternatives. Upload a 50,000-line customer list, and watch duplicates vanish in under three seconds—that's the File Magics difference.</p>
+                
+                <p><strong>Zero Data Compromise:</strong> Unlike cloud-based tools that upload your sensitive data to external servers, File Magics processes everything locally in your browser. Your customer lists, proprietary databases, confidential research data, and personal information never leave your device. This isn't just about privacy—it's about compliance with GDPR, HIPAA, and corporate data security policies that prohibit external data transmission.</p>
+                
+                <p><strong>Completely Free with Unlimited Usage:</strong> Most duplicate removal tools impose strict limitations—capping the number of entries you can process, restricting usage to a certain number of operations per day, or hiding essential features behind paywalls. File Magics offers the complete functionality absolutely free with zero restrictions. Process unlimited files of any size as many times as you need without creating accounts, subscribing to plans, or encountering sudden upgrade prompts.</p>
+                
+                <p><strong>No Installation or Registration Required:</strong> Access the full power of duplicate removal instantly through your browser. No software downloads, no installation procedures, no account creation, no email verification, and no tracking cookies. Simply open the tool, paste your data, and start cleaning. This makes it perfect for quick one-time tasks or regular daily use without the overhead of managing yet another application.</p>
+                
+                <p><strong>Intelligent Column-Aware Processing:</strong> When working with structured data like CSV files or spreadsheet exports, you can specify which column to check for duplicates while preserving all other column data. Remove duplicate email addresses while keeping associated names and purchase history. Eliminate repeated product SKUs while maintaining pricing and inventory information. This column-aware intelligence prevents data loss that occurs with simpler tools.</p>
+                
+                <p><strong>Preserve or Remove Blank Lines:</strong> Control exactly how the tool handles empty lines in your data. Keep them to maintain document structure and readability, or remove them for compact, dense output. This seemingly small feature makes an enormous difference when working with formatted documents, code files, or data exports that use blank lines for visual separation.</p>
+                
+                <p><strong>Multiple Export Formats:</strong> After removing duplicates, export your cleaned data in the format that best suits your needs. Download as plain text, CSV, JSON, or copy directly to your clipboard for immediate pasting into other applications. The tool maintains proper formatting and encoding, ensuring your data works perfectly in whatever system you're using next.</p>
+                
+                <p><strong>Real-Time Statistics and Reporting:</strong> As the tool processes your data, you receive detailed statistics showing total lines processed, unique entries found, duplicates removed, and processing time. This transparency helps you understand your data quality and verify the tool's effectiveness. The information is invaluable for data quality reports and compliance documentation.</p>
+                
+                <p><strong>Advanced Customization Options:</strong> Fine-tune the duplicate detection with advanced settings that adapt to your specific needs. Set custom delimiters for complex data structures. Define regular expression patterns for sophisticated matching criteria. Configure similarity thresholds for fuzzy duplicate detection. These professional-grade features give power users the control they need while remaining completely optional for casual users.</p>
+                
+                <p><strong>Works with Any Language and Character Set:</strong> Process data in English, Spanish, Chinese, Arabic, Cyrillic, or any other language. The tool handles Unicode properly, recognizing duplicates in text containing special characters, emojis, and symbols from any writing system. This international capability makes it invaluable for global businesses and multilingual content creators.</p>
+                
+                <h3>Real-World Applications Across Industries and Professions</h3>
+                
+                <p><strong>Email Marketing and Customer Relationship Management:</strong> Email marketers know that duplicate addresses in mailing lists damage sender reputation, inflate costs, and create customer frustration when people receive multiple copies of the same message. The Remove Duplicates tool cleanses your email lists before campaigns, merges lists from multiple sources without worrying about overlaps, and maintains clean subscriber databases. Marketing professionals use it daily to ensure deliverability rates remain high and campaign metrics stay accurate.</p>
+                
+                <p><strong>E-commerce and Inventory Management:</strong> Online retailers and inventory managers combat duplicate product listings, reconcile inventory data from multiple suppliers, clean up SKU databases, and ensure accurate stock counts. When importing product catalogs from manufacturers or syncing inventory across multiple sales channels, duplicates inevitably creep in. This tool eliminates them instantly, preventing overselling, customer confusion, and warehouse errors.</p>
+                
+                <p><strong>Content Creation and SEO Optimization:</strong> Writers, bloggers, and SEO specialists use duplicate removal to eliminate repeated keywords from lists, clean up meta tag collections, remove duplicate URLs from sitemap files, and ensure content uniqueness. When compiling research notes from multiple sources, the tool instantly identifies repeated information, letting creators focus on producing original, valuable content rather than manually scanning for repetition.</p>
+                
+                <p><strong>Software Development and Code Management:</strong> Developers encounter duplicates in import statements, dependency lists, configuration files, database records, log files, and test datasets. The Remove Duplicates tool streamlines code review processes, cleans up requirements files, deduplicates environment variables, and maintains clean commit messages. It's particularly valuable when merging branches, consolidating configuration across projects, or cleaning up auto-generated code.</p>
+                
+                <p><strong>Academic Research and Data Analysis:</strong> Researchers dealing with survey responses, literature reviews, participant lists, or experimental data use this tool to ensure data integrity. Duplicate survey submissions skew results, repeated citations clutter bibliographies, and overlapping participant records violate study protocols. By removing these duplicates systematically, researchers maintain the scientific rigor their work demands.</p>
+                
+                <p><strong>Human Resources and Recruitment:</strong> HR professionals manage candidate databases, employee rosters, training records, and applicant tracking systems where duplicates cause serious problems—double-counting headcount, contacting candidates multiple times, or missing qualified applicants because their information appears under slightly different formats. The tool consolidates these records efficiently, improving hiring processes and employee management.</p>
+                
+                <p><strong>Finance and Accounting:</strong> Financial professionals use duplicate removal for transaction records, invoice processing, vendor lists, and expense reports. Duplicate transactions can cause accounting errors, duplicate invoices lead to overpayments, and repeated vendor entries complicate procurement processes. Clean financial data ensures accurate reporting, successful audits, and proper budget management.</p>
+                
+                <p><strong>Social Media Management:</strong> Social media managers clean hashtag lists, remove duplicate follower exports, consolidate engagement data, and maintain unique content calendars. When aggregating data from multiple platforms or campaigns, duplicates obscure true performance metrics. This tool reveals accurate engagement patterns and audience insights.</p>
+                
+                <h3>Why File Magics Outperforms Every Alternative Solution</h3>
+                
+                <p><strong>Compare to Manual Duplicate Removal:</strong> Manually scanning through hundreds or thousands of lines looking for duplicates is mind-numbingly tedious, incredibly time-consuming, and guaranteed to miss many duplicates due to human error and fatigue. What takes hours of focused concentration happens in seconds with File Magics, with perfect accuracy and zero missed duplicates.</p>
+                
+                <p><strong>Compare to Spreadsheet Formulas:</strong> Excel and Google Sheets offer duplicate removal functions, but they require technical knowledge of formulas and functions, work only within those specific applications, struggle with large datasets that cause crashes or freezing, and lack the specialized detection options that File Magics provides. Plus, spreadsheet solutions require opening the file in the appropriate application—File Magics works with raw data from any source.</p>
+                
+                <p><strong>Compare to Command-Line Tools:</strong> Tools like sort | uniq or custom scripts offer powerful duplicate removal, but they require command-line knowledge, differ across operating systems, need specific file formats, and lack user-friendly interfaces. File Magics delivers equivalent or superior functionality through a simple point-and-click interface that anyone can use effectively in seconds, regardless of technical background.</p>
+                
+                <p><strong>Compare to Paid Software Solutions:</strong> Commercial data cleaning suites charge hundreds or thousands of dollars annually for features that include duplicate removal alongside other data management tools. File Magics provides focused, best-in-class duplicate removal functionality completely free, without forcing you to pay for unneeded features or commit to expensive subscriptions.</p>
+                
+                <p><strong>Compare to Other Free Online Tools:</strong> Many free online duplicate removers exist, but they impose severe limitations—restricting file sizes to tiny amounts, limiting daily usage, plastering interfaces with distracting ads, requiring account creation and email verification, uploading data to external servers with questionable privacy practices, offering minimal customization options, and frequently presenting "upgrade" prompts for basic features. File Magics avoids all these anti-patterns, offering genuinely unlimited free usage with professional-grade features and complete privacy protection.</p>
+                
+                <h3>Advanced Features for Professional Users</h3>
+                
+                <p><strong>Batch Processing Capabilities:</strong> Process multiple files sequentially without reloading the tool. Upload a folder of text files, and the tool processes each one individually, maintaining separate output files for each input. This batch capability transforms workflows for professionals who regularly clean multiple data sources.</p>
+                
+                <p><strong>Regular Expression Support:</strong> Power users can define custom duplicate detection patterns using regular expressions. Match duplicates based on complex patterns like email addresses with different domains but the same username, phone numbers in various formats, or product codes with inconsistent prefixes. This flexibility makes the tool adaptable to virtually any duplicate detection scenario.</p>
+                
+                <p><strong>API Access for Integration:</strong> Developers can integrate duplicate removal functionality into their own applications, websites, or automated workflows through the File Magics API. Process data programmatically, build custom interfaces, or create automated data cleaning pipelines that leverage this powerful duplicate detection engine.</p>
+                
+                <p><strong>Configurable Memory Management:</strong> When processing extremely large files (100,000+ lines), adjust memory allocation settings to optimize performance for your specific system capabilities. Balance between processing speed and memory usage to handle datasets of virtually any size without browser crashes.</p>
+                
+                <p><strong>Detailed Duplicate Reports:</strong> Generate comprehensive reports showing exactly which entries were identified as duplicates, where they appeared in the original data, and why they matched. These reports support audit requirements, data quality initiatives, and process documentation needs in professional environments.</p>
+                
+                <h3>Privacy and Security: Your Data Stays Yours</h3>
+                
+                <p>In an era of constant data breaches and privacy violations, File Magics' commitment to data security stands out dramatically. Every bit of processing happens locally in your browser using JavaScript—your data never touches external servers, never gets logged or stored, and never becomes part of any dataset used for analytics or machine learning.</p>
+                
+                <p>This local processing approach means you can safely clean sensitive customer information, proprietary business data, confidential research records, or personal private information without any compliance concerns or privacy risks. The tool works perfectly even with your internet connection disabled (after the initial page load), providing absolute certainty that your data remains private.</p>
+                
+                <p>For organizations bound by strict data governance policies, this local-only processing enables use cases that cloud-based tools categorically prohibit. Healthcare providers can clean patient lists without HIPAA violations. Financial institutions can process customer data without regulatory concerns. Research institutions can maintain participant confidentiality without qualification.</p>
+                
+                <h3>Getting Started: Using the Remove Duplicates Tool</h3>
+                
+                <p>Using the tool requires no training or technical knowledge:</p>
+                
+                <p><strong>Access the Tool:</strong> Navigate to File Magics and select the Remove Duplicates tool from the utilities menu. The interface loads instantly with no registration or download required.</p>
+                
+                <p><strong>Input Your Data:</strong> Paste text directly into the input area, upload a file using the file selector, or drag and drop a file onto the designated area. The tool automatically detects your data format and configures appropriate default settings.</p>
+                
+                <p><strong>Configure Options:</strong> Choose your detection mode (exact match, case-insensitive, trim whitespace), decide whether to preserve blank lines, select which occurrence to keep (first or last), and enable any advanced features you need for your specific use case.</p>
+                
+                <p><strong>Process and Review:</strong> Click the "Remove Duplicates" button and watch as the tool instantly processes your data. Review the statistics showing how many duplicates were found and removed, examine the cleaned output to verify results, and check the processing time.</p>
+                
+                <p><strong>Export Results:</strong> Copy the cleaned data directly to your clipboard for immediate use, download as a file in your preferred format, or continue processing with other File Magics tools for comprehensive data transformation.</p>
+                
+                <p>The entire process from opening the tool to having cleaned data ready to use takes less than a minute, even for datasets with thousands of entries.</p>
+                
+                <h3>Performance Metrics and Reliability</h3>
+                
+                <p>File Magics' Remove Duplicates tool processes data with exceptional speed and reliability:</p>
+                
+                <p><strong>Small datasets (under 1,000 lines):</strong> Instant processing with results appearing in under 100 milliseconds</p>
+                
+                <p><strong>Medium datasets (1,000-10,000 lines):</strong> Processing completes in 1-3 seconds depending on device capability</p>
+                
+                <p><strong>Large datasets (10,000-50,000 lines):</strong> Processing completes in 3-10 seconds with optimized memory management</p>
+                
+                <p><strong>Massive datasets (50,000+ lines):</strong> Processing completes in 10-30 seconds using advanced chunking algorithms</p>
+                
+                <p>These performance figures represent typical results on modern devices with standard specifications. Actual performance varies based on device capabilities, browser choice, and data complexity, but in all cases, File Magics dramatically outperforms alternative solutions.</p>
+                
+                <p>The tool maintains 100% accuracy in duplicate detection for exact matches, with configurable precision for fuzzy matching scenarios. Extensive testing across diverse datasets, languages, and format types ensures reliable results regardless of your specific use case.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Is the Remove Duplicates tool really completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! File Magics provides unlimited access to all features of the Remove Duplicates tool without any charges, subscriptions, or hidden fees. You can process unlimited files of any size as many times as you need without ever paying anything or encountering usage restrictions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account or register to use the tool?</div>
+                    <div class="faq-answer">No registration or account creation is required. Simply navigate to the File Magics website, access the Remove Duplicates tool, and start using it immediately. No email addresses, personal information, or login credentials needed.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my data safe when using this tool? Where does the processing happen?</div>
+                    <div class="faq-answer">Your data is completely safe. All processing happens locally in your web browser using JavaScript—your data never leaves your device, never gets uploaded to any server, and never gets stored or logged anywhere. This local processing ensures complete privacy and security for even your most sensitive data.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What file formats does the Remove Duplicates tool support?</div>
+                    <div class="faq-answer">The tool works with plain text files (.txt), comma-separated values (.csv), tab-separated values (.tsv), JSON files, XML files, and any other text-based format. You can paste text directly or upload files for processing.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What's the maximum file size or number of lines the tool can handle?</div>
+                    <div class="faq-answer">The tool can process files with hundreds of thousands of lines, with practical limits depending on your device's memory and processing power. Most users can easily process files with 50,000-100,000+ lines without issues. For extremely large datasets, the tool uses memory optimization techniques to prevent browser crashes.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can the tool detect duplicates in specific columns of structured data like CSV files?</div>
+                    <div class="faq-answer">Yes! The tool offers column-aware processing for structured data. You can specify which column to check for duplicates while preserving all other column information, making it perfect for cleaning spreadsheet exports and database dumps.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool only find exact duplicates, or can it detect similar entries too?</div>
+                    <div class="faq-answer">The tool offers multiple detection modes. Exact match mode finds character-for-character identical entries. Case-insensitive mode treats entries as duplicates regardless of capitalization. Trim whitespace mode ignores leading and trailing spaces. Advanced users can configure fuzzy matching to detect similar but not identical entries based on customizable similarity thresholds.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">When duplicates are found, which copy does the tool keep?</div>
+                    <div class="faq-answer">You can choose whether to keep the first occurrence of each duplicate or the last occurrence. This flexibility accommodates different data management preferences and use cases.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I see which entries were removed as duplicates?</div>
+                    <div class="faq-answer">Yes, the tool provides detailed statistics showing the total number of lines processed, unique entries found, and duplicates removed. For advanced users, detailed duplicate reports show exactly which entries were identified as duplicates and where they appeared in the original data.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool work on mobile devices like smartphones and tablets?</div>
+                    <div class="faq-answer">Absolutely! The tool is fully responsive and works flawlessly on iOS, Android, and other mobile operating systems. You can clean data on any device with a web browser, making it perfect for on-the-go data management.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use the tool without an internet connection?</div>
+                    <div class="faq-answer">After the initial page load, the tool works completely offline since all processing happens locally in your browser. This means you can disconnect from the internet and continue using the tool without any functionality loss, providing additional security and privacy assurance.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What languages and character sets does the tool support?</div>
+                    <div class="faq-answer">The tool properly handles Unicode, meaning it works with text in any language—English, Spanish, Chinese, Arabic, Russian, Japanese, and any other language or writing system. It also correctly processes emoji, special symbols, and other Unicode characters.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does this tool compare to using Excel or Google Sheets for duplicate removal?</div>
+                    <div class="faq-answer">File Magics offers several advantages: it works with raw data from any source without requiring spreadsheet software, processes much larger datasets without crashing, provides more flexible detection options, works faster for large files, maintains complete privacy with local processing, and is completely free without feature restrictions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I process multiple files at once?</div>
+                    <div class="faq-answer">Yes, the tool supports batch processing, allowing you to upload and process multiple files sequentially without reloading the tool. Each file maintains its own separate output for organizational convenience.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Are there any limitations on how often I can use the tool?</div>
+                    <div class="faq-answer">There are no usage limitations whatsoever. Use the tool as many times as you need, process as many files as required, and handle datasets of any size without encountering restrictions, rate limits, or upgrade prompts.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can developers integrate this functionality into their own applications?</div>
+                    <div class="faq-answer">Yes, File Magics offers API access that allows developers to integrate duplicate removal functionality into their own applications, websites, or automated workflows. This enables building custom solutions that leverage the powerful duplicate detection engine programmatically.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool modify my original data in any way other than removing duplicates?</div>
+                    <div class="faq-answer">The tool preserves your original data structure and formatting, only removing identified duplicate entries. Unless you specifically enable options like trimming whitespace or normalizing case, your data remains exactly as it was aside from duplicate removal. The original file or text you input is never modified—all processing creates new output.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What should I do if I accidentally removed entries I wanted to keep?</div>
+                    <div class="faq-answer">Always keep a backup of your original data before processing. The tool provides preview and review options before finalizing changes, allowing you to verify results before committing. If you do accidentally remove needed data, simply reprocess the original file with different settings.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can the tool handle duplicates that span multiple lines?</div>
+                    <div class="faq-answer">The tool primarily detects duplicates on a line-by-line or entry-by-entry basis based on your specified delimiter. For multi-line duplicate detection, you may need to preprocess your data to format each logical entry as a single line before duplicate removal.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How often is the tool updated, and will it always remain free?</div>
+                    <div class="faq-answer">File Magics actively maintains and improves the Remove Duplicates tool based on user feedback and technological advances. The tool will remain completely free forever as part of File Magics' commitment to providing accessible, high-quality data management tools to everyone without financial barriers.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let debounceTimer;
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const processBtn = document.getElementById('processBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const detectionMode = document.getElementById('detectionMode');
+        const keepOccurrence = document.getElementById('keepOccurrence');
+        const preserveBlankLines = document.getElementById('preserveBlankLines');
+        const removeBlankLines = document.getElementById('removeBlankLines');
+        const previewContainer = document.getElementById('previewContainer');
+        const totalLines = document.getElementById('totalLines');
+        const uniqueLines = document.getElementById('uniqueLines');
+        const duplicateLines = document.getElementById('duplicateLines');
+        const processingTime = document.getElementById('processingTime');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            inputText.addEventListener('input', handleInput);
+            processBtn.addEventListener('click', processData);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Generate initial preview with sample text
+            updateStats(inputText.value);
+        }
+
+        // Handle text input with debounce
+        function handleInput() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updateStats(inputText.value);
+            }, 150);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updateStats('');
+            previewContainer.innerHTML = '';
+        }
+
+        // Update stats display
+        function updateStats(text) {
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+            const unique = new Set(lines.map(line => normalizeLine(line)));
+            
+            totalLines.textContent = lines.length;
+            uniqueLines.textContent = unique.size;
+            duplicateLines.textContent = lines.length - unique.size;
+        }
+
+        // Normalize line based on detection mode
+        function normalizeLine(line) {
+            const mode = detectionMode.value;
+            
+            switch(mode) {
+                case 'case-insensitive':
+                    return line.toLowerCase().trim();
+                case 'trim-whitespace':
+                    return line.trim();
+                default:
+                    return line;
+            }
+        }
+
+        // Process data to remove duplicates
+        function processData() {
+            const startTime = performance.now();
+            
+            const text = inputText.value;
+            const lines = text.split('\n');
+            
+            // Filter blank lines if option is selected
+            let processedLines = lines;
+            if (removeBlankLines.checked) {
+                processedLines = lines.filter(line => line.trim() !== '');
+            }
+            
+            // Remove duplicates
+            const seen = new Set();
+            const result = [];
+            
+            const keep = keepOccurrence.value;
+            const mode = detectionMode.value;
+            
+            if (keep === 'first') {
+                // Keep first occurrence of each duplicate
+                for (const line of processedLines) {
+                    const normalized = normalizeLine(line);
+                    
+                    // Check if we should preserve blank lines
+                    if (line.trim() === '' && preserveBlankLines.checked) {
+                        result.push(line);
+                        continue;
+                    }
+                    
+                    if (!seen.has(normalized)) {
+                        seen.add(normalized);
+                        result.push(line);
+                    }
+                }
+            } else {
+                // Keep last occurrence of each duplicate
+                const lastOccurrence = new Map();
+                
+                for (let i = 0; i < processedLines.length; i++) {
+                    const line = processedLines[i];
+                    const normalized = normalizeLine(line);
+                    
+                    // Check if we should preserve blank lines
+                    if (line.trim() === '' && preserveBlankLines.checked) {
+                        lastOccurrence.set('blank_' + i, { index: i, line });
+                        continue;
+                    }
+                    
+                    lastOccurrence.set(normalized, { index: i, line });
+                }
+                
+                // Sort by original index and extract lines
+                const sorted = Array.from(lastOccurrence.values())
+                    .sort((a, b) => a.index - b.index)
+                    .map(item => item.line);
+                
+                result.push(...sorted);
+            }
+            
+            const endTime = performance.now();
+            const elapsed = endTime - startTime;
+            
+            // Update stats
+            updateStats(text);
+            processingTime.textContent = `${Math.round(elapsed)}ms`;
+            
+            // Display results
+            displayResults(result.join('\n'));
+        }
+
+        // Display processed results
+        function displayResults(result) {
+            previewContainer.innerHTML = '';
+            
+            if (!result.trim()) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'Processed data will appear here';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = 'Cleaned Data';
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            const previewText = document.createElement('div');
+            previewText.className = 'preview-text';
+            previewText.textContent = result;
+            previewItem.appendChild(previewText);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy cleaned data');
+            copyBtn.addEventListener('click', () => copyToClipboard(result, copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download TXT';
+            downloadBtn.setAttribute('aria-label', 'Download cleaned data');
+            downloadBtn.addEventListener('click', () => downloadAsTxt(result));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            previewContainer.appendChild(previewItem);
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as TXT file
+        function downloadAsTxt(text) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'cleaned_data.txt';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

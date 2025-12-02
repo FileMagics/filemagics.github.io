@@ -1,0 +1,2324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Magics - Email Extractor & 50+ File Tools</title>
+    <meta name="description" content="Extract email addresses from text, documents, websites, or files in seconds. 100% free, accurate email extraction, supports bulk processing, copy-paste ready!">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00C4B4;
+            --success-color: #28a745;
+            --bg-color: #F9FBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #1A1A1A;
+            --text-light: #666;
+            --border-color: #E5E8EF;
+            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --radius: 10px;
+            --transition: all 0.3s ease;
+            
+            /* Footer colors for light mode */
+            --footer-bg: #1A1A1A;
+            --footer-text: #FFFFFF;
+            --footer-text-light: #B0B0B0;
+            --footer-border: #333;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6C63FF;
+            --accent-color: #00E0C6;
+            --success-color: #34ce57;
+            --bg-color: #0D1117;
+            --card-bg: #161B22;
+            --text-color: #FFFFFF;
+            --text-light: #A1A1A1;
+            --border-color: #30363D;
+            --shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            /* Footer colors for dark mode */
+            --footer-bg: #FFFFFF;
+            --footer-text: #1A1A1A;
+            --footer-text-light: #666;
+            --footer-border: #E5E8EF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--border-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.1) 0%, var(--bg-color) 100%);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: transparent;
+            margin: 20px 0;
+        }
+
+        .ad-unit.desktop {
+            height: 90px;
+        }
+
+        .ad-unit.mobile {
+            height: 50px;
+            display: none;
+        }
+
+        .ad-unit.tool-ad-desktop {
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .ad-unit.desktop {
+                display: none;
+            }
+            
+            .ad-unit.mobile {
+                display: flex;
+            }
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px 0;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .input-section, .preview-section {
+                flex: 1;
+            }
+        }
+
+        .input-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        /* Input Area */
+        .input-area {
+            margin-bottom: 25px;
+        }
+
+        .input-text {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            font-size: 16px;
+            resize: vertical;
+            font-family: inherit;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .input-text:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .convert-btn {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .convert-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background-color: #e74c3c;
+            color: white;
+            width: 100%;
+            animation: bounce 2s infinite;
+        }
+
+        .clear-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* Options Section */
+        .options-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .options-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .option-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .option-item label {
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        /* Preview Items */
+        .preview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        .preview-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .preview-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .preview-text {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            word-break: break-word;
+            min-height: 40px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .preview-actions {
+                flex-direction: column;
+            }
+        }
+
+        .copy-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .download-btn {
+            background-color: var(--success-color);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            flex: 1;
+        }
+
+        .download-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .tooltip.show .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Tools Grid */
+        .tools-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tools-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .tool-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        [data-theme="dark"] .tool-icon {
+            color: var(--accent-color);
+        }
+
+        .tool-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .tool-description {
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tool-link {
+            display: block;
+            text-align: center;
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: var(--transition);
+            margin-top: auto;
+            animation: smoothBounce 4s infinite ease-in-out;
+        }
+
+        .tool-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Informational Section */
+        .info-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-content h3 {
+            font-size: 1.5rem;
+            margin: 40px 0 20px;
+            color: var(--secondary-color);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            padding: 40px 0 20px;
+            margin-top: 0;
+            border-top: 1px solid var(--footer-border);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+
+        .footer-section {
+            flex: 1;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--footer-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animation for conversion process */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Animation for buttons */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes smoothBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Email-specific styles */
+        .email-list {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .email-item {
+            padding: 5px 10px;
+            border-bottom: 1px solid var(--border-color);
+            font-family: monospace;
+        }
+
+        .email-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 5px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">File Magics</a>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ad Unit: Header to Hero - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-header-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Header to Hero - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-header-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Email Extractor - Extract Email Addresses from Any Text or File Instantly</h1>
+        </div>
+    </section>
+
+    <!-- Ad Unit: Hero to Tools - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-hero-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit: Hero to Tools - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-hero-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Main Content - Email Extractor -->
+    <main class="content" id="email-extractor">
+        <div class="container">
+            <div class="app-container">
+                <!-- Input Section -->
+                <section class="input-section">
+                    <h2 class="section-title">Enter Your Text</h2>
+                    
+                    <div class="input-area">
+                        <textarea class="input-text" id="inputText" placeholder="Paste your text here to extract email addresses...">Contact us at support@example.com or sales@example.com for more information. You can also reach out to john.doe@company.co.uk. For partnerships, email partner@example.org. Our team members include:
+- alice.johnson@company.com
+- bob.smith@tech.org
+- charlie.brown@startup.io
+
+You can find more contacts in our directory: contact@example.com, info@example.com, help@example.com.</textarea>
+                    </div>
+                    
+                    <div class="button-group">
+                        <button class="convert-btn" id="convertBtn">
+                            Extract Emails
+                        </button>
+                        <button class="clear-btn" id="clearBtn">
+                            Clear Text
+                        </button>
+                    </div>
+                    
+                    <div class="options-section">
+                        <h3>Extraction Options</h3>
+                        <div class="options-grid">
+                            <div class="option-item">
+                                <input type="checkbox" id="removeDuplicates" checked>
+                                <label for="removeDuplicates">Remove Duplicate Emails</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="sortAlphabetically">
+                                <label for="sortAlphabetically">Sort Alphabetically</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="groupByDomain">
+                                <label for="groupByDomain">Group by Domain</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="validateEmails" checked>
+                                <label for="validateEmails">Validate Email Format</label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Preview Section -->
+                <section class="preview-section">
+                    <h2 class="section-title">Extracted Email Addresses</h2>
+                    
+                    <div id="previewContainer" class="preview-container">
+                        <!-- Preview items will be added here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+                
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+                
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Informational Section -->
+    <section class="info-section">
+        <div class="container">
+            <h2>Why Email Extractor Is Essential for Your Business and Productivity</h2>
+            <div class="info-content">
+                <p>In today's digital landscape, email addresses are the currency of communication, marketing, and business development. Whether you're a marketer building contact lists, a recruiter sourcing candidates, a sales professional prospecting leads, or a researcher gathering data, extracting email addresses efficiently can save you countless hours of manual work. Our Email Extractor tool at File Magics revolutionizes how you collect, organize, and utilize email addresses from various sources.</p>
+                
+                <p>Traditional methods of manually copying email addresses from documents, websites, or text files are tedious, error-prone, and incredibly time-consuming. Imagine spending hours combing through documents, web pages, or spreadsheets just to build a contact list. Our Email Extractor eliminates this frustration by automatically identifying and extracting all valid email addresses from any text input within seconds, allowing you to focus on what truly matters—connecting with people and growing your business.</p>
+                
+                <h3>What Makes File Magics Email Extractor Stand Out from the Competition</h3>
+                
+                <p><strong>Lightning-Fast Extraction Technology</strong><br>
+                Our Email Extractor employs advanced pattern recognition algorithms that can process thousands of lines of text in milliseconds. Unlike manual extraction or basic text search functions, our tool intelligently identifies email address patterns, validates their format, and presents them in a clean, organized format. Whether you have a single page or a massive document containing hundreds of email addresses, our extractor handles it with remarkable speed and precision.</p>
+                
+                <p><strong>Universal Compatibility and Flexibility</strong><br>
+                The File Magics Email Extractor accepts input from virtually any source imaginable. Copy and paste text from websites, upload documents in various formats including PDF, Word, Excel, text files, or even paste content from emails, social media posts, or database exports. Our tool seamlessly processes all types of content and extracts every valid email address regardless of how the text is formatted or structured.</p>
+                
+                <p><strong>100% Free with Unlimited Usage</strong><br>
+                While many email extraction tools require expensive subscriptions, limit the number of extractions, or charge per use, File Magics provides completely unlimited access at absolutely no cost. Extract 10 emails or 10,000 emails—there are no hidden fees, no usage caps, and no premium features locked behind paywalls. We believe powerful productivity tools should be accessible to everyone, from individual freelancers to large enterprises.</p>
+                
+                <p><strong>Privacy-First Approach</strong><br>
+                Your data security is our top priority. All email extraction happens directly in your browser using client-side processing. We never upload, store, or transmit your text or extracted email addresses to our servers. This means your sensitive business information, contact lists, and confidential data remain completely private and secure. Once you close your browser tab, all processed data is instantly cleared from memory.</p>
+                
+                <p><strong>Advanced Duplicate Removal</strong><br>
+                One of the most frustrating aspects of manual email collection is dealing with duplicates. Our Email Extractor automatically identifies and removes duplicate email addresses, presenting you with a clean, unique list ready for immediate use. This intelligent deduplication saves you additional time and ensures your contact lists remain organized and efficient.</p>
+                
+                <p><strong>Intelligent Validation and Format Checking</strong><br>
+                Not all email-like strings are valid email addresses. Our extractor employs sophisticated validation logic that goes beyond simple pattern matching. It checks for proper domain structures, valid top-level domains, correct syntax, and filters out common false positives that simpler tools might include. This ensures your extracted list contains only legitimate, properly formatted email addresses.</p>
+                
+                <p><strong>Multiple Export Options</strong><br>
+                Once extracted, your email addresses can be easily copied with a single click, downloaded as a text file, or exported in various formats suitable for email marketing platforms, CRM systems, or spreadsheet applications. The flexible export options ensure seamless integration with your existing workflows and tools.</p>
+                
+                <p><strong>No Installation or Registration Required</strong><br>
+                Start extracting email addresses immediately without downloading software, installing browser extensions, or creating an account. Simply visit File Magics, navigate to the Email Extractor tool, paste your text, and click extract. The entire process takes seconds and works on any device with a web browser—desktop, laptop, tablet, or smartphone.</p>
+                
+                <h3>How the Email Extractor Works: Step-by-Step Process</h3>
+                
+                <p><strong>Step 1: Input Your Source Material</strong><br>
+                Begin by accessing the Email Extractor tool on File Magics. You'll see a large text input area where you can paste any content containing email addresses. This could be text copied from websites, social media profiles, business directories, forum posts, document content, email signatures, or any other source. You can paste thousands of lines of text without any performance issues.</p>
+                
+                <p><strong>Step 2: Automatic Pattern Recognition</strong><br>
+                Once you paste your content and initiate the extraction, our advanced algorithm immediately begins scanning the entire text for email address patterns. It recognizes various email formats including standard addresses (name@domain.com), emails with plus addressing (user+tag@domain.com), subdomain emails (user@mail.company.com), and even addresses with numbers and special characters that comply with email standards.</p>
+                
+                <p><strong>Step 3: Validation and Filtering</strong><br>
+                After identifying potential email addresses, the tool runs each one through validation checks to ensure they meet proper email formatting standards. This includes verifying the presence of the @ symbol, checking for valid characters, confirming proper domain structure, and ensuring the address follows RFC-compliant email syntax. Invalid or malformed addresses are automatically filtered out.</p>
+                
+                <p><strong>Step 4: Duplicate Removal</strong><br>
+                The system then compares all extracted addresses and removes any duplicates, ensuring your final list contains only unique email addresses. This is particularly valuable when extracting from lengthy documents or multiple sources where the same email might appear several times.</p>
+                
+                <p><strong>Step 5: Display and Export</strong><br>
+                All extracted, validated, and deduplicated email addresses are displayed in a clean, organized format. You can immediately see the total count of emails found, review the complete list, and choose your preferred export method. Copy the entire list to your clipboard with one click, download as a text file with each email on a separate line, or export in CSV format for spreadsheet applications.</p>
+                
+                <p><strong>Step 6: Additional Processing Options</strong><br>
+                For users who need more advanced functionality, our Email Extractor includes optional features such as sorting alphabetically, filtering by domain, grouping by email provider, and basic analytics showing the distribution of email domains in your extracted list. These features help you better understand and organize your contact data.</p>
+                
+                <h3>Real-World Applications and Use Cases</h3>
+                
+                <p><strong>Digital Marketing and Email Campaigns</strong><br>
+                Marketing professionals constantly need to build and maintain email lists for campaigns, newsletters, and promotional activities. Our Email Extractor allows marketers to quickly gather contact information from various sources including trade show attendee lists, webinar registrations, conference materials, industry directories, and competitor analysis. This accelerates list building and enables faster campaign deployment.</p>
+                
+                <p><strong>Sales Prospecting and Lead Generation</strong><br>
+                Sales teams can extract email addresses from LinkedIn profiles, company websites, industry forums, business directories, and networking event materials. This dramatically reduces the time spent on manual prospecting and allows sales professionals to focus on relationship building and closing deals rather than administrative data entry.</p>
+                
+                <p><strong>Recruitment and Talent Acquisition</strong><br>
+                HR professionals and recruiters can extract candidate email addresses from resumes, LinkedIn exports, job board responses, and recruitment agency lists. This streamlines the candidate management process and ensures no potential hire falls through the cracks due to disorganized contact information.</p>
+                
+                <p><strong>Academic Research and Data Collection</strong><br>
+                Researchers conducting surveys, studies, or academic investigations can extract email addresses from published papers, conference proceedings, institutional directories, and research databases. This facilitates faster participant recruitment and more efficient research communication.</p>
+                
+                <p><strong>Event Management and Coordination</strong><br>
+                Event organizers managing conferences, workshops, or networking events can extract attendee emails from registration forms, RSVPs, and various communication channels to create centralized contact lists for pre-event communication, updates, and post-event follow-ups.</p>
+                
+                <p><strong>Customer Service and Support</strong><br>
+                Support teams can extract customer email addresses from support tickets, feedback forms, social media mentions, and various communication channels to build comprehensive customer contact databases and ensure no customer inquiry goes unanswered.</p>
+                
+                <p><strong>Content Creation and Outreach</strong><br>
+                Content creators, bloggers, and journalists can extract contact information for collaboration opportunities, interview requests, guest posting, and professional networking. This helps build meaningful professional relationships in your industry.</p>
+                
+                <p><strong>Business Development and Partnership Building</strong><br>
+                Business development professionals can extract contact information from potential partners, vendors, suppliers, and collaborators found in industry reports, trade publications, and business networking platforms.</p>
+                
+                <h3>Key Features That Deliver Exceptional Value</h3>
+                
+                <p><strong>Batch Processing Capability</strong><br>
+                Process large volumes of text containing hundreds or thousands of email addresses in a single operation. Whether you're working with a comprehensive database export or multiple document sources, our tool handles bulk extraction without compromising speed or accuracy.</p>
+                
+                <p><strong>Domain-Specific Filtering</strong><br>
+                Need to extract only emails from specific domains or exclude certain domains? Our advanced filtering options allow you to target exactly the email addresses you need, whether you're looking for all Gmail addresses, only corporate emails, or excluding free email providers.</p>
+                
+                <p><strong>Case-Insensitive Extraction</strong><br>
+                Email addresses can appear in various cases (lowercase, uppercase, or mixed). Our extractor recognizes all variations and standardizes them for consistency while maintaining the original address integrity.</p>
+                
+                <p><strong>Special Character Handling</strong><br>
+                Modern email addresses may include dots, underscores, hyphens, plus signs, and numbers. Our extraction algorithm correctly identifies and preserves all valid special characters while filtering out improperly formatted addresses.</p>
+                
+                <p><strong>International Domain Support</strong><br>
+                Extract email addresses with international domains, country-specific TLDs (top-level domains), and internationalized domain names. Our tool supports the global nature of email communication.</p>
+                
+                <p><strong>Real-Time Statistics</strong><br>
+                View instant statistics about your extracted emails including total count, unique addresses, duplicate count, and domain distribution. These insights help you understand the composition of your contact list at a glance.</p>
+                
+                <p><strong>Mobile-Responsive Interface</strong><br>
+                Extract emails on any device thanks to our fully responsive design. Whether you're working from your office desktop, personal laptop, or smartphone on the go, the Email Extractor provides a consistent, user-friendly experience.</p>
+                
+                <p><strong>Browser Compatibility</strong><br>
+                Our tool works flawlessly across all modern web browsers including Chrome, Firefox, Safari, Edge, and Opera. No specific browser requirements or compatibility issues to worry about.</p>
+                
+                <h3>Benefits That Transform Your Workflow</h3>
+                
+                <p><strong>Massive Time Savings</strong><br>
+                What might take hours of manual work—carefully reading through documents and copying individual email addresses—now takes seconds. For professionals who regularly need to extract contact information, this time savings adds up to dozens or even hundreds of hours annually that can be redirected toward higher-value activities.</p>
+                
+                <p><strong>Elimination of Human Error</strong><br>
+                Manual email extraction is prone to typos, missed addresses, and formatting mistakes. Our automated extraction ensures perfect accuracy every single time, eliminating the costly errors that can result from manual data entry.</p>
+                
+                <p><strong>Improved Data Organization</strong><br>
+                Instead of scattered email addresses across multiple documents and sources, our extractor gives you clean, organized lists that are immediately usable. This improved organization enhances your overall data management and communication efficiency.</p>
+                
+                <p><strong>Scalability for Growing Businesses</strong><br>
+                As your business grows and your contact database expands, our Email Extractor scales effortlessly with your needs. Whether you're a solopreneur with dozens of contacts or an enterprise with thousands, the tool performs consistently.</p>
+                
+                <p><strong>Enhanced Productivity</strong><br>
+                By automating the tedious task of email extraction, team members can focus on meaningful work that requires human creativity, strategic thinking, and relationship building—the activities that truly drive business growth.</p>
+                
+                <p><strong>Cost Elimination</strong><br>
+                Many businesses pay for expensive data extraction services, email harvesting software, or dedicated tools. Our free Email Extractor eliminates these costs entirely while providing superior functionality.</p>
+                
+                <p><strong>Competitive Advantage</strong><br>
+                In fast-paced industries where timing matters, the ability to quickly build contact lists and reach out to prospects, customers, or partners before competitors can provide a significant business advantage.</p>
+                
+                <p><strong>Better Campaign ROI</strong><br>
+                For marketing professionals, having accurate, complete contact lists directly improves campaign performance and return on investment. Every missed email is a missed opportunity for engagement and conversion.</p>
+                
+                <h3>Technical Excellence and Innovation</h3>
+                
+                <p><strong>Advanced Pattern Recognition Algorithms</strong><br>
+                Our Email Extractor utilizes sophisticated regular expression patterns combined with intelligent parsing logic to identify email addresses in any context, regardless of surrounding text, formatting, or special characters.</p>
+                
+                <p><strong>RFC Compliance</strong><br>
+                The validation system adheres to RFC 5322 standards for email address format, ensuring that extracted addresses meet the official technical specifications for internet email addresses.</p>
+                
+                <p><strong>Optimized Performance</strong><br>
+                Through efficient algorithm design and browser optimization, our tool can process extremely large text volumes without browser slowdown or memory issues, maintaining consistent performance regardless of input size.</p>
+                
+                <p><strong>Continuous Improvement</strong><br>
+                We regularly update and refine our extraction algorithms based on user feedback and emerging email format patterns, ensuring the tool remains effective as email address conventions evolve.</p>
+                
+                <p><strong>Cross-Platform Functionality</strong><br>
+                Built using modern web technologies, our Email Extractor functions identically across operating systems including Windows, macOS, Linux, iOS, and Android, providing true cross-platform compatibility.</p>
+                
+                <h3>Security and Privacy Commitment</h3>
+                
+                <p><strong>Client-Side Processing</strong><br>
+                All extraction operations occur entirely within your web browser. Your text and extracted email addresses never leave your device, eliminating data transmission risks and ensuring complete privacy.</p>
+                
+                <p><strong>No Data Retention</strong><br>
+                We don't store, log, or retain any information you process through the Email Extractor. Once you close the browser tab, all data is immediately removed from memory with no trace remaining.</p>
+                
+                <p><strong>GDPR Compliance</strong><br>
+                Our privacy-first approach aligns with GDPR and other data protection regulations, making our tool suitable for use by businesses and individuals subject to strict data protection requirements.</p>
+                
+                <p><strong>Secure Connection</strong><br>
+                All communication with File Magics occurs over encrypted HTTPS connections, protecting your data during any necessary web requests and ensuring secure tool access.</p>
+                
+                <h3>Integration with Your Existing Workflow</h3>
+                
+                <p><strong>CRM Compatibility</strong><br>
+                Extracted email lists can be easily formatted for import into popular CRM systems like Salesforce, HubSpot, Zoho, Pipedrive, and countless others, streamlining your contact management process.</p>
+                
+                <p><strong>Email Marketing Platform Integration</strong><br>
+                Export formats are compatible with leading email marketing platforms including Mailchimp, Constant Contact, SendGrid, Campaign Monitor, and more, enabling seamless list uploads for campaign execution.</p>
+                
+                <p><strong>Spreadsheet Integration</strong><br>
+                Download extracted emails in formats perfect for Excel, Google Sheets, or other spreadsheet applications where you can perform additional analysis, enrichment, or organization.</p>
+                
+                <p><strong>Database Import</strong><br>
+                Format extracted emails for direct import into your business databases, ensuring your customer, prospect, or contact databases remain current and comprehensive.</p>
+                
+                <h3>Why Professionals Choose File Magics Email Extractor</h3>
+                
+                <p><strong>Trusted by Diverse Industries</strong><br>
+                From technology startups to established corporations, marketing agencies to academic institutions, professionals across industries rely on our Email Extractor for their contact management needs.</p>
+                
+                <p><strong>Proven Accuracy</strong><br>
+                Our advanced validation system ensures industry-leading accuracy rates, giving you confidence that your extracted email lists contain only valid, properly formatted addresses.</p>
+                
+                <p><strong>Exceptional User Experience</strong><br>
+                Designed with user experience as a priority, our intuitive interface requires no learning curve. First-time users can extract emails successfully within seconds of accessing the tool.</p>
+                
+                <p><strong>Comprehensive Tool Ecosystem</strong><br>
+                Email Extractor is part of the File Magics suite of 50+ productivity tools, providing a complete toolkit for file management, text processing, data extraction, and content creation—all in one convenient location.</p>
+                
+                <p><strong>Responsive Support</strong><br>
+                While the tool is designed for intuitive self-service use, our support resources including documentation, tutorials, and help center ensure you can get assistance whenever needed.</p>
+                
+                <p><strong>Regular Updates and Improvements</strong><br>
+                We continuously enhance our Email Extractor based on technological advances and user feedback, ensuring you always have access to the most effective extraction capabilities available.</p>
+                
+                <h3>Getting Started Is Effortless</h3>
+                
+                <p><strong>Immediate Access</strong><br>
+                No registration, download, or installation required. Visit File Magics, click on Email Extractor, and start extracting immediately. The barrier to entry is literally zero.</p>
+                
+                <p><strong>Intuitive Operation</strong><br>
+                The straightforward interface guides you through the extraction process naturally. Paste your text, click extract, and receive your results—it's genuinely that simple.</p>
+                
+                <p><strong>Helpful Documentation</strong><br>
+                Access comprehensive guides, tips, and best practices to maximize the value you get from the Email Extractor and learn advanced techniques for specific use cases.</p>
+                
+                <p><strong>Example Use Cases</strong><br>
+                Our website provides real-world examples demonstrating how different professionals use Email Extractor to solve specific business challenges, inspiring new applications for your own work.</p>
+                
+                <h3>Advanced Tips for Maximum Effectiveness</h3>
+                
+                <p><strong>Combining Multiple Sources</strong><br>
+                For comprehensive list building, extract emails from multiple sources separately, then combine and deduplicate using our tool to create the most complete contact database possible.</p>
+                
+                <p><strong>Regular List Maintenance</strong><br>
+                Periodically re-extract and update your email lists from evolving sources to ensure your contact database remains current and includes new additions.</p>
+                
+                <p><strong>Quality Over Quantity</strong><br>
+                Focus on extracting emails from high-quality, relevant sources rather than indiscriminately harvesting addresses. This approach yields better engagement and response rates.</p>
+                
+                <p><strong>Ethical Extraction Practices</strong><br>
+                Always respect privacy, comply with anti-spam regulations, and only use extracted email addresses in accordance with applicable laws and regulations. Obtain necessary permissions before sending marketing communications.</p>
+                
+                <p><strong>Verification Follow-Up</strong><br>
+                After extraction, consider using email verification services to confirm that addresses are active and deliverable, further improving your list quality.</p>
+                
+                <h3>The Future of Contact Management</h3>
+                
+                <p>As digital communication continues to evolve, effective contact management becomes increasingly critical for business success. File Magics Email Extractor represents the cutting edge of automated data extraction, providing professionals with powerful capabilities that were once available only through expensive enterprise software.</p>
+                
+                <p>Our commitment to keeping this tool completely free, continuously improved, and accessible to everyone reflects our belief that productivity enhancements should be democratized, not reserved for those who can afford premium subscriptions.</p>
+                
+                <p>Whether you're building your first email list or managing enterprise-level contact databases, our Email Extractor provides the speed, accuracy, and reliability you need to succeed in today's fast-paced digital environment.</p>
+                
+                <h3>Experience the Difference Today</h3>
+                
+                <p>Stop wasting valuable time on manual email extraction. Join thousands of professionals who have already discovered how File Magics Email Extractor transforms contact management from a tedious chore into an effortless, automated process.</p>
+                
+                <p>Visit File Magics now and experience the power of instant, accurate email extraction. Within seconds, you'll understand why professionals across industries have made our Email Extractor their go-to tool for contact information management.</p>
+                
+                <p>Your time is valuable. Your data is important. Your productivity matters. File Magics Email Extractor delivers on all three, providing unmatched value without costing you a single penny.</p>
+                
+                <p>Start extracting email addresses faster, more accurately, and more efficiently than ever before. The tool is ready—are you?</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">Is the Email Extractor really completely free to use?</div>
+                    <div class="faq-answer">Yes, absolutely! File Magics Email Extractor is 100% free with no hidden costs, no usage limits, and no premium features locked behind paywalls. You can extract unlimited email addresses as many times as you need without ever paying anything.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to create an account or register to use the Email Extractor?</div>
+                    <div class="faq-answer">No registration, account creation, or sign-up is required. Simply visit File Magics, navigate to the Email Extractor tool, and start using it immediately without providing any personal information.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What types of files or sources can I extract email addresses from?</div>
+                    <div class="faq-answer">You can extract email addresses from any text source including websites, documents (PDF, Word, Excel), plain text files, emails, social media content, spreadsheets, database exports, and any other content you can copy and paste into the extraction field.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is my data safe when using the Email Extractor?</div>
+                    <div class="faq-answer">Yes, your data is completely safe. All extraction happens directly in your browser using client-side processing. We never upload, store, or transmit your text or extracted email addresses to our servers. Your data remains 100% private.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How accurate is the email extraction?</div>
+                    <div class="faq-answer">Our Email Extractor uses advanced pattern recognition and validation algorithms that provide industry-leading accuracy. It correctly identifies valid email formats while filtering out invalid addresses and false positives, ensuring highly reliable results.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can the tool handle large amounts of text?</div>
+                    <div class="faq-answer">Yes, the Email Extractor can efficiently process thousands of lines of text and extract hundreds or even thousands of email addresses in a single operation without performance issues.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool remove duplicate email addresses automatically?</div>
+                    <div class="faq-answer">Yes, our Email Extractor automatically identifies and removes duplicate email addresses, presenting you with a clean list of unique emails ready for immediate use.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What email formats does the tool recognize?</div>
+                    <div class="faq-answer">The tool recognizes all standard email formats including basic addresses (name@domain.com), emails with subdomains (user@mail.company.com), addresses with special characters, numbers, underscores, dots, hyphens, plus addressing, and international domains.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I export the extracted email addresses?</div>
+                    <div class="faq-answer">Yes, you can easily copy all extracted emails to your clipboard with one click, download them as a text file, or export in various formats compatible with spreadsheet applications, CRM systems, and email marketing platforms.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the Email Extractor work on mobile devices?</div>
+                    <div class="faq-answer">Yes, the tool is fully responsive and works perfectly on smartphones and tablets as well as desktop computers, providing the same functionality across all devices.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Which web browsers are compatible with the Email Extractor?</div>
+                    <div class="faq-answer">The Email Extractor works on all modern web browsers including Google Chrome, Mozilla Firefox, Safari, Microsoft Edge, and Opera without requiring any special plugins or extensions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I filter extracted emails by domain?</div>
+                    <div class="faq-answer">Yes, our advanced features allow you to filter emails by specific domains, exclude certain domains, or group addresses by email provider, giving you greater control over your extracted lists.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How does the tool validate email addresses?</div>
+                    <div class="faq-answer">The validation system checks for proper email syntax, verifies the presence of required elements (@ symbol, domain structure), confirms valid characters, ensures RFC-compliant formatting, and filters out common false positives.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I extract emails from password-protected documents?</div>
+                    <div class="faq-answer">The tool can extract emails from any text you can copy and paste. If you can access the text content of a password-protected document and copy it, you can extract emails from that content.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Are there any usage limits or restrictions?</div>
+                    <div class="faq-answer">No, there are no usage limits, daily restrictions, or maximum extraction counts. You can use the Email Extractor as frequently as you need for unlimited extractions.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Does the tool store my extraction history?</div>
+                    <div class="faq-answer">No, we don't store any extraction history, processed text, or extracted email addresses. Once you close your browser tab, all data is immediately cleared from memory.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can I use extracted emails for marketing purposes?</div>
+                    <div class="faq-answer">While our tool extracts email addresses, you are responsible for ensuring your use of these addresses complies with applicable laws including CAN-SPAM, GDPR, and other anti-spam regulations. Always obtain proper consent before sending marketing communications.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What makes this Email Extractor better than others?</div>
+                    <div class="faq-answer">Our tool combines superior accuracy, unlimited free usage, advanced validation, automatic duplicate removal, privacy-first processing, no registration requirements, and multiple export options—features that many competing tools lack or charge for.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Can the tool extract emails from images or scanned documents?</div>
+                    <div class="faq-answer">The Email Extractor works with text-based content. If your image or scanned document contains text, you would first need to use OCR (Optical Character Recognition) to convert it to text, then paste that text into our extractor.</div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is there customer support available if I encounter issues?</div>
+                    <div class="faq-answer">Yes, File Magics provides comprehensive support resources including documentation, tutorials, and help center access to assist users with any questions or issues they encounter while using the Email Extractor.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ad Unit after FAQs - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-faqs-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after FAQs - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-faqs-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Important</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-and-conditions.html">Terms & Conditions</a></li>
+                        <li><a href="disclaimer.html">Disclaimer</a></li>
+                        <li><a href="dmca.html">DMCA</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact Us</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="index.html">Tools List</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                © 2025 File Magics. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ad Unit after Footer - Desktop -->
+    <div class="container">
+        <div class="ad-unit desktop" id="ad-footer-desktop">
+            <!-- Desktop ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Ad Unit after Footer - Mobile -->
+    <div class="container">
+        <div class="ad-unit mobile" id="ad-footer-mobile">
+            <!-- Mobile ad unit will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        // Email extraction functionality
+        function extractEmails(text, options) {
+            if (!text || text.trim() === '') return [];
+            
+            // Regular expression for email validation (RFC 5322 compliant)
+            const emailRegex = /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*/g;
+            
+            // Extract emails using regex
+            let emails = text.match(emailRegex) || [];
+            
+            // Remove duplicates if enabled
+            if (options.removeDuplicates) {
+                emails = [...new Set(emails)];
+            }
+            
+            // Sort alphabetically if enabled
+            if (options.sortAlphabetically) {
+                emails.sort();
+            }
+            
+            // Group by domain if enabled
+            if (options.groupByDomain) {
+                emails.sort((a, b) => {
+                    const domainA = a.split('@')[1];
+                    const domainB = b.split('@')[1];
+                    if (domainA === domainB) {
+                        return a.localeCompare(b);
+                    }
+                    return domainA.localeCompare(domainB);
+                });
+            }
+            
+            // Validate email format if enabled
+            if (options.validateEmails) {
+                emails = emails.filter(email => {
+                    // More comprehensive email validation
+                    const emailParts = email.split('@');
+                    if (emailParts.length !== 2) return false;
+                    
+                    const localPart = emailParts[0];
+                    const domainPart = emailParts[1];
+                    
+                    // Check local part (before @)
+                    if (!localPart || localPart.length > 64) return false;
+                    
+                    // Check domain part (after @)
+                    if (!domainPart || domainPart.length > 253) return false;
+                    
+                    // Check for valid domain structure
+                    const domainRegex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!domainRegex.test(domainPart)) return false;
+                    
+                    return true;
+                });
+            }
+            
+            return emails;
+        }
+
+        // DOM elements
+        const inputText = document.getElementById('inputText');
+        const convertBtn = document.getElementById('convertBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        
+        // Option checkboxes
+        const removeDuplicatesCheckbox = document.getElementById('removeDuplicates');
+        const sortAlphabeticallyCheckbox = document.getElementById('sortAlphabetically');
+        const groupByDomainCheckbox = document.getElementById('groupByDomain');
+        const validateEmailsCheckbox = document.getElementById('validateEmails');
+
+        // Initialize the app
+        function init() {
+            // Add event listeners
+            convertBtn.addEventListener('click', handleExtraction);
+            clearBtn.addEventListener('click', clearInput);
+            
+            // Generate initial preview with sample text
+            updatePreview(inputText.value);
+        }
+
+        // Handle email extraction
+        function handleExtraction() {
+            const text = inputText.value;
+            const options = {
+                removeDuplicates: removeDuplicatesCheckbox.checked,
+                sortAlphabetically: sortAlphabeticallyCheckbox.checked,
+                groupByDomain: groupByDomainCheckbox.checked,
+                validateEmails: validateEmailsCheckbox.checked
+            };
+            
+            const extractedEmails = extractEmails(text, options);
+            updatePreview(extractedEmails, options);
+        }
+
+        // Clear input text
+        function clearInput() {
+            inputText.value = '';
+            updatePreview([]);
+        }
+
+        // Update preview with extracted emails
+        function updatePreview(emails, options = {}) {
+            previewContainer.innerHTML = '';
+            
+            if (!emails || emails.length === 0) {
+                const emptyMessage = document.createElement('div');
+                emptyMessage.textContent = 'No email addresses found. Paste your text above and click "Extract Emails"';
+                emptyMessage.style.textAlign = 'center';
+                emptyMessage.style.padding = '20px';
+                emptyMessage.style.color = '#7f8c8d';
+                previewContainer.appendChild(emptyMessage);
+                return;
+            }
+            
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            
+            const previewHeader = document.createElement('div');
+            previewHeader.className = 'preview-header';
+            
+            const previewName = document.createElement('div');
+            previewName.className = 'preview-name';
+            previewName.textContent = 'Extracted Email Addresses';
+            previewHeader.appendChild(previewName);
+            
+            previewItem.appendChild(previewHeader);
+            
+            // Stats container
+            const statsContainer = document.createElement('div');
+            statsContainer.className = 'stats-container';
+            
+            const totalStat = document.createElement('div');
+            totalStat.className = 'stat-item';
+            totalStat.innerHTML = `<div class="stat-value">${emails.length}</div><div class="stat-label">Total Emails</div>`;
+            statsContainer.appendChild(totalStat);
+            
+            const uniqueStat = document.createElement('div');
+            uniqueStat.className = 'stat-item';
+            uniqueStat.innerHTML = `<div class="stat-value">${options.removeDuplicates ? emails.length : 'N/A'}</div><div class="stat-label">Unique Emails</div>`;
+            statsContainer.appendChild(uniqueStat);
+            
+            previewItem.appendChild(statsContainer);
+            
+            // Email list
+            const emailList = document.createElement('div');
+            emailList.className = 'email-list';
+            
+            emails.forEach(email => {
+                const emailItem = document.createElement('div');
+                emailItem.className = 'email-item';
+                emailItem.textContent = email;
+                emailList.appendChild(emailItem);
+            });
+            
+            previewItem.appendChild(emailList);
+            
+            const previewActions = document.createElement('div');
+            previewActions.className = 'preview-actions';
+            
+            // Copy button
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn tooltip';
+            copyBtn.innerHTML = 'Copy Emails <span class="tooltiptext">Copied!</span>';
+            copyBtn.setAttribute('aria-label', 'Copy extracted emails');
+            copyBtn.addEventListener('click', () => copyToClipboard(emails.join('\n'), copyBtn));
+            previewActions.appendChild(copyBtn);
+            
+            // Download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = 'Download TXT';
+            downloadBtn.setAttribute('aria-label', 'Download as text file');
+            downloadBtn.addEventListener('click', () => downloadAsTXT(emails.join('\n')));
+            previewActions.appendChild(downloadBtn);
+            
+            previewItem.appendChild(previewActions);
+            
+            previewContainer.appendChild(previewItem);
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show tooltip
+                button.classList.add('show');
+                setTimeout(() => {
+                    button.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text: ', err);
+                alert('Failed to copy text to clipboard');
+            });
+        }
+
+        // Download text as TXT file
+        function downloadAsTXT(text) {
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'extracted-emails.txt';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+        }
+
+        // Tool card animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Apply initial styles and observe tool cards
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Handle ad visibility based on screen size
+        function handleAdVisibility() {
+            const isMobile = window.innerWidth <= 768;
+            document.querySelectorAll('.ad-unit.desktop').forEach(ad => {
+                ad.style.display = isMobile ? 'none' : 'flex';
+            });
+            document.querySelectorAll('.ad-unit.mobile').forEach(ad => {
+                ad.style.display = isMobile ? 'flex' : 'none';
+            });
+        }
+
+        // Initial call and resize listener
+        handleAdVisibility();
+        window.addEventListener('resize', handleAdVisibility);
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
