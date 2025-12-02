@@ -1,15 +1,4 @@
-# robots.txt file for filemagics.github.io
-
-# 1. User-agent:
-# Yeh line sabhi search engine bots ko target karti hai.
 User-agent: *
-
-# 2. Disallow:
-# Hum kisi bhi page ko block nahi kar rahe hain. 
-# Agar koi page ho jo Google ko nahi dikhana ho, toh usko yahan 'Disallow' karte hain.
 Disallow:
 
-# 3. Sitemap location:
-# Yeh line Google Search Console ke "Not Read" error ko theek karne ke liye sabse zaruri hai.
-# Yahan aapke sitemap.xml ka poora URL diya gaya hai.
 Sitemap: https://filemagics.github.io/sitemap.xml
