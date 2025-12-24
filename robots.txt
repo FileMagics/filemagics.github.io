@@ -3,5 +3,4 @@ Allow: /
 
 Sitemap: https://filemagics.github.io/sitemap.xml
 Sitemap: https://filemagics.github.io/sitemaps.xml
-Sitemap: https://filemagics.github.io/sitemap2.xml
 Sitemap: https://filemagics.github.io/sitemap3.xml
