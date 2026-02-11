@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Magics - Blank Space Generator & 50+ Text Tools</title>
     <meta name="description" content="Generate invisible blank characters for social media usernames, bios, and messages. Free unlimited blank space text generator with copy-paste functionality for all platforms!">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <style>
         :root {
             --primary-color: #4A6CF7;
@@ -20,10 +21,10 @@
             --text-color: #1A1A1A;
             --text-light: #666;
             --border-color: #E5E8EF;
-            --shadow: 0 5px 15px rgba(0,0,0,0.05);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             --radius: 10px;
             --transition: all 0.3s ease;
-            
+
             /* Footer colors for light mode */
             --footer-bg: #1A1A1A;
             --footer-text: #FFFFFF;
@@ -41,8 +42,8 @@
             --text-color: #FFFFFF;
             --text-light: #A1A1A1;
             --border-color: #30363D;
-            --shadow: 0 5px 15px rgba(0,0,0,0.2);
-            
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+
             /* Footer colors for dark mode */
             --footer-bg: #FFFFFF;
             --footer-text: #1A1A1A;
@@ -155,11 +156,11 @@
             .hero h1 {
                 font-size: 2.2rem;
             }
-            
+
             .ad-unit.desktop {
                 display: none;
             }
-            
+
             .ad-unit.mobile {
                 display: flex;
             }
@@ -180,8 +181,9 @@
             .app-container {
                 flex-direction: row;
             }
-            
-            .input-section, .preview-section {
+
+            .input-section,
+            .preview-section {
                 flex: 1;
             }
         }
@@ -467,7 +469,7 @@
 
         .tool-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             border-color: var(--primary-color);
         }
 
@@ -651,8 +653,13 @@
 
         /* Animation for conversion process */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .animate-spin {
@@ -661,13 +668,27 @@
 
         /* Animation for buttons */
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
 
         @keyframes smoothBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
         }
 
         /* Responsive adjustments */
@@ -678,6 +699,7 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header Section -->
     <header>
@@ -733,18 +755,18 @@
                 <!-- Input Section -->
                 <section class="input-section">
                     <h2 class="section-title">Generate Blank Spaces</h2>
-                    
+
                     <div class="input-area">
                         <label for="spaceCount">Number of Blank Spaces:</label>
                         <input type="number" id="spaceCount" class="input-text" min="1" max="1000" value="5" style="min-height: auto; margin-top: 10px;">
                     </div>
-                    
+
                     <div class="button-group">
                         <button class="generate-btn" id="generateBtn">
                             Generate Blank Spaces
                         </button>
                     </div>
-                    
+
                     <div class="favorites-section">
                         <h3>Quick Access</h3>
                         <div id="favoritesList" class="favorites-list">
@@ -752,11 +774,11 @@
                         </div>
                     </div>
                 </section>
-                
+
                 <!-- Preview Section -->
                 <section class="preview-section">
                     <h2 class="section-title">Blank Space Preview</h2>
-                    
+
                     <div id="previewContainer" class="preview-container">
                         <!-- Preview items will be added here dynamically -->
                     </div>
@@ -765,794 +787,6 @@
         </div>
     </main>
 
-    <!-- More Tools Section -->
-    <section class="tools-section">
-        <div class="container">
-            <h2>More File Magics Tools</h2>
-            <div class="tools-grid">
-                <!-- Tool 1: Fancy Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
-                    <div class="tool-icon">✨</div>
-                    <h3 class="tool-title">Fancy Text Generator</h3>
-                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
-                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 1 -->
-                <div class="ad-unit mobile" id="ad-tool1-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 2: Bold Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
-                    <div class="tool-icon">🔠</div>
-                    <h3 class="tool-title">Bold Text Generator</h3>
-                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
-                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 2 -->
-                <div class="ad-unit mobile" id="ad-tool2-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after first row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 3: Small Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
-                    <div class="tool-icon">🔡</div>
-                    <h3 class="tool-title">Small Text Generator</h3>
-                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
-                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 3 -->
-                <div class="ad-unit mobile" id="ad-tool3-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 4: Text Case Converter -->
-                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
-                    <div class="tool-icon">🔄</div>
-                    <h3 class="tool-title">Text Case Converter</h3>
-                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
-                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 4 -->
-                <div class="ad-unit mobile" id="ad-tool4-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after second row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 5: Cursive Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
-                    <div class="tool-icon">✒️</div>
-                    <h3 class="tool-title">Cursive Text Generator</h3>
-                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
-                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 5 -->
-                <div class="ad-unit mobile" id="ad-tool5-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 6: Word Counter -->
-                <div class="tool-card" data-popular="true" data-url="word-counter.html">
-                    <div class="tool-icon">📝</div>
-                    <h3 class="tool-title">Word Counter</h3>
-                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
-                    <a href="word-counter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 6 -->
-                <div class="ad-unit mobile" id="ad-tool6-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after third row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 7: Strikethrough Text -->
-                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
-                    <div class="tool-icon">🚫</div>
-                    <h3 class="tool-title">Strikethrough Text</h3>
-                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
-                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 7 -->
-                <div class="ad-unit mobile" id="ad-tool7-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 8: Upside Down Text -->
-                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
-                    <div class="tool-icon">↕️</div>
-                    <h3 class="tool-title">Upside Down Text</h3>
-                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
-                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 8 -->
-                <div class="ad-unit mobile" id="ad-tool8-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after fourth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 9: Underline Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
-                    <div class="tool-icon">📏</div>
-                    <h3 class="tool-title">Underline Text Generator</h3>
-                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
-                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 9 -->
-                <div class="ad-unit mobile" id="ad-tool9-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 10: Text Repeater -->
-                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
-                    <div class="tool-icon">🔄</div>
-                    <h3 class="tool-title">Text Repeater</h3>
-                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
-                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 10 -->
-                <div class="ad-unit mobile" id="ad-tool10-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after fifth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 11: Invisible Text -->
-                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
-                    <div class="tool-icon">👻</div>
-                    <h3 class="tool-title">Invisible Text</h3>
-                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
-                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 11 -->
-                <div class="ad-unit mobile" id="ad-tool11-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 12: Blank Space Generator -->
-                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
-                    <div class="tool-icon">⬜</div>
-                    <h3 class="tool-title">Blank Space Generator</h3>
-                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
-                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 12 -->
-                <div class="ad-unit mobile" id="ad-tool12-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after sixth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 13: Bubble Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
-                    <div class="tool-icon">Ⓜ️</div>
-                    <h3 class="tool-title">Bubble Text Generator</h3>
-                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
-                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 13 -->
-                <div class="ad-unit mobile" id="ad-tool13-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 14: Wide Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
-                    <div class="tool-icon">🟰</div>
-                    <h3 class="tool-title">Wide Text Generator</h3>
-                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
-                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 14 -->
-                <div class="ad-unit mobile" id="ad-tool14-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after seventh row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 15: Hashtag Generator -->
-                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
-                    <div class="tool-icon">#️⃣</div>
-                    <h3 class="tool-title">Hashtag Generator</h3>
-                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
-                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 15 -->
-                <div class="ad-unit mobile" id="ad-tool15-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 16: Text to Emoji -->
-                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
-                    <div class="tool-icon">😊</div>
-                    <h3 class="tool-title">Text to Emoji</h3>
-                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
-                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 16 -->
-                <div class="ad-unit mobile" id="ad-tool16-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after eighth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 17: Mirror Text -->
-                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
-                    <div class="tool-icon">🪞</div>
-                    <h3 class="tool-title">Mirror Text</h3>
-                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
-                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 17 -->
-                <div class="ad-unit mobile" id="ad-tool17-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 18: Glitch Text Generator -->
-                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
-                    <div class="tool-icon">🌀</div>
-                    <h3 class="tool-title">Glitch Text Generator</h3>
-                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
-                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 18 -->
-                <div class="ad-unit mobile" id="ad-tool18-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after ninth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 19: Title Case Converter -->
-                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
-                    <div class="tool-icon">🏷️</div>
-                    <h3 class="tool-title">Title Case Converter</h3>
-                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
-                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 19 -->
-                <div class="ad-unit mobile" id="ad-tool19-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 20: Sentence Case -->
-                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
-                    <div class="tool-icon">📝</div>
-                    <h3 class="tool-title">Sentence Case</h3>
-                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
-                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 20 -->
-                <div class="ad-unit mobile" id="ad-tool20-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after tenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 21: Find and Replace -->
-                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
-                    <div class="tool-icon">🔍</div>
-                    <h3 class="tool-title">Find and Replace</h3>
-                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
-                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 21 -->
-                <div class="ad-unit mobile" id="ad-tool21-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 22: Remove Blank Lines -->
-                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
-                    <div class="tool-icon">🗑️</div>
-                    <h3 class="tool-title">Remove Blank Lines</h3>
-                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
-                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 22 -->
-                <div class="ad-unit mobile" id="ad-tool22-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after eleventh row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 23: Remove Duplicates -->
-                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
-                    <div class="tool-icon">❌</div>
-                    <h3 class="tool-title">Remove Duplicates</h3>
-                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
-                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 23 -->
-                <div class="ad-unit mobile" id="ad-tool23-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 24: Emoji Remover -->
-                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
-                    <div class="tool-icon">🚫</div>
-                    <h3 class="tool-title">Emoji Remover</h3>
-                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
-                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 24 -->
-                <div class="ad-unit mobile" id="ad-tool24-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twelfth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 25: Reverse Text -->
-                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
-                    <div class="tool-icon">🔀</div>
-                    <h3 class="tool-title">Reverse Text</h3>
-                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
-                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 25 -->
-                <div class="ad-unit mobile" id="ad-tool25-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 26: Sort Lines Alphabetically -->
-                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
-                    <div class="tool-icon">📊</div>
-                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
-                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
-                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 26 -->
-                <div class="ad-unit mobile" id="ad-tool26-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after thirteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 27: Remove Hashtags -->
-                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
-                    <div class="tool-icon">#️⃣</div>
-                    <h3 class="tool-title">Remove Hashtags</h3>
-                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
-                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 27 -->
-                <div class="ad-unit mobile" id="ad-tool27-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 28: Whitespace Remover -->
-                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
-                    <div class="tool-icon">✨</div>
-                    <h3 class="tool-title">Whitespace Remover</h3>
-                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
-                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 28 -->
-                <div class="ad-unit mobile" id="ad-tool28-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after fourteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 29: Instagram Bio Formatter -->
-                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
-                    <div class="tool-icon">📱</div>
-                    <h3 class="tool-title">Instagram Bio Formatter</h3>
-                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
-                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 29 -->
-                <div class="ad-unit mobile" id="ad-tool29-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 30: Letter Spacing Tool -->
-                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
-                    <div class="tool-icon">🔤</div>
-                    <h3 class="tool-title">Letter Spacing Tool</h3>
-                    <p class="tool-description">Add space between letters online. Create S p a c e d  t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
-                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 30 -->
-                <div class="ad-unit mobile" id="ad-tool30-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after fifteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 31: Email Extractor -->
-                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
-                    <div class="tool-icon">📧</div>
-                    <h3 class="tool-title">Email Extractor</h3>
-                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
-                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 31 -->
-                <div class="ad-unit mobile" id="ad-tool31-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 32: URL Extractor -->
-                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
-                    <div class="tool-icon">🌐</div>
-                    <h3 class="tool-title">URL Extractor</h3>
-                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
-                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 32 -->
-                <div class="ad-unit mobile" id="ad-tool32-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after sixteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 33: HTML Tag Remover -->
-                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
-                    <div class="tool-icon">🏷️</div>
-                    <h3 class="tool-title">HTML Tag Remover</h3>
-                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
-                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 33 -->
-                <div class="ad-unit mobile" id="ad-tool33-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 34: Sentence Splitter -->
-                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
-                    <div class="tool-icon">✂️</div>
-                    <h3 class="tool-title">Sentence Splitter</h3>
-                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
-                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 34 -->
-                <div class="ad-unit mobile" id="ad-tool34-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after seventeenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 35: Random Line Picker -->
-                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
-                    <div class="tool-icon">🎲</div>
-                    <h3 class="tool-title">Random Line Picker</h3>
-                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
-                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 35 -->
-                <div class="ad-unit mobile" id="ad-tool35-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 36: Line Shuffler -->
-                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
-                    <div class="tool-icon">🔄</div>
-                    <h3 class="tool-title">Line Shuffler</h3>
-                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
-                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 36 -->
-                <div class="ad-unit mobile" id="ad-tool36-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after eighteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 37: Paragraph Separator -->
-                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
-                    <div class="tool-icon">📑</div>
-                    <h3 class="tool-title">Paragraph Separator</h3>
-                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
-                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 37 -->
-                <div class="ad-unit mobile" id="ad-tool37-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 38: Remove Special Characters -->
-                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
-                    <div class="tool-icon">🔤</div>
-                    <h3 class="tool-title">Remove Special Characters</h3>
-                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
-                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 38 -->
-                <div class="ad-unit mobile" id="ad-tool38-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after nineteenth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 39: Number Extractor -->
-                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
-                    <div class="tool-icon">🔢</div>
-                    <h3 class="tool-title">Number Extractor</h3>
-                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
-                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 39 -->
-                <div class="ad-unit mobile" id="ad-tool39-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 40: Reverse Each Word -->
-                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
-                    <div class="tool-icon">🔄</div>
-                    <h3 class="tool-title">Reverse Each Word</h3>
-                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
-                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 40 -->
-                <div class="ad-unit mobile" id="ad-tool40-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twentieth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 41: Line Numbering Tool -->
-                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
-                    <div class="tool-icon">1️⃣</div>
-                    <h3 class="tool-title">Line Numbering Tool</h3>
-                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
-                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 41 -->
-                <div class="ad-unit mobile" id="ad-tool41-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 42: Character Frequency -->
-                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
-                    <div class="tool-icon">📊</div>
-                    <h3 class="tool-title">Character Frequency</h3>
-                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
-                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 42 -->
-                <div class="ad-unit mobile" id="ad-tool42-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twenty-first row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 43: HTML Encoder -->
-                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
-                    <div class="tool-icon">🔡</div>
-                    <h3 class="tool-title">HTML Encoder</h3>
-                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & < > format. Free HTML entity converter.</p>
-                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 43 -->
-                <div class="ad-unit mobile" id="ad-tool43-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 44: HTML Decoder -->
-                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
-                    <div class="tool-icon">🔤</div>
-                    <h3 class="tool-title">HTML Decoder</h3>
-                    <p class="tool-description">Decode HTML entities back to normal text. Convert & < > to readable characters. Free HTML entity decoder.</p>
-                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 44 -->
-                <div class="ad-unit mobile" id="ad-tool44-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twenty-second row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 45: Letter Extractor -->
-                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
-                    <div class="tool-icon">🔡</div>
-                    <h3 class="tool-title">Letter Extractor</h3>
-                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
-                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 45 -->
-                <div class="ad-unit mobile" id="ad-tool45-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 46: Remove All Spaces -->
-                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
-                    <div class="tool-icon">␣</div>
-                    <h3 class="tool-title">Remove All Spaces</h3>
-                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
-                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 46 -->
-                <div class="ad-unit mobile" id="ad-tool46-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twenty-third row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 47: Line Number Remover -->
-                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
-                    <div class="tool-icon">🚫</div>
-                    <h3 class="tool-title">Line Number Remover</h3>
-                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
-                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 47 -->
-                <div class="ad-unit mobile" id="ad-tool47-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 48: List to CSV -->
-                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
-                    <div class="tool-icon">📋</div>
-                    <h3 class="tool-title">List to CSV</h3>
-                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
-                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 48 -->
-                <div class="ad-unit mobile" id="ad-tool48-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after twenty-fourth row -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 49: Line Break Converter -->
-                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
-                    <div class="tool-icon">⏎</div>
-                    <h3 class="tool-title">Line Break Converter</h3>
-                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
-                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 49 -->
-                <div class="ad-unit mobile" id="ad-tool49-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Tool 50: Markdown Cleaner -->
-                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
-                    <div class="tool-icon">🧹</div>
-                    <h3 class="tool-title">Markdown Cleaner</h3>
-                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
-                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
-                </div>
-                
-                <!-- Mobile Ad after Tool 50 -->
-                <div class="ad-unit mobile" id="ad-tool50-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-                <!-- Desktop Ad after 50 tools -->
-                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
-                    <!-- Desktop ad unit will be loaded here -->
-                </div>
-                
-                <!-- Mobile Ad after 50 tools -->
-                <div class="ad-unit mobile" id="ad-after50-mobile">
-                    <!-- Mobile ad unit will be loaded here -->
-                </div>
-                
-            </div>
-        </div>
-    </section>
 
     <!-- Informational Section -->
     <section class="info-section">
@@ -1560,43 +794,43 @@
             <h2>The Ultimate Blank Space Generator: Your Gateway to Invisible Text and Hidden Characters</h2>
             <div class="info-content">
                 <p>In the digital age, standing out on social media platforms, gaming profiles, and online forums has become increasingly challenging. While everyone is focused on colorful fonts, emojis, and bold styling, there's a powerful yet understated tool that many overlook: the blank space generator. This innovative tool allows you to create invisible characters, empty text, and hidden spaces that can transform how you present yourself online.</p>
-                
+
                 <p>The blank space generator at File Magics is not just another text tool—it's a comprehensive solution designed to help you create unique usernames, format text creatively, bypass character restrictions, and add professional spacing to your digital content. Whether you're a social media influencer, gamer, content creator, business professional, or someone who simply wants to make their online presence more distinctive, this tool offers unlimited possibilities.</p>
-                
+
                 <h3>What Makes Blank Space Generator Essential for Modern Digital Communication?</h3>
-                
+
                 <p>The blank space generator serves a crucial purpose in today's digital landscape. Social media platforms like Instagram, Facebook, Twitter, Discord, TikTok, and WhatsApp have specific formatting limitations that often restrict how users can express themselves. Standard spaces are frequently stripped away, usernames cannot contain certain characters, and text formatting options are limited. This is where the blank space generator becomes invaluable.</p>
-                
+
                 <p>Unlike regular spaces that you type using your keyboard's spacebar, the blank space generator creates Unicode invisible characters that platforms recognize as valid characters but don't display visually. These special characters include the zero-width space, zero-width non-joiner, zero-width joiner, invisible separator, and various other Unicode blank characters that serve different purposes across different platforms.</p>
-                
+
                 <h3>Why Choose File Magics Blank Space Generator Over Others?</h3>
-                
+
                 <p>File Magics has developed the most sophisticated and user-friendly blank space generator available online. Here's what sets our tool apart from countless other options scattered across the internet:</p>
-                
+
                 <p><strong>Unlimited Free Usage Without Restrictions</strong></p>
                 <p>Many online tools impose daily limits, require registration, or demand payment for full access. File Magics provides completely unlimited free access to the blank space generator. You can generate as many invisible characters as you need, whenever you need them, without creating an account, watching advertisements, or paying subscription fees. This commitment to accessibility ensures that everyone—from students to professionals—can benefit from this powerful tool.</p>
-                
+
                 <p><strong>Multiple Types of Invisible Characters</strong></p>
                 <p>Not all blank spaces are created equal. Different platforms and applications recognize different types of invisible characters. Our blank space generator offers multiple varieties including Unicode U+0020 (standard space), U+00A0 (non-breaking space), U+2000 through U+200F (various width spaces), U+3164 (Hangul filler), U+115F (Hangul choseong filler), U+1160 (Hangul jungseong filler), and many more. This variety ensures compatibility across all major platforms and specific use cases.</p>
-                
+
                 <p><strong>Instant Copy-Paste Functionality</strong></p>
                 <p>Time is precious, and our blank space generator respects that. With one-click copying, you can instantly grab your generated blank spaces and paste them wherever needed. The tool is optimized for both desktop and mobile devices, ensuring seamless functionality regardless of how you access it. No complicated procedures, no multiple steps—just generate, copy, and paste.</p>
-                
+
                 <p><strong>Cross-Platform Compatibility Guaranteed</strong></p>
                 <p>We rigorously test our blank space generator across all major platforms including Instagram, Facebook, Twitter, Discord, TikTok, Telegram, WhatsApp, YouTube, Twitch, Reddit, LinkedIn, Pinterest, Snapchat, gaming platforms like Steam, Epic Games, PlayStation Network, Xbox Live, and countless others. This extensive testing ensures that the blank spaces generated will work consistently across your entire digital ecosystem.</p>
-                
+
                 <p><strong>Clean and Intuitive Interface</strong></p>
                 <p>Unlike cluttered websites filled with advertisements and confusing navigation, File Magics presents a clean, professional interface that focuses entirely on functionality. The blank space generator is prominently featured, easy to understand, and requires no technical knowledge to operate. Whether you're tech-savvy or just beginning your digital journey, you'll find our tool accessible and straightforward.</p>
-                
+
                 <p><strong>No Installation or Downloads Required</strong></p>
                 <p>The blank space generator operates entirely in your web browser. There's no need to download software, install applications, or worry about compatibility with your operating system. Simply visit File Magics, access the blank space generator, and start creating invisible characters immediately. This browser-based approach also means your device's storage and performance remain unaffected.</p>
-                
+
                 <p><strong>Privacy and Security First</strong></p>
                 <p>Your privacy matters to us. The blank space generator doesn't collect, store, or transmit any of the text or characters you generate. All processing happens locally in your browser, ensuring complete privacy and security. You can use the tool with confidence knowing that your information remains entirely under your control.</p>
-                
+
                 <p><strong>Regular Updates and Improvements</strong></p>
                 <p>The digital landscape constantly evolves, with platforms updating their policies and character recognition systems regularly. File Magics continuously monitors these changes and updates the blank space generator accordingly, ensuring it remains effective and reliable. You benefit from ongoing improvements without any action required on your part.</p>
-                
+
                 <p><strong>Integration With 50+ Additional Text Tools</strong></p>
                 <p>Beyond the blank space generator, File Magics offers over 50 complementary text tools that enhance your digital communication capabilities. From fancy font generators and text symbol creators to case converters and character counters, you have access to a complete text manipulation toolkit. This integration means you can combine blank spaces with stylized text, creating truly unique digital content.</p>
             </div>
@@ -1612,97 +846,97 @@
                     <div class="faq-question">What exactly is a blank space generator and how does it work?</div>
                     <div class="faq-answer">A blank space generator is a tool that creates invisible Unicode characters that appear as blank spaces but are recognized by digital platforms as valid characters. These special characters come from the Unicode standard and include various zero-width characters and invisible separators that serve different formatting purposes.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Is the File Magics blank space generator really completely free?</div>
                     <div class="faq-answer">Yes, the File Magics blank space generator is 100% free with no hidden costs, subscription requirements, or usage limits. You can generate unlimited blank spaces whenever you need them without creating an account or providing payment information.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Will blank spaces generated by this tool work on Instagram?</div>
                     <div class="faq-answer">Yes, the File Magics blank space generator creates multiple types of invisible characters specifically tested for Instagram compatibility. Different character types work for usernames, bios, and captions, and the tool indicates which type is best for your specific Instagram use case.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Can I use blank space generator on my mobile phone?</div>
                     <div class="faq-answer">Absolutely. The File Magics blank space generator is fully optimized for mobile devices including smartphones and tablets. The responsive design works seamlessly on iOS, Android, and all major mobile browsers, providing the same functionality as the desktop version.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Are there any platforms where blank spaces don't work?</div>
                     <div class="faq-answer">While the blank space generator creates characters compatible with most major platforms, some services have strict character filtering that may remove certain invisible characters. The tool offers multiple character types to maximize compatibility, and any limitations are clearly indicated for major platforms.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Is it safe to use blank space generators for my social media accounts?</div>
                     <div class="faq-answer">Yes, using blank space generators is safe and does not violate most platform terms of service when used appropriately. The invisible characters are legitimate Unicode characters, not hacks or exploits. However, avoid using them for impersonation or other deceptive purposes.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">How do I copy the generated blank space to use it?</div>
                     <div class="faq-answer">Simply click the copy button provided by the generator, and the invisible character is automatically copied to your clipboard. You can then paste it anywhere you need using your device's standard paste function (Ctrl+V on Windows, Cmd+V on Mac, or long-press paste on mobile).</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Why do some blank spaces appear as boxes or question marks?</div>
                     <div class="faq-answer">If blank spaces display as visible boxes or question marks, the device or application doesn't support that specific Unicode character. Try using a different character type from the generator, as File Magics offers multiple options with varying compatibility levels.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Can I use multiple blank spaces in a row?</div>
                     <div class="faq-answer">Yes, you can use multiple blank spaces consecutively, though some platforms may strip excessive consecutive spaces. If you encounter this issue, try alternating between different types of invisible characters or reducing the number of consecutive spaces.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Does using blank spaces affect SEO or searchability?</div>
                     <div class="faq-answer">In usernames and handles, blank spaces may make your profile slightly harder to find through exact-match searches. For content like captions and posts, invisible characters typically have minimal SEO impact since search engines focus on visible content and context.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">What's the difference between a regular space and a blank space from the generator?</div>
                     <div class="faq-answer">Regular spaces (created by pressing the spacebar) are often stripped or collapsed by platforms to prevent formatting abuse. Blank spaces from the generator use special Unicode characters that platforms recognize as valid characters but don't display visually, making them more resistant to automatic removal.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Can screen readers detect invisible characters?</div>
                     <div class="faq-answer">This varies by screen reader and character type. Some invisible characters are announced by screen readers while others are completely silent. If accessibility is a concern for your content, consider this when using blank space generation in public-facing content.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">How many different types of blank spaces does File Magics offer?</div>
                     <div class="faq-answer">File Magics blank space generator offers multiple types of invisible characters including zero-width spaces, non-breaking spaces, various width spaces, and Hangul fillers. Each type has different compatibility characteristics and use cases across different platforms.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Will platform updates break my blank spaces?</div>
                     <div class="faq-answer">Platform updates occasionally change how invisible characters are handled. File Magics continuously monitors major platforms and updates the blank space generator accordingly. If your blank spaces stop working after a platform update, revisit the generator for updated character options.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Can I use blank space generator for Discord server names and channels?</div>
                     <div class="faq-answer">Yes, the blank space generator works excellently for Discord applications including server names, channel names, nicknames, and role titles. The tool provides specific character types that work reliably across Discord's various text fields.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Do blank spaces affect character count limits on platforms like Twitter?</div>
                     <div class="faq-answer">Yes, invisible characters count toward character limits just like visible characters. When using blank spaces for formatting, ensure you account for them in your total character count to avoid exceeding platform limits.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Is there a difference between blank space generators and invisible text generators?</div>
                     <div class="faq-answer">Yes, blank space generators specifically create invisible spacing characters, while invisible text generators create combinations of invisible characters that can spell out hidden words. File Magics focuses on blank space generation for formatting purposes rather than hidden messaging.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Can I save frequently used blank space combinations?</div>
                     <div class="faq-answer">While the generator itself doesn't save combinations, you can save generated blank spaces in a notes app, text file, or create keyboard shortcuts on your device for frequently used patterns. This streamlines repetitive blank space usage.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">What should I do if my blank spaces disappear after posting?</div>
                     <div class="faq-answer">If blank spaces disappear after posting, the platform likely filters that specific character type. Return to the File Magics generator and select an alternative character type marked as compatible with that platform. Testing before important posts is always recommended.</div>
                 </div>
-                
+
                 <div class="faq-item">
                     <div class="faq-question">Are there any creative uses for blank space generators I might not have considered?</div>
                     <div class="faq-answer">Beyond username creation and formatting, users have found creative applications including creating ASCII art with precise spacing, organizing data in text-based formats, adding invisible markers in documents, creating minimalist social media posts that meet character requirements, formatting email signatures consistently across clients, designing unique text-based logos, creating spacing effects in gaming tags, and developing templated content with consistent visual hierarchy. The possibilities are limited only by your creativity!</div>
@@ -1724,6 +958,795 @@
             <!-- Mobile ad unit will be loaded here -->
         </div>
     </div>
+    
+        <!-- More Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <h2>More File Magics Tools</h2>
+            <div class="tools-grid">
+                <!-- Tool 1: Fancy Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="fancy-text-generator.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Fancy Text Generator</h3>
+                    <p class="tool-description">Generate fancy text with 100+ stylish fonts and symbols. Copy and paste cool letters for Instagram, Facebook, Twitter, WhatsApp bios and posts. Free online fancy font generator tool.</p>
+                    <a href="fancy-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 1 -->
+                <div class="ad-unit mobile" id="ad-tool1-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 2: Bold Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bold-text-generator.html">
+                    <div class="tool-icon">🔠</div>
+                    <h3 class="tool-title">Bold Text Generator</h3>
+                    <p class="tool-description">Convert normal text to bold letters online. Create 𝐛𝐨𝐥𝐝 text for social media posts, Instagram captions, and WhatsApp messages. Free bold font generator without downloads.</p>
+                    <a href="bold-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 2 -->
+                <div class="ad-unit mobile" id="ad-tool2-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row1-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 3: Small Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="small-text-generator.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Small Text Generator</h3>
+                    <p class="tool-description">Generate ˢᵐᵃˡˡ ᵗᵉˣᵗ and superscript fonts online. Create tiny letters for Instagram bio, Twitter, and Discord. Free small caps text converter tool.</p>
+                    <a href="small-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 3 -->
+                <div class="ad-unit mobile" id="ad-tool3-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 4: Text Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="text-case-converter.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Case Converter</h3>
+                    <p class="tool-description">Convert text case online - UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTe CaSe. Free text capitalization tool for quick formatting. No installation needed.</p>
+                    <a href="text-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 4 -->
+                <div class="ad-unit mobile" id="ad-tool4-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row2-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 5: Cursive Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="cursive-text-generator.html">
+                    <div class="tool-icon">✒️</div>
+                    <h3 class="tool-title">Cursive Text Generator</h3>
+                    <p class="tool-description">Generate 𝓬𝓾𝓻𝓼𝓲𝓿𝓮 text and script fonts online. Copy fancy cursive letters for Instagram, Facebook, and social media. Free handwriting font generator tool.</p>
+                    <a href="cursive-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 5 -->
+                <div class="ad-unit mobile" id="ad-tool5-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 6: Word Counter -->
+                <div class="tool-card" data-popular="true" data-url="word-counter.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Word Counter</h3>
+                    <p class="tool-description">Free online word counter tool. Count words, characters, sentences, paragraphs, and reading time instantly. Perfect for essays, articles, and social media posts with character limits.</p>
+                    <a href="word-counter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 6 -->
+                <div class="ad-unit mobile" id="ad-tool6-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row3-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 7: Strikethrough Text -->
+                <div class="tool-card" data-popular="true" data-url="strikethrough-text.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Strikethrough Text</h3>
+                    <p class="tool-description">Generate strikethrough text online. Create crossed-out letters for social media, documents, and messages. Free strikethrough font generator. Copy and paste instantly.</p>
+                    <a href="strikethrough-text.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 7 -->
+                <div class="ad-unit mobile" id="ad-tool7-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 8: Upside Down Text -->
+                <div class="tool-card" data-popular="true" data-url="upside-down-text.html">
+                    <div class="tool-icon">↕️</div>
+                    <h3 class="tool-title">Upside Down Text</h3>
+                    <p class="tool-description">Turn text upside down online. Create flipped and reversed letters for fun social media posts. Free upside down text generator for Instagram, Facebook, WhatsApp.</p>
+                    <a href="upside-down-text.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 8 -->
+                <div class="ad-unit mobile" id="ad-tool8-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row4-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 9: Underline Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="underline-text-generator.html">
+                    <div class="tool-icon">📏</div>
+                    <h3 class="tool-title">Underline Text Generator</h3>
+                    <p class="tool-description">Create U͟n͟d͟e͟r͟l͟i͟n͟e͟d͟ text online. Generate underlined fonts for social media where formatting isn't available. Free text underlining tool. Copy and paste anywhere.</p>
+                    <a href="underline-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 9 -->
+                <div class="ad-unit mobile" id="ad-tool9-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 10: Text Repeater -->
+                <div class="tool-card" data-popular="true" data-url="text-repeater.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Text Repeater</h3>
+                    <p class="tool-description">Repeat text, words, or sentences up to 10,000 times instantly. Free online text repeater tool for spam messages, testing, and fun posts. No character limits.</p>
+                    <a href="text-repeater.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 10 -->
+                <div class="ad-unit mobile" id="ad-tool10-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after fifth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row5-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 11: Invisible Text -->
+                <div class="tool-card" data-popular="true" data-url="invisible-text.html">
+                    <div class="tool-icon">👻</div>
+                    <h3 class="tool-title">Invisible Text</h3>
+                    <p class="tool-description">Generate invisible text and blank characters for WhatsApp, Discord, Instagram. Send empty messages and create blank names. Free invisible character copy tool.</p>
+                    <a href="invisible-text.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 11 -->
+                <div class="ad-unit mobile" id="ad-tool11-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 12: Blank Space Generator -->
+                <div class="tool-card" data-popular="true" data-url="blank-space-generator.html">
+                    <div class="tool-icon">⬜</div>
+                    <h3 class="tool-title">Blank Space Generator</h3>
+                    <p class="tool-description">Generate blank spaces for Instagram bio, username, and posts. Copy invisible space characters that work on all social media platforms. Free blank text generator.</p>
+                    <a href="blank-space-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 12 -->
+                <div class="ad-unit mobile" id="ad-tool12-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after sixth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row6-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 13: Bubble Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="bubble-text-generator.html">
+                    <div class="tool-icon">Ⓜ️</div>
+                    <h3 class="tool-title">Bubble Text Generator</h3>
+                    <p class="tool-description">Generate Ⓑⓤⓑⓑⓛⓔ ⓣⓔⓧⓣ with circled letters online. Create rounded fonts for Instagram, Discord, and social media. Free bubble letter generator tool.</p>
+                    <a href="bubble-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 13 -->
+                <div class="ad-unit mobile" id="ad-tool13-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 14: Wide Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="wide-text-generator.html">
+                    <div class="tool-icon">🟰</div>
+                    <h3 class="tool-title">Wide Text Generator</h3>
+                    <p class="tool-description">Create Ｆｕｌｌ  ｗｉｄｔｈ  ｔｅｘｔ online. Generate aesthetic wide letters for vaporwave posts and social media. Free Japanese-style text converter.</p>
+                    <a href="wide-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 14 -->
+                <div class="ad-unit mobile" id="ad-tool14-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after seventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row7-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 15: Hashtag Generator -->
+                <div class="tool-card" data-popular="true" data-url="hashtag-generator.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Hashtag Generator</h3>
+                    <p class="tool-description">Generate relevant hashtags for Instagram, Twitter, TikTok, and Facebook posts. AI-powered hashtag suggestions to boost engagement. Free hashtag maker tool.</p>
+                    <a href="hashtag-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 15 -->
+                <div class="ad-unit mobile" id="ad-tool15-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 16: Text to Emoji -->
+                <div class="tool-card" data-popular="true" data-url="text-to-emoji.html">
+                    <div class="tool-icon">😊</div>
+                    <h3 class="tool-title">Text to Emoji</h3>
+                    <p class="tool-description">Turn text into emoji online. Convert words and sentences to relevant emojis automatically. Free text to emoji converter for social media messages.</p>
+                    <a href="text-to-emoji.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 16 -->
+                <div class="ad-unit mobile" id="ad-tool16-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after eighth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row8-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 17: Mirror Text -->
+                <div class="tool-card" data-popular="true" data-url="mirror-text.html">
+                    <div class="tool-icon">🪞</div>
+                    <h3 class="tool-title">Mirror Text</h3>
+                    <p class="tool-description">Generate ɿoɿɿim ɈxɘT online. Create mirror text and backwards letters for creative posts. Free reversed text generator tool.</p>
+                    <a href="mirror-text.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 17 -->
+                <div class="ad-unit mobile" id="ad-tool17-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 18: Glitch Text Generator -->
+                <div class="tool-card" data-popular="true" data-url="glitch-text-generator.html">
+                    <div class="tool-icon">🌀</div>
+                    <h3 class="tool-title">Glitch Text Generator</h3>
+                    <p class="tool-description">Generate Z̵a̸l̴g̷o̶ glitch text online. Create scary, corrupted, and cursed text for gaming names, horror posts. Free zalgo text generator with custom intensity.</p>
+                    <a href="glitch-text-generator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 18 -->
+                <div class="ad-unit mobile" id="ad-tool18-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after ninth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row9-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 19: Title Case Converter -->
+                <div class="tool-card" data-popular="true" data-url="title-case-converter.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">Title Case Converter</h3>
+                    <p class="tool-description">Convert text to Title Case online. Automatically capitalize the first letter of each word following grammar rules. Free title capitalization tool for headings.</p>
+                    <a href="title-case-converter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 19 -->
+                <div class="ad-unit mobile" id="ad-tool19-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 20: Sentence Case -->
+                <div class="tool-card" data-popular="true" data-url="sentence-case.html">
+                    <div class="tool-icon">📝</div>
+                    <h3 class="tool-title">Sentence Case</h3>
+                    <p class="tool-description">Convert text to proper sentence case. Capitalize first letter of sentences automatically. Free sentence case converter for essays and articles.</p>
+                    <a href="sentence-case.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 20 -->
+                <div class="ad-unit mobile" id="ad-tool20-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after tenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row10-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 21: Find and Replace -->
+                <div class="tool-card" data-popular="true" data-url="find-and-replace.html">
+                    <div class="tool-icon">🔍</div>
+                    <h3 class="tool-title">Find and Replace</h3>
+                    <p class="tool-description">Find and replace words in text online. Bulk search and replace tool for documents, code, and content editing. Free text replacement utility.</p>
+                    <a href="find-and-replace.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 21 -->
+                <div class="ad-unit mobile" id="ad-tool21-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 22: Remove Blank Lines -->
+                <div class="tool-card" data-popular="true" data-url="remove-blank-lines.html">
+                    <div class="tool-icon">🗑️</div>
+                    <h3 class="tool-title">Remove Blank Lines</h3>
+                    <p class="tool-description">Remove all blank lines and extra spaces from text instantly. Clean up documents, code, and lists. Free blank line remover tool.</p>
+                    <a href="remove-blank-lines.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 22 -->
+                <div class="ad-unit mobile" id="ad-tool22-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after eleventh row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row11-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 23: Remove Duplicates -->
+                <div class="tool-card" data-popular="true" data-url="remove-duplicates.html">
+                    <div class="tool-icon">❌</div>
+                    <h3 class="tool-title">Remove Duplicates</h3>
+                    <p class="tool-description">Remove duplicate lines from text online. Keep unique lines only. Perfect for cleaning lists, emails, and data. Free duplicate remover tool.</p>
+                    <a href="remove-duplicates.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 23 -->
+                <div class="ad-unit mobile" id="ad-tool23-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 24: Emoji Remover -->
+                <div class="tool-card" data-popular="true" data-url="emoji-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Emoji Remover</h3>
+                    <p class="tool-description">Remove all emojis and emoticons from text online. Clean text for professional documents and formal content. Free emoji stripper tool.</p>
+                    <a href="emoji-remover.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 24 -->
+                <div class="ad-unit mobile" id="ad-tool24-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twelfth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row12-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 25: Reverse Text -->
+                <div class="tool-card" data-popular="true" data-url="reverse-text.html">
+                    <div class="tool-icon">🔀</div>
+                    <h3 class="tool-title">Reverse Text</h3>
+                    <p class="tool-description">Reverse text, words, and sentences online. Create backwards text for fun posts and puzzles. Free text reverser and flipper tool.</p>
+                    <a href="reverse-text.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 25 -->
+                <div class="ad-unit mobile" id="ad-tool25-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 26: Sort Lines Alphabetically -->
+                <div class="tool-card" data-popular="true" data-url="sort-lines-alphabetically.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Sort Lines Alphabetically</h3>
+                    <p class="tool-description">Sort lines alphabetically online. Arrange lists in ascending or descending order instantly. Free text sorting tool for organizing data.</p>
+                    <a href="sort-lines-alphabetically.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 26 -->
+                <div class="ad-unit mobile" id="ad-tool26-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after thirteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row13-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 27: Remove Hashtags -->
+                <div class="tool-card" data-popular="true" data-url="remove-hashtags.html">
+                    <div class="tool-icon">#️⃣</div>
+                    <h3 class="tool-title">Remove Hashtags</h3>
+                    <p class="tool-description">Remove hashtags from Instagram captions, tweets, and social media posts. Clean text by stripping all # symbols. Free hashtag remover tool.</p>
+                    <a href="remove-hashtags.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 27 -->
+                <div class="ad-unit mobile" id="ad-tool27-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 28: Whitespace Remover -->
+                <div class="tool-card" data-popular="true" data-url="whitespace-remover.html">
+                    <div class="tool-icon">✨</div>
+                    <h3 class="tool-title">Whitespace Remover</h3>
+                    <p class="tool-description">Remove extra whitespace, tabs, and spaces from text. Clean up formatting instantly. Free space trimmer tool for documents and code.</p>
+                    <a href="whitespace-remover.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 28 -->
+                <div class="ad-unit mobile" id="ad-tool28-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after fourteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row14-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 29: Instagram Bio Formatter -->
+                <div class="tool-card" data-popular="true" data-url="instagram-bio-formatter.html">
+                    <div class="tool-icon">📱</div>
+                    <h3 class="tool-title">Instagram Bio Formatter</h3>
+                    <p class="tool-description">Format Instagram bio with line breaks and spacing. Create aesthetic IG bios with proper formatting. Free Instagram bio line break tool.</p>
+                    <a href="instagram-bio-formatter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 29 -->
+                <div class="ad-unit mobile" id="ad-tool29-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 30: Letter Spacing Tool -->
+                <div class="tool-card" data-popular="true" data-url="letter-spacing-tool.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Letter Spacing Tool</h3>
+                    <p class="tool-description">Add space between letters online. Create S p a c e d t e x t for aesthetic posts and emphasis. Free letter spacing generator.</p>
+                    <a href="letter-spacing-tool.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 30 -->
+                <div class="ad-unit mobile" id="ad-tool30-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after fifteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row15-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 31: Email Extractor -->
+                <div class="tool-card" data-popular="true" data-url="email-extractor.html">
+                    <div class="tool-icon">📧</div>
+                    <h3 class="tool-title">Email Extractor</h3>
+                    <p class="tool-description">Extract email addresses from text, documents, and web pages. Find and collect all emails instantly. Free email scraper and parser tool.</p>
+                    <a href="email-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 31 -->
+                <div class="ad-unit mobile" id="ad-tool31-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 32: URL Extractor -->
+                <div class="tool-card" data-popular="true" data-url="url-extractor.html">
+                    <div class="tool-icon">🌐</div>
+                    <h3 class="tool-title">URL Extractor</h3>
+                    <p class="tool-description">Extract URLs and links from text online. Pull all web addresses from documents instantly. Free URL finder and link extractor tool.</p>
+                    <a href="url-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 32 -->
+                <div class="ad-unit mobile" id="ad-tool32-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after sixteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row16-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 33: HTML Tag Remover -->
+                <div class="tool-card" data-popular="true" data-url="html-tag-remover.html">
+                    <div class="tool-icon">🏷️</div>
+                    <h3 class="tool-title">HTML Tag Remover</h3>
+                    <p class="tool-description">Remove HTML tags from text online. Clean HTML code and get plain text instantly. Free HTML stripper and cleaner tool.</p>
+                    <a href="html-tag-remover.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 33 -->
+                <div class="ad-unit mobile" id="ad-tool33-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 34: Sentence Splitter -->
+                <div class="tool-card" data-popular="true" data-url="sentence-splitter.html">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Sentence Splitter</h3>
+                    <p class="tool-description">Break text into individual sentences online. Separate sentences with line breaks automatically. Free sentence separator tool.</p>
+                    <a href="sentence-splitter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 34 -->
+                <div class="ad-unit mobile" id="ad-tool34-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after seventeenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row17-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 35: Random Line Picker -->
+                <div class="tool-card" data-popular="true" data-url="random-line-picker.html">
+                    <div class="tool-icon">🎲</div>
+                    <h3 class="tool-title">Random Line Picker</h3>
+                    <p class="tool-description">Pick random lines from text online. Great for giveaways, name selection, and random choices. Free random selector tool.</p>
+                    <a href="random-line-picker.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 35 -->
+                <div class="ad-unit mobile" id="ad-tool35-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 36: Line Shuffler -->
+                <div class="tool-card" data-popular="true" data-url="line-shuffler.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Line Shuffler</h3>
+                    <p class="tool-description">Shuffle and randomize lines of text online. Mix up lists in random order. Free line randomizer and mixer tool.</p>
+                    <a href="line-shuffler.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 36 -->
+                <div class="ad-unit mobile" id="ad-tool36-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after eighteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row18-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 37: Paragraph Separator -->
+                <div class="tool-card" data-popular="true" data-url="paragraph-separator.html">
+                    <div class="tool-icon">📑</div>
+                    <h3 class="tool-title">Paragraph Separator</h3>
+                    <p class="tool-description">Separate paragraphs with blank lines online. Format text with proper paragraph spacing. Free paragraph formatter tool.</p>
+                    <a href="paragraph-separator.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 37 -->
+                <div class="ad-unit mobile" id="ad-tool37-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 38: Remove Special Characters -->
+                <div class="tool-card" data-popular="true" data-url="remove-special-characters.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">Remove Special Characters</h3>
+                    <p class="tool-description">Remove special characters, symbols, and punctuation from text. Keep alphanumeric characters only. Free character stripper tool.</p>
+                    <a href="remove-special-characters.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 38 -->
+                <div class="ad-unit mobile" id="ad-tool38-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after nineteenth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row19-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 39: Number Extractor -->
+                <div class="tool-card" data-popular="true" data-url="number-extractor.html">
+                    <div class="tool-icon">🔢</div>
+                    <h3 class="tool-title">Number Extractor</h3>
+                    <p class="tool-description">Pull all numbers and digits from text online. Extract numeric values from documents instantly. Free number finder tool.</p>
+                    <a href="number-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 39 -->
+                <div class="ad-unit mobile" id="ad-tool39-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 40: Reverse Each Word -->
+                <div class="tool-card" data-popular="true" data-url="reverse-each-word.html">
+                    <div class="tool-icon">🔄</div>
+                    <h3 class="tool-title">Reverse Each Word</h3>
+                    <p class="tool-description">Reverse each word separately while keeping word order. Create mirror words for puzzles and games. Free word reverser tool.</p>
+                    <a href="reverse-each-word.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 40 -->
+                <div class="ad-unit mobile" id="ad-tool40-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twentieth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row20-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 41: Line Numbering Tool -->
+                <div class="tool-card" data-popular="true" data-url="line-numbering-tool.html">
+                    <div class="tool-icon">1️⃣</div>
+                    <h3 class="tool-title">Line Numbering Tool</h3>
+                    <p class="tool-description">Add line numbers to text online. Number each line automatically for references and organization. Free line numbering utility.</p>
+                    <a href="line-numbering-tool.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 41 -->
+                <div class="ad-unit mobile" id="ad-tool41-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 42: Character Frequency -->
+                <div class="tool-card" data-popular="true" data-url="character-frequency.html">
+                    <div class="tool-icon">📊</div>
+                    <h3 class="tool-title">Character Frequency</h3>
+                    <p class="tool-description">Count how many times each character appears in text. Analyze character frequency and distribution. Free character counter tool.</p>
+                    <a href="character-frequency.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 42 -->
+                <div class="ad-unit mobile" id="ad-tool42-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twenty-first row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row21-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 43: HTML Encoder -->
+                <div class="tool-card" data-popular="true" data-url="html-encoder.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">HTML Encoder</h3>
+                    <p class="tool-description">Encode text to HTML entities online. Convert special characters to & <> format. Free HTML entity converter.</p>
+                    <a href="html-encoder.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 43 -->
+                <div class="ad-unit mobile" id="ad-tool43-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 44: HTML Decoder -->
+                <div class="tool-card" data-popular="true" data-url="html-decoder.html">
+                    <div class="tool-icon">🔤</div>
+                    <h3 class="tool-title">HTML Decoder</h3>
+                    <p class="tool-description">Decode HTML entities back to normal text. Convert & <> to readable characters. Free HTML entity decoder.</p>
+                    <a href="html-decoder.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 44 -->
+                <div class="ad-unit mobile" id="ad-tool44-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twenty-second row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row22-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 45: Letter Extractor -->
+                <div class="tool-card" data-popular="true" data-url="letter-extractor.html">
+                    <div class="tool-icon">🔡</div>
+                    <h3 class="tool-title">Letter Extractor</h3>
+                    <p class="tool-description">Extract letters from text and remove numbers, symbols. Keep alphabetic characters only. Free letter-only filter tool.</p>
+                    <a href="letter-extractor.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 45 -->
+                <div class="ad-unit mobile" id="ad-tool45-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 46: Remove All Spaces -->
+                <div class="tool-card" data-popular="true" data-url="remove-all-spaces.html">
+                    <div class="tool-icon">␣</div>
+                    <h3 class="tool-title">Remove All Spaces</h3>
+                    <p class="tool-description">Remove all spaces from text online. Eliminate space characters completely for compact text. Free space remover tool.</p>
+                    <a href="remove-all-spaces.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 46 -->
+                <div class="ad-unit mobile" id="ad-tool46-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twenty-third row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row23-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 47: Line Number Remover -->
+                <div class="tool-card" data-popular="true" data-url="line-number-remover.html">
+                    <div class="tool-icon">🚫</div>
+                    <h3 class="tool-title">Line Number Remover</h3>
+                    <p class="tool-description">Remove line numbers from the beginning of each line. Clean numbered lists automatically. Free line number stripper.</p>
+                    <a href="line-number-remover.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 47 -->
+                <div class="ad-unit mobile" id="ad-tool47-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 48: List to CSV -->
+                <div class="tool-card" data-popular="true" data-url="list-to-csv.html">
+                    <div class="tool-icon">📋</div>
+                    <h3 class="tool-title">List to CSV</h3>
+                    <p class="tool-description">Convert line-separated list to comma-separated values. Transform text lists to CSV format. Free list converter tool.</p>
+                    <a href="list-to-csv.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 48 -->
+                <div class="ad-unit mobile" id="ad-tool48-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after twenty-fourth row -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-row24-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 49: Line Break Converter -->
+                <div class="tool-card" data-popular="true" data-url="line-break-converter.html">
+                    <div class="tool-icon">⏎</div>
+                    <h3 class="tool-title">Line Break Converter</h3>
+                    <p class="tool-description">Convert line breaks between different formats. Transform \n to <br> tags and vice versa. Free line break formatter.</p>
+                    <a href="line-break-converter.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 49 -->
+                <div class="ad-unit mobile" id="ad-tool49-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Tool 50: Markdown Cleaner -->
+                <div class="tool-card" data-popular="true" data-url="markdown-cleaner.html">
+                    <div class="tool-icon">🧹</div>
+                    <h3 class="tool-title">Markdown Cleaner</h3>
+                    <p class="tool-description">Remove markdown syntax from text. Convert markdown to plain text by stripping bold, italic, and other formatting. Free markdown stripper.</p>
+                    <a href="markdown-cleaner.html" class="tool-link">Use Tool</a>
+                </div>
+
+                <!-- Mobile Ad after Tool 50 -->
+                <div class="ad-unit mobile" id="ad-tool50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+                <!-- Desktop Ad after 50 tools -->
+                <div class="ad-unit desktop tool-ad-desktop" id="ad-after50-desktop">
+                    <!-- Desktop ad unit will be loaded here -->
+                </div>
+
+                <!-- Mobile Ad after 50 tools -->
+                <div class="ad-unit mobile" id="ad-after50-mobile">
+                    <!-- Mobile ad unit will be loaded here -->
+                </div>
+
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer>
@@ -1738,7 +1761,7 @@
                         <li><a href="dmca.html">DMCA</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>Information</h3>
                     <ul class="footer-links">
@@ -1749,7 +1772,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="copyright">
                 © 2025 File Magics. All rights reserved.
             </div>
@@ -1902,10 +1925,10 @@
             // Add event listeners
             generateBtn.addEventListener('click', generateBlankSpaces);
             spaceCount.addEventListener('input', handleSpaceCountChange);
-            
+
             // Initialize favorites display
             updateFavoritesDisplay();
-            
+
             // Generate initial blank spaces
             generateBlankSpaces();
         }
@@ -1921,7 +1944,7 @@
         function generateBlankSpaces() {
             const count = parseInt(spaceCount.value) || 1;
             previewContainer.innerHTML = '';
-            
+
             if (count < 1 || count > 1000) {
                 const errorMessage = document.createElement('div');
                 errorMessage.textContent = 'Please enter a number between 1 and 1000';
@@ -1931,7 +1954,7 @@
                 previewContainer.appendChild(errorMessage);
                 return;
             }
-            
+
             // Generate each type of blank space
             Object.values(blankSpaces).forEach(spaceType => {
                 const previewItem = createPreviewItem(spaceType, count);
@@ -1943,24 +1966,24 @@
         function createPreviewItem(spaceType, count) {
             const previewItem = document.createElement('div');
             previewItem.className = 'preview-item';
-            
+
             const previewHeader = document.createElement('div');
             previewHeader.className = 'preview-header';
-            
+
             const previewName = document.createElement('div');
             previewName.className = 'preview-name';
             previewName.textContent = spaceType.name;
             previewHeader.appendChild(previewName);
-            
+
             const favoriteBtn = document.createElement('button');
             favoriteBtn.className = 'favorite-btn';
             favoriteBtn.innerHTML = favorites.includes(spaceType.id) ? '★' : '☆';
             favoriteBtn.setAttribute('aria-label', `Add ${spaceType.name} to favorites`);
             favoriteBtn.addEventListener('click', () => toggleFavorite(spaceType.id, favoriteBtn));
             previewHeader.appendChild(favoriteBtn);
-            
+
             previewItem.appendChild(previewHeader);
-            
+
             const description = document.createElement('div');
             description.className = 'preview-description';
             description.textContent = spaceType.description;
@@ -1968,7 +1991,7 @@
             description.style.color = 'var(--text-light)';
             description.style.marginBottom = '10px';
             previewItem.appendChild(description);
-            
+
             const compatibility = document.createElement('div');
             compatibility.className = 'preview-compatibility';
             compatibility.textContent = `Works with: ${spaceType.compatibleWith.join(', ')}`;
@@ -1976,26 +1999,26 @@
             compatibility.style.color = 'var(--text-light)';
             compatibility.style.marginBottom = '15px';
             previewItem.appendChild(compatibility);
-            
+
             const previewText = document.createElement('div');
             previewText.className = 'preview-text';
-            
+
             // Generate the blank spaces
             const blankSpacesText = spaceType.character.repeat(count);
-            
+
             // Store for copying
             currentSpaces[spaceType.id] = blankSpacesText;
-            
+
             // For display, show a representation since spaces are invisible
             previewText.textContent = `[${spaceType.name} x ${count}]`;
             previewText.style.fontStyle = 'italic';
             previewText.style.color = 'var(--text-light)';
-            
+
             previewItem.appendChild(previewText);
-            
+
             const previewActions = document.createElement('div');
             previewActions.className = 'preview-actions';
-            
+
             // Copy button
             const copyBtn = document.createElement('button');
             copyBtn.className = 'copy-btn tooltip';
@@ -2003,9 +2026,9 @@
             copyBtn.setAttribute('aria-label', `Copy ${spaceType.name}`);
             copyBtn.addEventListener('click', () => copyToClipboard(currentSpaces[spaceType.id], copyBtn));
             previewActions.appendChild(copyBtn);
-            
+
             previewItem.appendChild(previewActions);
-            
+
             return previewItem;
         }
 
@@ -2026,7 +2049,7 @@
         // Toggle favorite status
         function toggleFavorite(spaceId, button) {
             const index = favorites.indexOf(spaceId);
-            
+
             if (index === -1) {
                 // Add to favorites
                 favorites.push(spaceId);
@@ -2036,10 +2059,10 @@
                 favorites.splice(index, 1);
                 button.innerHTML = '☆';
             }
-            
+
             // Save to localStorage
             localStorage.setItem('blankSpaceFavorites', JSON.stringify(favorites));
-            
+
             // Update favorites display
             updateFavoritesDisplay();
         }
@@ -2047,7 +2070,7 @@
         // Update favorites display
         function updateFavoritesDisplay() {
             favoritesList.innerHTML = '';
-            
+
             if (favorites.length === 0) {
                 const emptyMessage = document.createElement('div');
                 emptyMessage.textContent = 'No favorites yet. Click the star icon on any blank space type to add it here.';
@@ -2055,7 +2078,7 @@
                 favoritesList.appendChild(emptyMessage);
                 return;
             }
-            
+
             favorites.forEach(spaceId => {
                 const spaceType = blankSpaces[spaceId];
                 if (spaceType) {
@@ -2076,21 +2099,21 @@
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = document.getElementById('themeIcon');
         const body = document.body;
-        
+
         // Check for saved theme preference or default to light
         const currentTheme = localStorage.getItem('theme') || 'light';
         body.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
-        
+
         themeToggle.addEventListener('click', () => {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
         });
-        
+
         function updateThemeIcon(theme) {
             themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
         }
@@ -2134,4 +2157,5 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
+
 </html>
